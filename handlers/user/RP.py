@@ -314,6 +314,27 @@ def get_funny(message: types.Message):
     return funny
 
 
+async def do_8_y(user, user2, text, msg):
+    if len(text.split()) > 2:
+        return
+    
+    sex_word = ["выеб", "выёб", "выeб", "отьёб", "отьeб", "отъёб", "отъeб", "отьеб", "отъеб", "ебал", "eбал", "ебaл", "eбaл", "трах", "трaх", "траx", "трax", "секс", "cекс", "сeкс", "секc", "ceкс", "ceкc", "cекc", "сeкc", "отсос", "oтсос", "отcос", "отсоc", "oтсоc", "отсoc", "отлиз", "oтлиз", "oтьёб", "oтьeб", "oтъёб", "oтъeб", "oтьеб", "oтъеб"]
+
+    
+    for word in sex_word:
+        if word in text:
+            eight_years(msg.chat.id, user, user2, msg, True)
+            return
+        else:
+            continue
+    
+    sex_word_2 = ["изнасил", "изнaсил", "изнаcил", "изнacил"]
+    for word in sex_word_2:
+        if word in text:
+            eight_years(msg.chat.id, user, user2, msg, False)
+            return
+        else:
+            continue
 
 @dp.message_handler(commands=["рп", "rp", "рпи", "rpи", "рпр", "rpр", "рпд", "rpд", "рпв", "rpв", "рпт", "rpт", "рпп", "rpп"], commands_prefix="/!.")
 async def rp_command(message: types.Message):
@@ -396,7 +417,10 @@ async def rp_command(message: types.Message):
         
         rp_text = f"{html.escape(emodz)}<a href='tg://user?id={user[0]}'>{html.escape(user[2])}</a> {html.escape(action)} <a href='tg://user?id={user2[0]}'>{html.escape(nick2)}</a>{html.escape(replic)}"
         
-        await message.answer(rp_text.replace("  ", " "), parse_mode="html")
+        msg = await message.answer(rp_text.replace("  ", " "), parse_mode="html")
+        await do_8_y(user, user2, action, msg)
+        return
+    
     else:
         match = re.search(r'@(\w+)', message.text)
         if match:
@@ -478,7 +502,9 @@ async def rp_command(message: types.Message):
                 pass
             
             rp_text = f"{html.escape(emodz)}<a href='tg://user?id={user[0]}'>{html.escape(user[2])}</a> {html.escape(action)} <a href='tg://user?id={user2[0]}'>{html.escape(nick2)}</a>{html.escape(replic)}"
-            await message.answer(rp_text.replace("  ", " "), parse_mode="html")
+            msg = await message.answer(rp_text.replace("  ", " "), parse_mode="html")
+            await do_8_y(user, user2, action, msg)
+            return
         else:
             user = create_user(message.from_user.id, message.from_user.username, message.from_user.first_name)
             for entity in message.entities:
@@ -540,7 +566,8 @@ async def rp_command(message: types.Message):
                         pass
                     
                     rp_text = f"{html.escape(emodz)}<a href='tg://user?id={user[0]}'>{html.escape(user[2])}</a> {html.escape(action)} <a href='tg://user?id={user2[0]}'>{html.escape(nick2)}</a>{html.escape(replic)}"
-                    await message.answer(rp_text.replace("  ", " "), parse_mode="html")
+                    msg = await message.answer(rp_text.replace("  ", " "), parse_mode="html")
+                    await do_8_y(user, user2, action, msg)
                     return
                     
 
@@ -623,7 +650,8 @@ async def rp_command(message: types.Message):
                 
                 rp_text = f"{html.escape(emodz)}<a href='tg://user?id={user[0]}'>{html.escape(user[2])}</a> {html.escape(action)} <a href='tg://user?id={user2[0]}'>{html.escape(nick2)}</a>{html.escape(replic)}"
                 
-                await message.answer(rp_text.replace("  ", " "), parse_mode="html")
+                msg = await message.answer(rp_text.replace("  ", " "), parse_mode="html")
+                await do_8_y(user, user2, action, msg)
 
             await message.reply("<b>❌ Укажи действие (или цель)</b>!\n Пример: !рп Убил (в ответ на сообщение)\n Пример: !рп убил @[username] (в воздух)")
             return
