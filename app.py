@@ -1,5 +1,5 @@
-server_dir = "C:/Games/Soft/kuzya"
-db_file = "C:/Games/Soft/kuzya/utils/db/kuzya.db"
+server_dir = "C:/Games/Soft/KuzyaBot"
+db_file = "C:/Games/Soft/KuzyaBot/utils/db/kuzya.db"
 
 import sys
 sys.path.insert(1, server_dir)
