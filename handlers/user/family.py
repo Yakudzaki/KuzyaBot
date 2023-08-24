@@ -6,7 +6,7 @@ from aiogram.dispatcher import Dispatcher
 from aiogram.utils import executor
 import re
 from aiogram.dispatcher.filters import IsReplyFilter
-from ..lib.other import message_user_get
+from ..f_lib.other import message_user_get
 from utils.db import *
 import html
 from .base_text import final_text

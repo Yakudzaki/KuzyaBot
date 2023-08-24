@@ -3,7 +3,7 @@ from aiogram import types
 import pyowm
 from pyowm.utils.config import get_default_config
 from datetime import datetime
-from ..lib.other import as_del_msg
+from ..f_lib.other import as_del_msg
 from settings import time_del
 from utils.db.db_utils_warning import *
 

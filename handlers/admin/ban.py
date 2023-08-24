@@ -9,8 +9,8 @@ import asyncio
 from utils.db.db_utils_members import *
 from utils.db.db_utils_users import *
 from utils.db.db_utils_warning import *
-from ..lib.other import message_user_get_ban
-from ..lib.pyrogram_f import get_delete_members
+from ..f_lib.other import message_user_get_ban
+from ..f_lib.pyrogram_f import get_delete_members
 from settings import *
 
 @dp.message_handler(commands=['ban', 'бан', 'кик', 'kick'], commands_prefix='!?./', is_chat_admin=True)
@@ -152,7 +152,7 @@ async def delall(message: types.Message):
 async def delall(message: types.Message):
     if 'всех' in message.text.lower() or 'актив' in message.text.lower():
         
-        from ..lib.other import call_everybody
+        from ..f_lib.other import call_everybody
         
         await call_everybody(message)
         

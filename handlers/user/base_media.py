@@ -10,7 +10,7 @@ from aiogram.dispatcher import Dispatcher
 from aiogram.utils import executor
 from aiogram.dispatcher.filters import AdminFilter, IsReplyFilter
 from settings import *
-from ..lib.shield import *
+from ..f_lib.shield import *
 
 
 
@@ -115,7 +115,7 @@ async def final_video(message: types.Message):
     
     if shield != 0:
         if message.from_user.id == 777000 and message.sender_chat and message.forward_from_chat and message.is_automatic_forward:
-            from ..lib.other import restrict_chat
+            from ..f_lib.other import restrict_chat
             await restrict_chat(message)
 
 
@@ -220,7 +220,7 @@ async def final_animation(message: types.Message):
 
     if shield != 0:
         if message.from_user.id == 777000 and message.sender_chat and message.forward_from_chat and message.is_automatic_forward:
-            from ..lib.other import restrict_chat
+            from ..f_lib.other import restrict_chat
             await restrict_chat(message)
 
 
@@ -328,7 +328,7 @@ async def final_photo(message: types.Message):
     
     if shield != 0:
         if message.from_user.id == 777000 and message.sender_chat and message.forward_from_chat and message.is_automatic_forward:
-            from ..lib.other import restrict_chat
+            from ..f_lib.other import restrict_chat
             await restrict_chat(message)
 
 
@@ -407,7 +407,7 @@ async def final_sticker(message: types.Message):
     
     if shield != 0:
         if message.from_user.id == 777000 and message.sender_chat and message.forward_from_chat and message.is_automatic_forward:
-            from ..lib.other import restrict_chat
+            from ..f_lib.other import restrict_chat
             await restrict_chat(message)
 #Антибот
         if shield == 2:
@@ -487,7 +487,7 @@ async def final_videonote(message: types.Message):
 
     if shield != 0:
         if message.from_user.id == 777000 and message.sender_chat and message.forward_from_chat and message.is_automatic_forward:
-            from ..lib.other import restrict_chat
+            from ..f_lib.other import restrict_chat
             await restrict_chat(message)
         
         if shield == 2:
@@ -523,7 +523,7 @@ async def final_voice(message: types.Message):
     
         if shield != 0:
             if message.from_user.id == 777000 and message.sender_chat and message.forward_from_chat and message.is_automatic_forward:
-                from ..lib.other import restrict_chat
+                from ..f_lib.other import restrict_chat
                 await restrict_chat(message)
             
             if shield == 2:
@@ -558,7 +558,7 @@ async def final_audio(message: types.Message):
     
         if shield != 0:
             if message.from_user.id == 777000 and message.sender_chat and message.forward_from_chat and message.is_automatic_forward:
-                from ..lib.other import restrict_chat
+                from ..f_lib.other import restrict_chat
                 await restrict_chat(message)
             if shield == 2:
                 await antibot(message)

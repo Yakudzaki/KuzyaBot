@@ -4,8 +4,8 @@ from utils.db.db_utils_users import *
 from utils.db.db_utils_warning import *
 from settings import topa_username, whitelist, botik_id, botovod_id, time_del
 import html
-from ..lib.shield import anti_advert_t, anti_advert
-from ..lib.other import as_del_msg
+from ..f_lib.shield import anti_advert_t, anti_advert
+from ..f_lib.other import as_del_msg
 @dp.message_handler(chat_type=[types.ChatType.SUPERGROUP, types.ChatType.GROUP], commands=['admins', "админы"], commands_prefix='!/.')
 async def get_admin_list(message: types.Message):
     

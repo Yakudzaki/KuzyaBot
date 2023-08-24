@@ -12,7 +12,7 @@ from aiogram.utils import executor
 from aiogram.dispatcher.filters import AdminFilter, IsReplyFilter
 from settings import *
 from .joke import get_citat
-from ..lib.other import botik_leave_chat, similaring, matex, as_del_msg, morph_word
+from ..f_lib.other import botik_leave_chat, similaring, matex, as_del_msg, morph_word
 
 botik = ["Я вернулся.", "Жду указаний", "Погнали!", "Приветствую!", "Опять работа?", "Да?", "Чего?", "Да господин", "Почту за честь.", "Жду приказов", "Ваша возня мешает мне сосредоточиться!", "Тсс! Не мешай мне думать!", "Чем могу помочь?", "Здравие желаю!", "Ну что ж, приказывайте", "Приступим?", "Бот на связи", "Да сэр?", "Жду приказаний.", "Да ваше сиятельство.", "Что прикажите?", "Чего хочешь зайка?", "Тебе нужна моя помощь?", "В чём проблема?", "Быстрее!", "Ну что там?", "Слушай, а может не надо?", "Ну, что вам от меня надо?", "Чё, командир?", "Ну что ещё?!", "Чего желает мой повелитель?", "Я не глухой.", "Час настал.", "Приказывай!", "Да здесь я", "Я тут", "Все за Императора!", "Наконец-то работа!", "Вот тибе канкретна чаво нада!?", "Бот на месте", "Туточки", "Бот в чате", "Я", "Есть", "Звали?", "В пути", "Будет сделано", "Давай к делу", "Давно пора", "А-а, рыба - не мясо.", "Вы посмотрите, кто вернулся!", "Я среди вас", "Я вернулся!", "Восстал из мёртвых", "Я не готов", "Позже", "Востал из пекла", "ПОН", "Дух Бога-Машины поёт во мне."]
 
@@ -534,7 +534,7 @@ async def botik_text_other(message: types.Message, funny, cor_tx, user_in_base, 
             if word in message.text.lower():
                 await message.reply("Сосисочка, а за что ты извиняешься?")
                 break
-                # from ..lib.other import as_del_msg
+                # from ..f_lib.other import as_del_msg
                 # await as_del_msg(message.chat.id, message.message_id, 5)
 
     

@@ -8,7 +8,7 @@ from utils.db.db_utils_warning import *
 
 from utils.db.relations.db_utils_moniker import *
 from settings import *
-from ..lib.other import message_user_get, morph_word_simple, similaring, years_letter, update_morph, as_del_msg
+from ..f_lib.other import message_user_get, morph_word_simple, similaring, years_letter, update_morph, as_del_msg
 import html
 
 @dp.message_handler(commands=["username"], commands_prefix="!/.")

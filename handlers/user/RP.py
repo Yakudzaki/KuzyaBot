@@ -6,11 +6,11 @@ from utils.db.db_utils_сhats import *
 from utils.db.db_utils_members import *
 from utils.db.db_utils_warning import *
 from utils.db.relations.db_utils_moniker import *
-from ..lib.other import rp_check, morph_word, eight_years
+from ..f_lib.other import rp_check, morph_word, eight_years
 import re
 from settings import no_rp_list, botik_id
 import html
-from ..lib.pyrogram_f import pyro_get_chat_member
+from ..f_lib.pyrogram_f import pyro_get_chat_member
 
 
 @dp.message_handler(commands=["мануал"], commands_prefix="/!.") #Cама РП команда

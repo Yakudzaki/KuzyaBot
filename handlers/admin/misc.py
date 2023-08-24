@@ -4,7 +4,7 @@ from utils.db.db_utils_users import *
 from utils.db.db_utils_сhats import *
 from utils.db.relations.db_utils_moniker import *
 from settings import *
-from ..lib.other import message_user_get
+from ..f_lib.other import message_user_get
 import html
 
 @dp.message_handler(commands=["правила", "rules"], commands_prefix="+", is_chat_admin=True)

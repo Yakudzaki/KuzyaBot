@@ -15,10 +15,10 @@ from settings import *
 from aiogram.utils import executor
 from aiogram.dispatcher.filters import AdminFilter, IsReplyFilter
 
-from ..lib.mats import *
+from ..f_lib.mats import *
 from .games import botik_text_other
 from .RP import rp_list
-from ..lib.shield import *
+from ..f_lib.shield import *
 from .profiles import add_reputation_f, take_reputation_f
 
 
@@ -232,7 +232,7 @@ async def final_text(message: types.Message):
     
     if shield != 0:
         if message.from_user.id == 777000 and message.sender_chat and message.forward_from_chat and message.is_automatic_forward:
-            from ..lib.other import restrict_chat
+            from ..f_lib.other import restrict_chat
             await restrict_chat(message)
 
 
@@ -286,13 +286,13 @@ async def final_text(message: types.Message):
             \n\nТекущее приветствие: \n{chat[5]}[никнейм]{chat[6]}")
     #БлокСтик
         if message.text.lower() == "блокстик" and mctp == False:
-            from ..lib.other import restrict_chat
+            from ..f_lib.other import restrict_chat
             await restrict_chat(message)
     
     #ПОЗВАТЬ ВСЕХ
         
         if mctp == False and message.text.lower().startswith("великий созыв"):
-            from ..lib.other import call_everybody
+            from ..f_lib.other import call_everybody
 
             await call_everybody(message)
 
@@ -300,7 +300,7 @@ async def final_text(message: types.Message):
         #ПРОВЕРИТЬ ЮЗЕРОВ НА ПРИНАДЛЕЖНОСТЬ ЧАТАМ
         
         if mctp == True and message.text.lower() == 'чекнуть мемберов':
-            from ..lib.other import check_all_members
+            from ..f_lib.other import check_all_members
             await check_all_members(message)
 
         #ПОСЫЛАТЬ СООБЩЕНИЯ
@@ -391,7 +391,7 @@ async def final_text(message: types.Message):
         #ЧИСТКА БАЗЫ
             
             if message.text.lower() == 'чистка базы':
-                from ..lib.other import clean_db_users
+                from ..f_lib.other import clean_db_users
                 await clean_db_users(message)
 
     if message.text.lower() == "!terminate" and message.from_user.id == yakudza_id:
@@ -406,7 +406,7 @@ async def final_text(message: types.Message):
         if m_count < chat[15]:
             print('Где-то случился уход юзера!')
             set_members_count(chats, m_count)
-            from ..lib.other import some_leave
+            from ..f_lib.other import some_leave
             
             await some_leave(chats)
 
@@ -439,5 +439,5 @@ async def final_any(message: types.Message):
     
     if shield != 0:
         if message.from_user.id == 777000 and message.sender_chat and message.forward_from_chat and message.is_automatic_forward:
-            from ..lib.other import restrict_chat
+            from ..f_lib.other import restrict_chat
             await restrict_chat(message)

@@ -1,7 +1,7 @@
 from loader import dp, bot
 from aiogram import types
 import html
-from handlers.lib.other import as_del_msg
+from handlers.f_lib.other import as_del_msg
 from settings import time_del
 from utils.db.db_utils_warning import *
 
