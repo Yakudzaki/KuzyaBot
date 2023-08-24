@@ -690,6 +690,7 @@ async def add_reputation_f(message: types.Message, gooderr, goodur):
         print(f"Гуд. {similar}: Сообщение: →{message.text.lower()}←")
         logging.info(f'Гуд. {similar}: Сообщение: [{message.text.lower()}]')
     
+    wrods = None
     if similar != 100:
         text_l = message.text.lower().replace("!", "").replace("?", "").replace(".", "").replace("+", "").replace("-", "").replace(")", "").replace("(", "").replace("…", "").replace(",", "").replace(":", "").replace('"', '').replace("«", "").replace("»", "").replace("[", "").replace("]", "")
         
