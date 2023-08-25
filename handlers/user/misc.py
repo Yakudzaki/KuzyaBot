@@ -387,7 +387,7 @@ async def nick_handler(message: types.Message):
         
         else:
             if check_nick(nick) == True:
-                msg = await message.reply("<b>✅ Ник уже занят!</b>")
+                msg = await message.reply("<b>❌ Ник уже занят!</b>")
                 await as_del_msg(message.chat.id, msg.message_id, time_del)
                 return
             
