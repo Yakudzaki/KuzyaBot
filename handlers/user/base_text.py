@@ -1,26 +1,18 @@
-from loader import dp, bot
 from aiogram import types
-from random import randint, choice
-import time
-import re
+
 import globales
-
-from utils.db.db_utils_users import *
-from utils.db.db_utils_сhats import *
-from utils.db.db_utils_members import *
-from utils.db.db_utils_warning import *
-
+from loader import bot
 from settings import *
-
-from aiogram.utils import executor
-from aiogram.dispatcher.filters import AdminFilter, IsReplyFilter
+from utils.db.db_utils_members import *
+from utils.db.db_utils_users import *
+from utils.db.db_utils_warning import *
+from utils.db.db_utils_сhats import *
 
 from ..f_lib.mats import *
-from .games import botik_text_other
-from .RP import rp_list
 from ..f_lib.shield import *
+from .games import botik_text_other
 from .profiles import add_reputation_f, take_reputation_f
-
+from .RP import rp_list
 
 #Основная функция ТЕКСТА
 

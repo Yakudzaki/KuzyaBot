@@ -26,7 +26,6 @@ async def send_weather(message):
     
     try:
         command = message.text.split()[0]
-        
         city = message.text.replace(f'{command} ', '')
         
         if city == command:
@@ -37,14 +36,16 @@ async def send_weather(message):
         w = observation.weather
         
         
-        text = f"🏙️ <b>Город</b>: <b>{city}</b>\n"
-        text += f"🔍 <b>Статус</b> - <em>{w.detailed_status}</em>\n\n"
-        text += f"🌡 <b>️Максимальная температура</b>: <code>{w.temperature('celsius')['temp_max']} °C</code>\n"
-        text += f"🌡️ <b>Минимальная температура</b>: <code>{w.temperature('celsius')['temp_min']} °C</code>\n"
-        text += f"🌡 ️<b>Ощущается как</b>: <code>{w.temperature('celsius')['feels_like']} °C</code>\n\n"
-        text += f"💧 <b>Влажность</b>: <code>{w.humidity}%</code>\n"
-        text += f"💨 <b>Скорость ветра</b>: <code>{w.wind()['speed']} м/с</code>\n"
-        text += f"☁️ <b>Облачность</b>: <code>{w.clouds}%</code>\n"
+        text = (
+            f"🏙️ <b>Город</b>: <b>{city}</b>\n"
+            f"🔍 <b>Статус</b> - <em>{w.detailed_status}</em>\n\n"
+            f"🌡 <b>️Максимальная температура</b>: <code>{w.temperature('celsius')['temp_max']} °C</code>\n"
+            f"🌡️ <b>Минимальная температура</b>: <code>{w.temperature('celsius')['temp_min']} °C</code>\n"
+            f"🌡 ️<b>Ощущается как</b>: <code>{w.temperature('celsius')['feels_like']} °C</code>\n\n"
+            f"💧 <b>Влажность</b>: <code>{w.humidity}%</code>\n"
+            f"💨 <b>Скорость ветра</b>: <code>{w.wind()['speed']} м/с</code>\n"
+            f"☁️ <b>Облачность</b>: <code>{w.clouds}%</code>\n"
+        )
         
         await bot.send_chat_action(message.chat.id, types.ChatActions.TYPING)
         msg = await bot.send_message(message.chat.id, text, parse_mode='HTML')

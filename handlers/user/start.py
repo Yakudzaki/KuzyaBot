@@ -14,7 +14,7 @@ async def start(message: types.Message):
 
         if check_chat(message.chat.id):
             create_chat_with_info(message.chat.id, f"НЕЛЕГАЛ: {message.chat.title}, @{message.chat.username}, {message.chat.first_name}, {message.chat.last_name}")
-            chat = get_chat(chats)
+
         await bot.leave_chat(message.chat.id)
         return
     

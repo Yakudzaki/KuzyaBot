@@ -1,15 +1,18 @@
-from loader import dp, bot
-from aiogram import types
-from random import randint, choice
-from utils.db.db_utils_users import *
-from utils.db.db_utils_сhats import *
-from utils.db.db_utils_members import *
-from utils.db.db_utils_warning import *
-from utils.db.relations.db_utils_moniker import *
-from ..f_lib.other import rp_check, morph_word, eight_years
-import re
-from settings import no_rp_list, botik_id
 import html
+import re
+from random import choice, randint
+
+from aiogram import types
+
+from loader import bot, dp
+from settings import no_rp_list
+from utils.db.db_utils_members import *
+from utils.db.db_utils_users import *
+from utils.db.db_utils_warning import *
+from utils.db.db_utils_сhats import *
+from utils.db.relations.db_utils_moniker import *
+
+from ..f_lib.other import eight_years, morph_word, rp_check
 from ..f_lib.pyrogram_f import pyro_get_chat_member
 
 

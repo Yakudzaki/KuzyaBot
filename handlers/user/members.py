@@ -14,7 +14,6 @@ import html
 @dp.message_handler(lambda message: True, content_types=['new_chat_members'])
 async def new_chat_member(message: types.Message):
     if (message.chat.type == 'group' or message.chat.type == 'supergroup'):
-    
         chat_id = message.chat.id
         user = message.new_chat_members[0]
     
@@ -126,7 +125,7 @@ async def new_chat_member(message: types.Message):
             return
 
 
-@dp.message_handler(lambda message: True, content_types=['left_chat_member'])
+@dp.message_handler(content_types=['left_chat_member'])
 async def left_member(message: types.Message):
     if (message.chat.type == 'group' or message.chat.type == 'supergroup'):
         user = message.left_chat_member

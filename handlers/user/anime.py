@@ -46,10 +46,10 @@ anime_query = """
 anime_url = "https://graphql.anilist.co"
 
 @dp.message_handler(commands=["anime", "аниме", "анимэ"], commands_prefix="/!.")
-async def anime_info(message: types.Message):
-    
+async def anime_info(message: types.Message): 
     chats = message.chat.id #Отсюда и далее, до пустой строки - выключатель этого прикола.
     chat = get_chat(chats)
+
     if check_chat(message.chat.id):
         create_chat(message.chat.id)
         chat = get_chat(chats)
@@ -64,7 +64,6 @@ async def anime_info(message: types.Message):
             warner = [message.chat.id, message.from_user.id, 0, 0, 0]
         if warner[4] != 0:
             return
-    
     
     anime = message.text
     find = ' '.join(anime.split(' ')[1:])
@@ -83,7 +82,6 @@ async def anime_info(message: types.Message):
         type_en = anime_data['type']
         status_en = anime_data['status']
         description_en = str(anime_data['description']).replace('<br>', ' ')
-
 
         
         if anime_data['title']['english']:
