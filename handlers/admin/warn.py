@@ -59,7 +59,7 @@ async def warn_handler(message: types.Message):
     if int(res_w[2]) == int(1):
         add_warning(chat.id, reply.id)
         try:
-            await bot.restrict_chat_member(message.chat.id, reply.id, types.ChatPermissions(False), until_date=datetime.timedelta(hours=2))
+            await bot.restrict_chat_member(message.chat.id, reply.id, types.ChatPermissions(False), until_date=datetime.timedelta(hours=24))
             await message.answer(f"⚠️ | Пользователь <a href='tg://user?id={res[0]}'>{html.escape(res[2])}</a> получил второе предупреждение, в результате чего был замучен на 2 часа!")
         except:
             await message.answer(f"⚠️ | Админ <a href='tg://user?id={res[0]}'>{html.escape(res[2])}</a> получил второе предупреждение!")
