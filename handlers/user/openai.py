@@ -41,23 +41,21 @@ async def handle_chat(message: types.Message):
         await bot.send_photo(message.chat.id, result, f"Текст генерации: {text_photo}", reply_to_message_id=message.id)
 
 
-
-
-
 def process_img_step(messages):
     if len(messages) >= 61:
-    	return "limit"
+        return "limit"
+    
     while True:
         try:
             response = requests.post(
                 'https://api.openai.com/v1/images/generations',
                 headers={'Content-Type': 'application/json', 'Authorization': f'Bearer {keys}'},
                 json={'model': 'image-alpha-001', 'prompt': messages}
-                )
+            )
             response_json = response.json()
             image_url = response_json['data'][0]['url']
             return image_url
-            break
+
         except Exception as er:
             if str(er) == "You exceeded your current quota, please check your plan and billing details.":
                 return "bad"
@@ -65,13 +63,11 @@ def process_img_step(messages):
                 return "bad"
             else:
                 return 'bad'
-                break
-
-
+                
 
 def process_chat_step(messages):
     if len(messages) >= 10001:
-    	return "limit"
+        return "limit"
     while True:
         try:
             chat_response = openai.Completion.create(
@@ -83,7 +79,7 @@ def process_chat_step(messages):
                 temperature=0.3
             )
             return chat_response["choices"][0]["text"]
-            break
+
         except Exception as er:
             if str(er) == "You exceeded your current quota, please check your plan and billing details.":
                 return "error"
@@ -91,7 +87,6 @@ def process_chat_step(messages):
                 return "error"
             else:
             	return f"Была вызвана ошибка: {str(er)}"
-
 
 
 def process_edit_step(messages):
@@ -104,7 +99,7 @@ def process_edit_step(messages):
                 size="1024x1024"
             )
             return chat_response['data'][0]['url']
-            break
+
         except Exception as er:
             if str(er) == "You exceeded your current quota, please check your plan and billing details.":
                 return "error"

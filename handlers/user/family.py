@@ -668,7 +668,7 @@ async def marry(message: types.Message):
 async def marry(message: types.Message):
     if message.text.lower() != "небрад":
         stop = await final_text(message)
-        if stop != None:
+        if stop is not None:
             return
 
         if message.reply_to_message:
