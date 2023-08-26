@@ -3,8 +3,8 @@ from aiogram import types
 from aiogram.dispatcher.filters import CommandStart
 from loguru import logger
 from utils.db.db_utils_users import *
-
-from settings import legal_chats, topa_chat_invite, yakudza_url
+from app import server_dir
+from settings import legal_chats, topa_chat_invite, yakudza_url, botovod_id
 
 @dp.message_handler(CommandStart())
 async def start(message: types.Message):
@@ -32,3 +32,8 @@ async def restart_botovod(message: types.Message):
         call('Kuzya restart.bat')
     else:
         await message.answer("У вас недостаточно полномочий!")
+        
+@dp.message_handler(lambda message: message.text.lower() == "логи")
+async def logs(message: types.Message):
+    if message.from_user.id in botovod_id:
+        await bot.send_document(message.chat.id, open(server_dir + f"\logging0.log", "rb"), reply_to_message_id=message.message_id)

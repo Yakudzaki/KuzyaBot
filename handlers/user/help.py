@@ -6,7 +6,7 @@ from keyboards.inline.help_kb import buttons
 from utils.db.db_utils_users import *
 from utils.db.db_utils_warning import *
 from settings import legal_chats, topa_chat_invite, yakudza_url
-
+from app import server_dir
 
 # @dp.message_handler(CommandHelp())
 # async def help_handler(message: types.Message):
@@ -60,3 +60,9 @@ async def rp_spis(message: types.Message):
                            \n🔒 <code>!гифлимит</code> (число) — для GIF.\
                            \n🔒 <code>!текстлимит</code> (число) — для текстовых сообщений.\
                            \n\n👌 <code>!спамлимиты</code> — Узнать текущие настройки антиспама", parse_mode="html")
+                           
+@dp.message_handler(lambda message: message.text.lower() == "падежи")
+async def padeghes(message: types.Message):
+    await bot.send_chat_action(message.chat.id, types.ChatActions.UPLOAD_PHOTO)
+    
+    await bot.send_photo(message.chat.id, open(server_dir + f"/data/padegh.jpg", "rb"), reply_to_message_id=message.message_id)
