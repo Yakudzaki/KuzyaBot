@@ -36,17 +36,19 @@ async def send_weather(message):
     }
         
         r = requests.get( 
-            f"http://api.openweathermap.org/data/2.5/weather?q={promptt}&appid=4d9c68ba051733b61d30fa2406658670&units=metric&lang=ru")
+            f"http://api.openweathermap.org/data/2.5/weather?q={city}&appid=4d9c68ba051733b61d30fa2406658670&units=metric&lang=ru")
         data = r.json()
-        
+        print(f"{data}")
         weather_status = data["weather"][0]["main"]
-
+    
         
         if weather_status in code_to_smile:
-        	wd = code_to_smile[weather_status]
+            wd = code_to_smile[weather_status]
         else:
-        	wd = "Посмотри в окно, не пойму что там за погода!"
+            wd = "Посмотри в окно, не пойму что там за погода!"
         
+        vis = data['visibility']
+        vis = round((vis / 1000), 1)
         
         text = (
             f"🏙️ <b>Город</b>: <b>{data['name']}</b>\n\n"
@@ -56,8 +58,11 @@ async def send_weather(message):
             f"⏲️ <b>Давление</b>: <code>{data['main']['pressure']} мм.рт.ст</code>\n"
             f"💧 <b>Влажность</b>: <code>{data['main']['humidity']}%</code>\n"
             f"💨 <b>Скорость ветра</b>: <code>{data['wind']['speed']} м/с</code>\n"
-            f"☁️ <b>Облачность</b>: <code>{data['main']['clouds']}%</code>\n\n"
-            f"🌇Восход солнца: <b>{datetime.fromtimestamp(data['sys']['sunrise'])}</b>\n🌅Закат солнца: <b>{datetime.fromtimestamp(data['sys']['sunset'])}</b>\nПродолжительность дня: <b>{datetime.fromtimestamp(data['sys']['sunset']) - datetime.fromtimestamp(data['sys']['sunrise'])}</b>\n"
+            f"☁️ <b>Облачность</b>: <code>{data['clouds']['all']}%</code>\n\n"
+            f"🔭 <b>Видимость</b>: <code>{vis} км.</code>\n\n"
+            f"🌇Восход солнца: <b>{datetime.fromtimestamp(data['sys']['sunrise'])}</b>\n"
+            f"🌅Закат солнца: <b>{datetime.fromtimestamp(data['sys']['sunset'])}</b>\n\n"
+            f"Продолжительность дня: <b>{datetime.fromtimestamp(data['sys']['sunset']) - datetime.fromtimestamp(data['sys']['sunrise'])}</b>\n"
             )
         
         await bot.send_chat_action(message.chat.id, types.ChatActions.TYPING)
