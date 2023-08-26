@@ -168,7 +168,7 @@ async def roulette(message: types.Message):
             set_roul_mut_mod(chats, roul_mut_mod)
             return
        
-        msg = await message.answer"💀🔫 | БАМ блять, второй? БАМ! — Кузя я тебя люблю! Нахуй пошел от сюда!")
+        msg = await message.answer("💀🔫 | БАМ блять, второй? БАМ! — Кузя я тебя люблю! Нахуй пошел от сюда!")
         
         
         if inogen[8] != None and inogen[8] != "":
