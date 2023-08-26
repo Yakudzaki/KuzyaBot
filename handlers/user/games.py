@@ -114,7 +114,7 @@ async def roulette(message: types.Message):
         
         
         if admino == 0:
-            msg = await message.answer(f"😨🔫| Вот это <a href='tg://user?id={user.id}'>смельчак</a>! Ты выживаешь после нажатия на курок!\nБольше так не рискуй. Подумай о маме и папе!\nТекущий заряд: {str(mutroulfin).replace('.0', '')} мин.", parse_mode='html')
+            msg = await message.answer(f"😨🔫| В этот раз <a href='tg://user?id={user.id}'>тебе</a>! Ты выживаешь после нажатия на курок!\nБольше так не рискуй. Подумай о родителях!\nТекущий заряд: {str(mutroulfin).replace('.0', '')} мин.", parse_mode='html')
 
         chats = message.chat.id
         set_roul_mut_mod(chats, roul_mut_mod)
@@ -168,7 +168,7 @@ async def roulette(message: types.Message):
             set_roul_mut_mod(chats, roul_mut_mod)
             return
        
-        msg = await message.answer("😵🔫| У нас мертвяк!\nМожет быть, на том свете тебе повезёт больше. Покойся с миром.")
+        msg = await message.answer"💀🔫 | БАМ блять, второй? БАМ! — Кузя я тебя люблю! Нахуй пошел от сюда!")
         
         
         if inogen[8] != None and inogen[8] != "":
