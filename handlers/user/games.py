@@ -114,7 +114,7 @@ async def roulette(message: types.Message):
         
         
         if admino == 0:
-            msg = await message.answer(f"😨🔫| В этот раз <a href='tg://user?id={user.id}'>тебе</a>! Ты выживаешь после нажатия на курок!\nБольше так не рискуй. Подумай о родителях!\nТекущий заряд: {str(mutroulfin).replace('.0', '')} мин.", parse_mode='html')
+            msg = await message.answer(f"😨🔫| В этот раз <a href='tg://user?id={user.id}'>тебе</a> повезло! Ты выживаешь после нажатия на курок!\nБольше так не рискуй. Подумай о родителях!\nТекущий заряд: {str(mutroulfin).replace('.0', '')} мин.", parse_mode='html')
 
         chats = message.chat.id
         set_roul_mut_mod(chats, roul_mut_mod)
