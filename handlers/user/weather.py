@@ -49,7 +49,7 @@ async def send_weather(message):
         vis = data['visibility']
         vis = round((vis / 1000), 1)
         press = data['main']['pressure']
-        press = round(( press * 0.750064 ), 2)
+        press = round(press*0.750064, 2)
         text = (
             f"🏙️ <b>Город</b>: <b>{data['name']}</b>\n\n"
             f"🔍 <b>Статус</b> - <em>{wd}</em>\n"
