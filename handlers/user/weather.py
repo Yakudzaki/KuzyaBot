@@ -48,20 +48,19 @@ async def send_weather(message):
         
         vis = data['visibility']
         vis = round((vis / 1000), 1)
-        press = data['main']['pressure']
-        press = round(press*0.750064, 2)
+        press = data['main']['pressure'] * 0.750064
         text = (
             f"🏙️ <b>Город</b>: <b>{data['name']}</b>\n\n"
             f"🔍 <b>Статус</b> - <em>{wd}</em>\n"
             f"🌡 Температура: <code>{data['main']['temp']}</code>\n"
             f"🤔 ️<b>Ощущается как</b>: <code>{data['main']['feels_like']} °C</code>\n\n"
-            f"⏲️ <b>Давление</b>: <code>{press} мм.рт.ст</code>\n"
+            f"⏲️ <b>Давление</b>: <code>{press:.2f} мм.рт.ст</code>\n"
             f"💧 <b>Влажность</b>: <code>{data['main']['humidity']}%</code>\n"
             f"💨 <b>Скорость ветра</b>: <code>{data['wind']['speed']} м/с</code>\n"
             f"☁️ <b>Облачность</b>: <code>{data['clouds']['all']}%</code>\n\n"
             f"🔭 <b>Видимость</b>: <code>{vis} км.</code>\n\n"
-            f"🌇Восход солнца: <b>{datetime.fromtimestamp(data['sys']['sunrise'])}</b>\n"
-            f"🌅Закат солнца: <b>{datetime.fromtimestamp(data['sys']['sunset'])}</b>\n\n"
+            f"🌇 Восход солнца: <b>{datetime.fromtimestamp(data['sys']['sunrise'])}</b>\n"
+            f"🌅 Закат солнца: <b>{datetime.fromtimestamp(data['sys']['sunset'])}</b>\n\n"
             f"Продолжительность дня: <b>{datetime.fromtimestamp(data['sys']['sunset']) - datetime.fromtimestamp(data['sys']['sunrise'])}</b>\n"
             )
         
