@@ -66,3 +66,9 @@ async def padeghes(message: types.Message):
     await bot.send_chat_action(message.chat.id, types.ChatActions.UPLOAD_PHOTO)
     
     await bot.send_photo(message.chat.id, open(server_dir + f"/data/padegh.jpg", "rb"), reply_to_message_id=message.message_id)
+    
+@dp.message_handler(lambda message: message.text.lower() == "заповеди админа")
+async def padeghes(message: types.Message):
+    await bot.send_chat_action(message.chat.id, types.ChatActions.UPLOAD_PHOTO)
+    
+    await bot.send_photo(message.chat.id, open(server_dir + f"/data/odmen.jpg", "rb"), reply_to_message_id=message.message_id)
