@@ -38,7 +38,6 @@ async def send_weather(message):
         r = requests.get( 
             f"http://api.openweathermap.org/data/2.5/weather?q={city}&appid=4d9c68ba051733b61d30fa2406658670&units=metric&lang=ru")
         data = r.json()
-        print(f"{data}")
         weather_status = data["weather"][0]["main"]
     
         
