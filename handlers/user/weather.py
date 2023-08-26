@@ -1,17 +1,10 @@
 from loader import dp, bot
 from aiogram import types
-import pyowm
-from pyowm.utils.config import get_default_config
+import requests
 from datetime import datetime
 from ..f_lib.other import as_del_msg
 from settings import time_del
 from utils.db.db_utils_warning import *
-
-config_dict = get_default_config()
-
-config_dict['language'] = 'ru' 
-owm = pyowm.OWM('4d9c68ba051733b61d30fa2406658670')
-mgr = owm.weather_manager()
 
 
 
@@ -32,20 +25,40 @@ async def send_weather(message):
             await message.reply("<b>❌ Укажите запрос!</b>")
             return
         
-        observation = mgr.weather_at_place(city)
-        w = observation.weather
+        code_to_smile = { 
+        "Clear": "Ясно \U00002600", 
+        "Clouds": "Облачно \U00002601", 
+        "Rain": "Дождь \U00002614", 
+        "Drizzle": "Дождь \U00002614", 
+        "Thunderstorm": "Гроза \U000026A1", 
+        "Snow": "Снег \U0001F328", 
+        "Mist": "Туман \U0001F32B" 
+    }
+        
+        r = requests.get( 
+            f"http://api.openweathermap.org/data/2.5/weather?q={promptt}&appid=4d9c68ba051733b61d30fa2406658670&units=metric&lang=ru")
+        data = r.json()
+        
+        weather_status = data["weather"][0]["main"]
+
+        
+        if weather_status in code_to_smile:
+        	wd = code_to_smile[weather_status]
+        else:
+        	wd = "Посмотри в окно, не пойму что там за погода!"
         
         
         text = (
-            f"🏙️ <b>Город</b>: <b>{city}</b>\n"
-            f"🔍 <b>Статус</b> - <em>{w.detailed_status}</em>\n\n"
-            f"🌡 <b>️Максимальная температура</b>: <code>{w.temperature('celsius')['temp_max']} °C</code>\n"
-            f"🌡️ <b>Минимальная температура</b>: <code>{w.temperature('celsius')['temp_min']} °C</code>\n"
-            f"🌡 ️<b>Ощущается как</b>: <code>{w.temperature('celsius')['feels_like']} °C</code>\n\n"
-            f"💧 <b>Влажность</b>: <code>{w.humidity}%</code>\n"
-            f"💨 <b>Скорость ветра</b>: <code>{w.wind()['speed']} м/с</code>\n"
-            f"☁️ <b>Облачность</b>: <code>{w.clouds}%</code>\n"
-        )
+            f"🏙️ <b>Город</b>: <b>{data['name']}</b>\n\n"
+            f"🔍 <b>Статус</b> - <em>{wd}</em>\n"
+            f"🌡 Температура: <code>{data['main']['temp']}</code>\n"
+            f"🤔 ️<b>Ощущается как</b>: <code>{data['main']['feels_like']} °C</code>\n\n"
+            f"⏲️ <b>Давление</b>: <code>{data['main']['pressure']} мм.рт.ст</code>\n"
+            f"💧 <b>Влажность</b>: <code>{data['main']['humidity']}%</code>\n"
+            f"💨 <b>Скорость ветра</b>: <code>{data['wind']['speed']} м/с</code>\n"
+            f"☁️ <b>Облачность</b>: <code>{data['main']['clouds']}%</code>\n\n"
+            f"🌇Восход солнца: <b>{datetime.fromtimestamp(data['sys']['sunrise'])}</b>\n🌅Закат солнца: <b>{datetime.fromtimestamp(data['sys']['sunset'])}</b>\nПродолжительность дня: <b>{datetime.fromtimestamp(data['sys']['sunset']) - datetime.fromtimestamp(data['sys']['sunrise'])}</b>\n"
+            )
         
         await bot.send_chat_action(message.chat.id, types.ChatActions.TYPING)
         msg = await bot.send_message(message.chat.id, text, parse_mode='HTML')
