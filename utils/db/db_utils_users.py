@@ -19,9 +19,16 @@ cursor.execute("""CREATE TABLE IF NOT EXISTS users(
     age INTEGER DEFAULT (20),
     specie TEXT,
     moniker TEXT NOT NULL DEFAULT '',
-    clan_id INTEGER
     ban INTEGER DEFAULT (0),
-    FOREIGN KEY("clan_id") REFERENCES "clans"("id")
+    clan_id INTEGER REFERENCES clans (id),
+    FOREIGN KEY (
+        clan_id
+    )
+    REFERENCES clans (id),    
+    PRIMARY KEY (
+        user_id
+    )
+    ON CONFLICT IGNORE
     )
 """)
 
@@ -61,7 +68,7 @@ def create_user_main(user_id, username, nick):
 
     if check_username(username):
         create_user_simpe(user_id, username, nick)
-        user = [user_id, username, nick, "Нет", 0, 0, 20, "Человек", "", 0]
+        user = [user_id, username, nick, "Нет", 0, 0, 20, "Человек", "", 0, None]
         return user
     
     else:
@@ -69,7 +76,7 @@ def create_user_main(user_id, username, nick):
         if user[0] != user_id:
             set_username_simple(user[0], str(user[0]))
             create_user_simpe(user_id, username, nick)
-            user = [user_id, username, nick, "Нет", 0, 0, 20, "Человек", "", 0]
+            user = [user_id, username, nick, "Нет", 0, 0, 20, "Человек", "", 0, None]
             return user
         else:
             return user
