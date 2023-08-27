@@ -433,7 +433,8 @@ async def moniker_handler(message: types.Message):
         
         add_rep_monik = int(round(mix)) + 1
         command = message.text.split()[0]
-        moniker = message.text.replace(f"{command} ", "").replace(f"{command}", "")
+        moniker = message.text.replace(command + " ", "").replace(command, "").strip() 
+
         if moniker == "" or moniker == None:
             msg = await message.reply("<b>❌ Укажите прозвище!</b>")
             await as_del_msg(message.chat.id, msg.message_id, time_del)
