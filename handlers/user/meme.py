@@ -16,7 +16,6 @@ from utils.db.db_utils_сhats import *
 async def anti_flood(*args, **kwargs):
 
     message = args[0]
-
     await message.answer("Мем читай, а не спамь сука!", show_alert=True)
 
 
