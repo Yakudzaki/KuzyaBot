@@ -13,6 +13,10 @@ async def video_handler(message: types.Message):
 async def animation_handler(message: types.Message):
     await final_animation(message)
 
+@dp.message_handler(content_types=['dice'])
+async def animation_handler(message: types.Message):
+    await final_dice(message)
+    
 # Хендлер фото
 @dp.message_handler(content_types=['photo'])
 async def photo_handler(message: types.Message):

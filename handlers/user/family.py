@@ -326,6 +326,11 @@ async def marry(message: types.Message):
     else:
         us = message.from_user
         user = create_user(us.id, us.username, us.first_name)
+        mar = get_marry(user[0])
+        if len(mar) >= ( user[5]/10 ) + 1:
+            await message.reply(f"❌ У вас превышен лимит на такие отношения.")
+            return
+        
         if check_marry(user[0], user2[0]) == False:
             if user[0] == user2[0]:
                 await message.reply(f"❌ Невозможно вступить в отношения.")
@@ -448,6 +453,12 @@ async def marry(message: types.Message):
     else:
         us = message.from_user
         user = create_user(us.id, us.username, us.first_name)
+        
+        lov = get_love(user[0])
+        if len(lov) >= ( user[5]/5 ) + 2:
+            await message.reply(f"❌ У вас превышен лимит на такие отношения.")
+            return
+        
         if user[0] == user2[0]:
             await message.reply(f"❌ Невозможно вступить в отношения.")
             return
@@ -643,6 +654,11 @@ async def marry(message: types.Message):
     else:
         us = message.from_user
         user = create_user(us.id, us.username, us.first_name)
+        bra = get_sibl(user[0])
+        if len(bra) >= ( user[5]/5 ) + 2:
+            await message.reply(f"❌ У вас превышен лимит на такие отношения.")
+            return
+        
         if user[0] == user2[0]:
             await message.reply("<b>❌ Вы по умолчанию родственны сами себе!</b>")
             return
