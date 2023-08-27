@@ -68,16 +68,16 @@ def get_monik(moniker_id, monik): #Вытащить данные о прозви
     return result
 
 
-def get_max_monik(moniker_id): #получить самое сильное прозвище. (под цифрой [1])
-    cursor.execute(f"SELECT * FROM moniks WHERE moniker_id = ? ORDER BY count_monik DESC", (moniker_id,))
+def get_max_monik(moniker_id, limit: int = 1): #получить самое сильное прозвище. (под цифрой [1])
+    cursor.execute(f"SELECT * FROM moniks WHERE moniker_id = ? ORDER BY count_monik DESC LIMIT ?", (moniker_id, limit, ))
     monik = cursor.fetchone()
-    check_monik(moniker_id, "") 
+    # check_monik(moniker_id, "") 
     return monik
 
-def get_all_moniks(moniker_id): #получить все прозвища чела.
-    cursor.execute(f"SELECT * FROM moniks WHERE moniker_id = ? ORDER BY count_monik DESC", (moniker_id,))
+def get_all_moniks(moniker_id, limit: int = 25): #получить все прозвища чела.
+    cursor.execute(f"SELECT * FROM moniks WHERE moniker_id = ? ORDER BY count_monik DESC LIMIT ?", (moniker_id, limit, ))
     moniks = cursor.fetchall()
-    check_monik(moniker_id, "") 
+    # check_monik(moniker_id, "") 
     return moniks
 
 
