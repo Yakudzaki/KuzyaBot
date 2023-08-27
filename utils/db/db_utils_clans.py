@@ -1,11 +1,5 @@
 import sqlite3
-<<<<<<< HEAD
 from app import db_file as path
-=======
-#from app import db_file as path
-from app import db_file
-path = db_file 
->>>>>>> 6ff942c02045a8e69b583897a3f5effd3efe3107
 
 connect = sqlite3.connect(path, timeout=10)
 cursor = connect.cursor()
