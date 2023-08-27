@@ -21,8 +21,8 @@ cursor.execute("""CREATE TABLE IF NOT EXISTS users(
     moniker TEXT NOT NULL DEFAULT '',
     ban INTEGER DEFAULT (0),
     clan_id INTEGER REFERENCES clans (id) ON DELETE SET NULL,
-    balance    INTEGER DEFAULT (5000),
-    marry_id      INTEGER REFERENCES users (user_id) ON DELETE SET NULL,
+    balance INTEGER DEFAULT (5000),
+    marry_id INTEGER REFERENCES users (user_id) ON DELETE SET NULL,
     FOREIGN KEY (
         clan_id
     )
