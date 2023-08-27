@@ -9,6 +9,6 @@ async def clans_top_list(message: types.Message):
     msg_text = 'Топ 10 кланов:\n\n'
 
     for i, clan in enumerate(clans_top):
-        msg_text += f'{i}. {clan[1]} | Казна: {clan[4]} монет.\n'
+        msg_text += f'{i+1}. {clan[1]} | Казна: {clan[4]} монет.\n'
 
     await message.answer(msg_text)
