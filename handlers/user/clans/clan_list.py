@@ -10,6 +10,7 @@ async def clans_top_list(message: types.Message):
 
     for i, clan in enumerate(clans_top):
         players_count = get_clans_count_players(clan[0])
-        msg_text += f'{i + 1}. {clan[1]} | {players_count} уч. | Казна: {clan[4]:.} монет.\n'
+        money = f'{clan[4]:,}'.replace(',', '.')
+        msg_text += f'{i + 1}. {clan[1]} | {players_count} уч. | Казна: {money} монет.\n'
 
     await message.answer(msg_text)
