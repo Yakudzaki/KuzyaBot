@@ -1,6 +1,7 @@
 import sqlite3
 #from app import db_file as path
-path = "C:/Users/Sveta/OneDrive/Рабочий стол/Project/KuzyaBot/utils/db/kuzya.db"
+from app import db_file
+path = db_file 
 
 connect = sqlite3.connect(path, timeout=10)
 cursor = connect.cursor()
