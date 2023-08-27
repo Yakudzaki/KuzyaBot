@@ -9,7 +9,7 @@ cursor = connect.cursor()
 print(f"sqlite version - {sqlite3.sqlite_version}")
 cursor.execute("pragma foreign_keys=on;")
 
-cursor.execute("""CREATE TABLE IF NOT EXISTS users((
+cursor.execute("""CREATE TABLE IF NOT EXISTS users(
     user_id    INTEGER UNIQUE ON CONFLICT IGNORE,
     username   TEXT    UNIQUE ON CONFLICT IGNORE,
     nick       TEXT,
