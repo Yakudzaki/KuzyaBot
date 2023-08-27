@@ -19,7 +19,9 @@ cursor.execute("""CREATE TABLE IF NOT EXISTS users(
     age INTEGER DEFAULT (20),
     specie TEXT,
     moniker TEXT NOT NULL DEFAULT '',
-    ban INTEGER DEFAULT (0) 
+    clan_id INTEGER
+    ban INTEGER DEFAULT (0),
+    FOREIGN KEY("clan_id") REFERENCES "clans"("id")
     )
 """)
 
@@ -73,7 +75,7 @@ def create_user_main(user_id, username, nick):
             return user
 
 def create_user_simpe(user_id, username, nick):
-    cursor.execute("INSERT INTO users VALUES(?,?,?,?,?,?,?,?,?,?)", (user_id, username, nick, "Нет", 0, 0, 20, "Человек", "", 0,))
+    cursor.execute("INSERT INTO users VALUES(?,?,?,?,?,?,?,?,?,?,?)", (user_id, username, nick, "Нет", 0, 0, 20, "Человек", "", 0, None, ))
     print(f"Создан юзер {user_id} {username} {nick}")
     connect.commit()
 
@@ -178,5 +180,7 @@ def get_all_users():
     users = cursor.fetchall()
     return users
 
-
+def get_clan_id(user_id):
+    cursor.execute("SELECT clan_id FROM users WHERE user_id = ?", (user_id,))
+    return cursor.fetchone()
 
