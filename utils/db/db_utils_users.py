@@ -180,7 +180,5 @@ def get_all_users():
     users = cursor.fetchall()
     return users
 
-def get_clan_id(user_id):
-    cursor.execute("SELECT clan_id FROM users WHERE user_id = ?", (user_id,))
-    return cursor.fetchone()
+
 
