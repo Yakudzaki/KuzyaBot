@@ -10,6 +10,7 @@ from ..f_lib.other import message_user_get
 from utils.db import *
 import html
 from .base_text import final_text
+from settings import no_rp_list
 
 @dp.message_handler(commands=["загс"], commands_prefix="/!.")
 async def rp_spis(message: types.Message):
@@ -320,7 +321,7 @@ async def marry(message: types.Message):
     
     
     user2 = await message_user_get(message)
-    if user2 == None:
+    if user2 == None or user2[0] in no_rp_list:
         return
     
     else:
@@ -393,7 +394,7 @@ async def marry(message: types.Message):
             return
     
     user2 = await message_user_get(message)
-    if user2 == None:
+    if user2 == None or user2[0] in no_rp_list:
         return
     else:
         us = message.from_user
@@ -448,7 +449,7 @@ async def marry(message: types.Message):
     
     
     user2 = await message_user_get(message)
-    if user2 == None:
+    if user2 == None or user2[0] in no_rp_list:
         return
     else:
         us = message.from_user
@@ -519,7 +520,7 @@ async def marry(message: types.Message):
     
     
     user2 = await message_user_get(message)
-    if user2 == None:
+    if user2 == None or user2[0] in no_rp_list:
         return
     else:
         us = message.from_user
@@ -596,7 +597,7 @@ async def marry(message: types.Message):
     
     
     user2 = await message_user_get(message)
-    if user2 == None:
+    if user2 == None or user2[0] in no_rp_list:
         return
     else:
         us = message.from_user
@@ -649,7 +650,7 @@ async def marry(message: types.Message):
     
     
     user2 = await message_user_get(message)
-    if user2 == None:
+    if user2 == None or user2[0] in no_rp_list:
         return
     else:
         us = message.from_user
@@ -715,7 +716,7 @@ async def marry(message: types.Message):
     
     
     user2 = await message_user_get(message)
-    if user2 == None:
+    if user2 == None or user2[0] in no_rp_list:
         return
     else:
         us = message.from_user
