@@ -320,17 +320,16 @@ def get_funny(message: types.Message):
 async def do_8_y(user, user2, text, msg):
     if len(text.split()) > 2:
         return
+    text = text.lower()
     
-    sex_word = ["выеб", "выёб", "выeб", "отьёб", "отьeб", "отъёб", "отъeб", "отьеб", "отъеб", "ебал", "eбал", "ебaл", "eбaл", "трах", "трaх", "траx", "трax", "секс", "cекс", "сeкс", "секc", "ceкс", "ceкc", "cекc", "сeкc", "отсос", "oтсос", "отcос", "отсоc", "oтсоc", "отсoc", "отлиз", "oтлиз", "oтьёб", "oтьeб", "oтъёб", "oтъeб", "oтьеб", "oтъеб"]
-
-    
+    sex_word = ["выеб", "выёб", "выeб", "секс", "cекс", "сeкс", "секc", "ceкс", "ceкc", "cекc", "сeкc", "отсос", "oтсос", "отcос", "отсоc", "oтсоc", "отсoc", "отлиз", "oтлиз"]
     for word in sex_word:
         if word in text:
             eight_years(msg.chat.id, user, user2, msg, True)
             return
         else:
             continue
-    
+
     sex_word_2 = ["изнасил", "изнaсил", "изнаcил", "изнacил"]
     for word in sex_word_2:
         if word in text:
@@ -338,6 +337,20 @@ async def do_8_y(user, user2, text, msg):
             return
         else:
             continue
+    
+    sex_word_3 = ["ебал", "eбал", "ебaл", "eбaл", "трах", "трaх", "траx", "трax", "oтьёба", "oтьeба", "oтъёба", "oтъeба", "oтьеба", "oтъеба", "oтьёбa", "oтьeбa", "oтъёбa", "oтъeбa", "oтьебa", "oтъебa", "отьёба", "отьeба", "отъёба", "отъeба", "отьеба", "отъеба", "отьёбa", "отьeбa", "отъёбa", "отъeбa", "отьебa", "отъебa"]
+    for word in sex_word_2:
+        for word2 in text.split():
+            if word2.startswith(word):
+                eight_years(msg.chat.id, user, user2, msg, True)
+                return
+    
+    sex_word_4 = ["oтьёб", "oтьeб", "oтъёб", "oтъeб", "oтьеб", "oтъеб", "отьёб", "отьeб", "отъёб", "отъeб", "отьеб", "отъеб"]
+    for word in sex_word_2:
+        for word2 in text.split():
+            if word2 == word:
+                eight_years(msg.chat.id, user, user2, msg, True)
+                return
 
 @dp.message_handler(commands=["рп", "rp", "рпи", "rpи", "рпр", "rpр", "рпд", "rpд", "рпв", "rpв", "рпт", "rpт", "рпп", "rpп"], commands_prefix="/!.")
 async def rp_command(message: types.Message):
