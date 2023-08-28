@@ -88,21 +88,22 @@ async def nick_handler(message: types.Message):
             set_monik_accs(user[0], user[8], monico[3])
             set_monik_ablt(user[0], user[8], monico[4])
             set_monik_loct(user[0], user[8], monico[5])
-
-        monikse = get_monik(user[0], user[8])
-        msg = await message.reply(f"🎭 Прозвище - {html.escape(monikse[1])}\n—\nПадежи:\
-                \n{html.escape(monikse[3])} — именительный.\
-                \n{html.escape(monikse[4])} — родительный.\
-                \n{html.escape(monikse[5])} — дательный.\
-                \n{html.escape(monikse[6])} — винительный.\
-                \n{html.escape(monikse[7])} — творительный.\
-                \n{html.escape(monikse[8])} — предложный.\
-                \n—\
-                \n<code>+ты</code> (прозвище) - сменить основное прозвище кому-то другому.\
-                \n<code>падежи</code> — вызвать справку по падежам.\
-                \n<code>+прозвище</code> (любой символ) - вернуть падежи прозвища к стандарту.")
         
-        await as_del_msg(message.chat.id, msg.message_id, time_del)
+        if len(message.text.split()) < 2:
+            monikse = get_monik(user[0], user[8])
+            msg = await message.reply(f"🎭 Прозвище - {html.escape(monikse[1])}\n—\nПадежи:\
+                    \n{html.escape(monikse[3])} — именительный.\
+                    \n{html.escape(monikse[4])} — родительный.\
+                    \n{html.escape(monikse[5])} — дательный.\
+                    \n{html.escape(monikse[6])} — винительный.\
+                    \n{html.escape(monikse[7])} — творительный.\
+                    \n{html.escape(monikse[8])} — предложный.\
+                    \n—\
+                    \n<code>+ты</code> (прозвище) - сменить основное прозвище кому-то другому.\
+                    \n<code>падежи</code> — вызвать справку по падежам.\
+                    \n<code>+прозвище</code> (любой символ) - вернуть падежи прозвища к стандарту.")
+            
+            await as_del_msg(message.chat.id, msg.message_id, time_del)
         return
     
     if check_users_nick(user[0]):
@@ -135,7 +136,7 @@ async def nick_handler(message: types.Message):
         
     
     
-    if monic in raises or command.lower().startswith("прозвище"):
+    if monic in raises or ( command.lower().startswith("прозвище") and (message.text.split()) < 2 ):
         monikse = get_monik(user[0], user[8])
         msg = await message.reply(f"🎭 Твоё прозвище - {html.escape(user[8])}\n—\nПадежи:\
         \n{html.escape(monikse[3])} — именительный. (<code>+прозвище-и</code> прозвище)\
