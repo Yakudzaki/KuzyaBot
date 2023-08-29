@@ -1,6 +1,7 @@
 from loader import dp, bot
 from aiogram import types
 import requests
+import random
 from datetime import datetime
 from ..f_lib.other import as_del_msg
 from settings import time_del
@@ -63,6 +64,9 @@ async def send_weather(message):
             f"🌅 Закат солнца: <b>{datetime.fromtimestamp(data['sys']['sunset'])}</b>\n\n"
             f"Продолжительность дня: <b>{datetime.fromtimestamp(data['sys']['sunset']) - datetime.fromtimestamp(data['sys']['sunrise'])}</b>\n"
             )
+
+        if random.choice([True, False]):
+            text += "\n<a href='https://t.me/KuzyaBotNews'>🗞 Канал с новостями</a>
         
         await bot.send_chat_action(message.chat.id, types.ChatActions.TYPING)
         msg = await bot.send_message(message.chat.id, text, parse_mode='HTML')
