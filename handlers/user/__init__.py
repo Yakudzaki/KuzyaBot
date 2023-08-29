@@ -1,5 +1,4 @@
 from .admins import dp
-from .anime import dp
 from .audio import dp
 from .callback import dp
 from .clans import dp
