@@ -1,5 +1,5 @@
 from aiogram import types
-
+import logging
 import globales
 from loader import bot
 from settings import *
@@ -245,13 +245,14 @@ async def final_text(message: types.Message):
             adding = await add_reputation_f(message, reperr, repur)
             
             if adding == True:
-                print("Повышено")
+                print(f"Повышено у {repur[0]} {repur[1]} {repur[2]}")
+                logging.info(f"Повышено у {repur[0]} {repur[1]} {repur[2]}")
             
             if adding == None:
                 taking = await take_reputation_f(message, reperr, repur)
                 if taking == True:
-                    print("Понижено")
-
+                    print(f"Понижено у {repur[0]} {repur[1]} {repur[2]}")
+                    logging.info(f"Понижено у {repur[0]} {repur[1]} {repur[2]}")
 #РАЗРАБЫ
     if message.from_user.id in botovod_id:
 
