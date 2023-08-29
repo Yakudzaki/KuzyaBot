@@ -16,6 +16,6 @@ async def clans_top_list(message: types.Message):
         
         # отправляем ссылку в рандомный момент времени
         if random.choice([True, False]):
-            msg += "<a> href='https://t.me/Kuzya_News'>🗞 Канал с новостями</a>"
+            msg += "\n<a> href='https://t.me/Kuzya_News'>🗞 Канал с новостями</a>"
     
     await message.answer(msg_text)
