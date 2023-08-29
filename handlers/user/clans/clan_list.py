@@ -18,4 +18,4 @@ async def clans_top_list(message: types.Message):
         if random.choice([True, False]):
             msg += "\n<a> href='https://t.me/Kuzya_News'>🗞 Канал с новостями</a>"
     
-    await message.answer(msg_text)
+    await message.answer(msg_text, disable_web_page_preview=True)

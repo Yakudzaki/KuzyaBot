@@ -328,7 +328,7 @@ async def botik_text_other(message: types.Message, funny, cor_tx, user_in_base, 
         if chances >= 80:
             
             text = await get_citat()
-            await message.reply(text)
+            await message.reply(text, disable_web_page_preview=True)
             return 1
     
     if not funny:
@@ -437,7 +437,7 @@ async def botik_text_other(message: types.Message, funny, cor_tx, user_in_base, 
                     if chances >= 80:
                         
                         text = await get_citat()
-                        await message.reply(text)
+                        await message.reply(text, disable_web_page_preview=True)
                         botik_r = 0
                         return 1
     
@@ -474,7 +474,7 @@ async def botik_text_other(message: types.Message, funny, cor_tx, user_in_base, 
                 if chances >= 80:
                     
                     text = await get_citat()
-                    await message.reply(text)
+                    await message.reply(text, disable_web_page_preview=True)
                     return 1
             
 

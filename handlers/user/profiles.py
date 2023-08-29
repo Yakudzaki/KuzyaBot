@@ -306,9 +306,9 @@ async def your_profile(message: types.Message):
         \n<b>️⚠️ Варны</b>: {userwarn[2]}"
         id = message.reply_to_message.message_id
         if choice([True, False]):
-            response_text += "\n\n<a href='https://t.me/KuzyaBotNews'>🗞 Канал с новостями</a>"
+            response_text += f"\n\n<a href='{kuzya_news_link}'>🗞 Канал с новостями</a>"
         
-        msg = await bot.send_message(message.chat.id, response_text, parse_mode='html', reply_to_message_id=id)
+        msg = await bot.send_message(message.chat.id, response_text, parse_mode='html', reply_to_message_id=id, disable_web_page_preview=True)
         await as_del_msg(message.chat.id, msg.message_id, time_del)
         
         try:
@@ -365,9 +365,9 @@ async def your_profile(message: types.Message):
             \n<b>️⚠️ Варны</b>: {userwarn2[2]}"
             id = message.reply_to_message.message_id
             if choice([True, False]):
-                response_text += "\n\n<a href='https://t.me/KuzyaBotNews'>🗞 Канал с новостями</a>"
+                response_text += f"\n\n<a href='{kuzya_news_link}'>🗞 Канал с новостями</a>"
         
-            msg = await bot.send_message(message.chat.id, response_text, parse_mode='html', reply_to_message_id=id)
+            msg = await bot.send_message(message.chat.id, response_text, parse_mode='html', reply_to_message_id=id, disable_web_page_preview=True)
             await as_del_msg(message.chat.id, msg.message_id, time_del)
         except:
             return
@@ -432,9 +432,9 @@ async def my_profile(message: types.Message):
     \n<b>👑 Репутация</b>: {rep} ({user[5]})\
     \n<b>️⚠️ Варны</b>: {userwarn[2]}"
     if choice([True, False]):
-            response_text += "\n\n<a href='https://t.me/KuzyaBotNews'>🗞 Канал с новостями</a>"
+            response_text += f"\n\n<a href='{kuzya_news_link}'>🗞 Канал с новостями</a>"
         
-    msg = await message.reply(response_text, parse_mode='html')
+    msg = await message.reply(response_text, parse_mode='html', disable_web_page_preview=True)
     await as_del_msg(message.chat.id, msg.message_id, time_del)
 
 #Повышение репутации

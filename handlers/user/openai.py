@@ -1,7 +1,7 @@
 from loader import dp, bot
 from aiogram import types
 import openai  #pip install openai
-
+from settings import kuzya_news_link
 
 keys = openai.api_key = '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'
 
@@ -23,7 +23,7 @@ async def handle_chat(message: types.Message):
     elif result == 'error':
         await message.reply(f"<b>Ошибка! ChatGPT прислал ошибку</b>.")
     else:
-        await message.reply(f"<b>ChatGPT</b>: {result}\n\n<a href='https://t.me/KuzyaBotNews'>Канал с новостями</a>", parse_mode="html", disable_web_page_preview=True)
+        await message.reply(f"<b>ChatGPT</b>: {result}\n\n<a href='{kuzya_news_link}'>Канал с новостями</a>", parse_mode="html", disable_web_page_preview=True)
 
 
 @dp.message_handler(commands=['img'], commands_prefix="!/.")

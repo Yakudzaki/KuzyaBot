@@ -8,7 +8,7 @@ import aiohttp
 from bs4 import BeautifulSoup
 
 from random import randint, choice
-
+from settings import kuzya_news_link
 from utils.db.db_utils_users import *
 from utils.db.db_utils_warning import *
 from utils.db.db_utils_сhats import *
@@ -77,7 +77,7 @@ async def meme(message: types.Message):
 
                 keyboard.add(*buttons)
                 await bot.send_chat_action(message.chat.id, types.ChatActions.UPLOAD_PHOTO)
-                await bot.send_photo(message.chat.id, second_a.get("href"), caption = f'☄️ Лови мем.\n\n<a href="https://t.me/KuzyaBotNews">Канал с новостями</a>', reply_markup=keyboard, parse_mode="html")
+                await bot.send_photo(message.chat.id, second_a.get("href"), caption = f'☄️ Лови мем.\n\n<a href="{kuzya_news_link}">Канал с новостями</a>', reply_markup=keyboard, parse_mode="html", disable_web_page_preview=True)
 
     # except Exception as e:
     except:
@@ -111,7 +111,7 @@ async def meme(message: types.Message):
     
                     keyboard.add(*buttons)
                     await bot.send_chat_action(message.chat.id, types.ChatActions.UPLOAD_PHOTO)
-                    await bot.send_photo(message.chat.id, second_a.get("href"), caption = f'☄️ Лови мем.\n\n<a href="https://t.me/KuzyaBotNews">Канал с новостями</a>', reply_markup=keyboard, parse_mode="html")
+                    await bot.send_photo(message.chat.id, second_a.get("href"), caption = f'☄️ Лови мем.\n\n<a href="{kuzya_news_link}">Канал с новостями</a>', reply_markup=keyboard, parse_mode="html", disable_web_page_preview=True)
     
         except:
             return

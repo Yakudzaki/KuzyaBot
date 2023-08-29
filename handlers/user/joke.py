@@ -3,7 +3,7 @@ import random
 from loader import dp, bot
 from utils.db.db_utils_users import *
 from utils.db.db_utils_warning import *
-
+from settings import kuzya_news_link
 
 from utils.db.db_utils_сhats import *
 from bs4 import BeautifulSoup
@@ -18,7 +18,7 @@ async def get_joke():
         joke_html = requests.get('https://nekdo.ru/random/').text.replace("<br>", "\n")
         joke_text = BeautifulSoup(joke_html, features="lxml").find('div', class_='text').get_text()
         if random.choice([True, False]):
-            joke_text += "\n\n<a href='https://t.me/KuzyaBotNews'>🗞 Канал с новостями</a>"
+            joke_text += f"\n\n<a href='{kuzya_news_link}'>🗞 Канал с новостями</a>"
         return joke_text
 
 
@@ -53,7 +53,7 @@ async def joke(message: types.Message):
     
 
     
-    await message.reply(text)
+    await message.reply(text, disable_web_page_preview=True)
     
 
 async def get_citat():
@@ -73,7 +73,7 @@ async def get_citat():
             citat_html = requests.get('https://citaty.info/random').text.replace("<br>", "\n")
             citat_text = BeautifulSoup(citat_html, features="lxml").find('div', class_="field-item even last").get_text()
             if random.choice([True, False]):
-                citat_text += "\n\n<a href='https://t.me/KuzyaBotNews'>🗞 Канал с новостями</a>"
+                citat_text += f"\n\n<a href='{kuzya_news_link}'>🗞 Канал с новостями</a>"
             return citat_text
     
 
@@ -100,4 +100,4 @@ async def citat(message: types.Message):
 
     
     
-    await message.reply(text)
+    await message.reply(text, disable_web_page_preview=True)

@@ -2,7 +2,7 @@ from loader import dp, bot
 from aiogram import types
 import html
 from handlers.f_lib.other import as_del_msg
-from settings import time_del
+from settings import time_del, kuzya_news_link
 from utils.db.db_utils_warning import *
 
 from .wikipedia_lxml_mod.wikipedia import (
@@ -44,7 +44,7 @@ async def wiki_handler(message: types.Message):
     
     try:
         await bot.send_chat_action(message.chat.id, types.ChatActions.TYPING)
-        msg = await message.reply(f"{html.escape(result)}\n\n🗞 <a href='https://t.me/KuzyaBotNews'>Канал с новостями</a>", disable_web_page_preview=True, parse_mode="html")
+        msg = await message.reply(f"{html.escape(result)}\n\n🗞 <a href='{kuzya_news_link}'>Канал с новостями</a>", disable_web_page_preview=True, parse_mode="html")
         await as_del_msg(message.chat.id, msg.message_id, time_del)
         await as_del_msg(message.chat.id, message.message_id, time_del)
     except:
@@ -63,7 +63,7 @@ async def wiki_handler(message: types.Message):
                     else:
                         result1 = "… " + result1
 
-                    msg1 = await message.reply(f"{html.escape(result1)}\n\n🗞 <a href='https://t.me/KuzyaBotNews'>Канал с новостями</a>", disable_web_page_preview=True, parse_mode="html")
+                    msg1 = await message.reply(f"{html.escape(result1)}\n\n🗞 <a href='{kuzya_news_link}'>Канал с новостями</a>", disable_web_page_preview=True, parse_mode="html")
                     await as_del_msg(message.chat.id, msg1.message_id, time_del)
                     await as_del_msg(message.chat.id, message.message_id, time_del)
                 else:

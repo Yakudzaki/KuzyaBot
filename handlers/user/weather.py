@@ -4,7 +4,7 @@ import requests
 import random
 from datetime import datetime
 from ..f_lib.other import as_del_msg
-from settings import time_del
+from settings import time_del, kuzya_news_link
 from utils.db.db_utils_warning import *
 
 
@@ -66,10 +66,10 @@ async def send_weather(message):
             )
 
         if random.choice([True, False]):
-            text += "\n<a href='https://t.me/KuzyaBotNews'>🗞 Канал с новостями</a>"
+            text += f"\n<a href='{kuzya_news_link}'>🗞 Канал с новостями</a>"
         
         await bot.send_chat_action(message.chat.id, types.ChatActions.TYPING)
-        msg = await bot.send_message(message.chat.id, text, parse_mode='HTML')
+        msg = await bot.send_message(message.chat.id, text, parse_mode='HTML', disable_web_page_preview=True)
     except:
         msg = await message.reply("☹ ️Не удалось найти такой город.\nПопробуйте снова.")
     await as_del_msg(message.chat.id, msg.message_id, time_del)
