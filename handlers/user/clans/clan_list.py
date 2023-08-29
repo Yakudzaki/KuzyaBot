@@ -1,6 +1,8 @@
 from aiogram import types
 from loader import dp
 from utils.db.db_utils_clans import get_top_clans, get_clans_count_players
+import asyncio
+import random
 
 @dp.message_handler(commands=['кланы', 'список кланов', 'топ кланов', 'clans'], commands_prefix='!?./')
 async def clans_top_list(message: types.Message):
@@ -10,14 +12,10 @@ async def clans_top_list(message: types.Message):
     for i, clan in enumerate(clans_top):
         players_count = get_clans_count_players(clan[0])
         money = f'{clan[4]:,}'.replace(',', '.')
-        msg_text += f'{get_smail(i + 1)} {clan[1]} | {players_count} уч. | Казна: {money} монет.\n'
-
-    await message.answer(msg_text)
-
-
-def get_smail(number: int):
-    smail = u''
-    for char in str(number):
-        smail += u'{}\u20e3'.format(char)
+        msg_text += f'{get_smail(i + 1)} {clan[1]} | {players_count} уч. | Казна: {money} кузиров.\n'
+        
+        # отправляем ссылку в рандомный момент времени
+        if random.choice([True, False]):
+            msg += "<a> href='https://t.me/Kuzya_News'>🗞 Канал с новостями</a>"
     
-    return smail
+    await message.answer(msg_text)
