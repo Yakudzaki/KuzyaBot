@@ -1,4 +1,5 @@
 from aiogram import types
+import random
 from loader import dp, bot
 from utils.db.db_utils_users import *
 from utils.db.db_utils_warning import *
@@ -16,6 +17,8 @@ async def get_joke():
     except:
         joke_html = requests.get('https://nekdo.ru/random/').text.replace("<br>", "\n")
         joke_text = BeautifulSoup(joke_html, features="lxml").find('div', class_='text').get_text()
+        if random.choice([True, False]):
+            joke_text += "\n\n<a href='https://t.me/KuzyaBotNews'>🗞 Канал с новостями</a>
         return joke_text
 
 
@@ -69,7 +72,8 @@ async def get_citat():
         except:
             citat_html = requests.get('https://citaty.info/random').text.replace("<br>", "\n")
             citat_text = BeautifulSoup(citat_html, features="lxml").find('div', class_="field-item even last").get_text()
-            
+            if random.choice([True, False]):
+            citat_text += "\n\n<a href='https://t.me/KuzyaBotNews'>🗞 Канал с новостями</a>
             return citat_text
     
 
