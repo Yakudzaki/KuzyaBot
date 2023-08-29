@@ -66,7 +66,7 @@ async def send_weather(message):
             )
 
         if random.choice([True, False]):
-            text += "\n<a href='https://t.me/KuzyaBotNews'>🗞 Канал с новостями</a>
+            text += "\n<a href='https://t.me/KuzyaBotNews'>🗞 Канал с новостями</a>"
         
         await bot.send_chat_action(message.chat.id, types.ChatActions.TYPING)
         msg = await bot.send_message(message.chat.id, text, parse_mode='HTML')
