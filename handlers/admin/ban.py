@@ -13,6 +13,12 @@ from ..f_lib.other import message_user_get_ban
 from ..f_lib.pyrogram_f import get_delete_members
 from settings import *
 
+@dp.message_handler(commands=['dban', 'дбан', 'дкик', 'dkick'], commands_prefix='!?./', is_chat_admin=True)
+async def dban(message: types.Message):
+    await ban(message)
+    await message_del_main(message, False)
+
+
 @dp.message_handler(commands=['ban', 'бан', 'кик', 'kick'], commands_prefix='!?./', is_chat_admin=True)
 async def ban(message: types.Message):
 
@@ -91,29 +97,40 @@ async def unban(message: types.Message):
 
 @dp.message_handler(commands=['del', 'дел'],commands_prefix="!?./", is_chat_admin=True)
 async def message_del(message: types.Message):
-    
+    await message_del_main(message, True)
+
+
+
+async def message_del_main(message: types.Message, send):
     if not message.reply_to_message:
-        await message.reply("Эта команда должна быть ответом на сообщение!")
+        if send:
+            await message.reply("Эта команда должна быть ответом на сообщение!")
         return
+    try:
+        if message.content_type!=['text', 'photo', 'document', 'audio', 'video']:
+            text = message.text
+            if isinstance(message.caption, str):
+                caption = message.caption
+            else:
+                caption = ''
     
-    if message.content_type!=['text', 'photo', 'document', 'audio', 'video']:
-        text = message.text
-        if isinstance(message.caption, str):
-            caption = message.caption
-        else:
-            caption = ''
-
-        if hasattr(message, 'text') and isinstance(text, str):
-            await message.answer(f"\n🗑️| Публикация удалена.", parse_mode="HTML")
-            await message.bot.delete_message(chat_id=message.chat.id, message_id=message.reply_to_message.message_id)
-        elif hasattr(message, 'caption') and message.media_group_id not in check_mess:
-            check_mess.append(message.media_group_id)
-            await message.answer(f"\n🗑️| Публикация удалена.", parse_mode="HTML")
-            await message.bot.delete_message(chat_id=message.chat.id, message_id=message.reply_to_message.message_id)
-            check_mess.clear()
-            return
-        await bot.delete_message(chat_id=message.chat.id, message_id=message.message_id)
-
+            if hasattr(message, 'text') and isinstance(text, str):
+                if send:
+                    await message.answer(f"\n🗑️| Публикация удалена.", parse_mode="HTML")
+                await message.bot.delete_message(chat_id=message.chat.id, message_id=message.reply_to_message.message_id)
+            elif hasattr(message, 'caption') and message.media_group_id not in check_mess:
+                check_mess.append(message.media_group_id)
+                if send:
+                    await message.answer(f"\n🗑️| Публикация удалена.", parse_mode="HTML")
+                await message.bot.delete_message(chat_id=message.chat.id, message_id=message.reply_to_message.message_id)
+                check_mess.clear()
+                return
+            try:
+                await bot.delete_message(chat_id=message.chat.id, message_id=message.message_id)
+            except:
+                pass
+    except:
+        pass
 
 @dp.message_handler(commands=['чист'], commands_prefix='!?./')
 async def delall(message: types.Message):
