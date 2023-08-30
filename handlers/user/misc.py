@@ -422,7 +422,7 @@ async def moniker_handler(message: types.Message):
         users = message.from_user
         user = create_user(users.id, users.username, users.first_name)
         
-        
+        await as_del_msg(message.chat.id, message.message_id, time_del)
         if user == usern:
             msg = await message.reply("<b>❌ Эта команда неприменима к самому себе!</b>")
             await as_del_msg(message.chat.id, msg.message_id, time_del)
@@ -503,6 +503,7 @@ async def moniker_handler(message: types.Message):
     else:
         msg = await message.reply("<b>❌ Эту команду следует применять в ответ на сообщение!</b>")
         await as_del_msg(message.chat.id, msg.message_id, time_del)
+        await as_del_msg(message.chat.id, message.message_id, time_del)
         return
 
 
