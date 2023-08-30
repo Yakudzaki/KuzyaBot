@@ -2,13 +2,13 @@ from loader import dp, bot
 from aiogram import types
 from utils.db.db_utils_users import *
 from utils.db.db_utils_warning import *
-from settings import topa_username, whitelist, botik_id, botovod_id, time_del
+from settings import topa_username, whitelist, botik_id, botovod_id
 import html
 from ..f_lib.shield import anti_advert_t, anti_advert
 from ..f_lib.other import as_del_msg
 
 
-@dp.message_handler(chat_type=[types.ChatType.SUPERGROUP, types.ChatType.GROUP], commands=['admins', "админы"], commands_prefix='!/.')
+@dp.message_handler(chat_type=[types.ChatType.SUPERGROUP, types.ChatType.GROUP], commands=['админс', "админы"], commands_prefix='!/.')
 async def get_admin_list(message: types.Message):
     
 
@@ -19,11 +19,13 @@ async def get_admin_list(message: types.Message):
             users = message.from_user
             msg = await message.reply(f"<b>❌ Админы не будут вызваны!</b>\
             \n * * * \n<b>Эта команда отправляется в ответ на сообщение.</b>\n * * * \nИ сообщение, в ответ на которое <a href='tg://user?id={users.id}'>вы</a> пытались вызвать админов, отправлено неприкосновенным лицом. Либо вы ошиблись целью.")
-            await as_del_msg(message.chat.id, msg.message_id, time_del)
+            await as_del_msg(message.chat.id, msg.message_id, 10)
+            await as_del_msg(message.chat.id, message.message_id, 10)
             return
     else:
         msg = await message.reply("Эту команду следует отправлять в ответ на сообщение.")
-        await as_del_msg(message.chat.id, msg.message_id, time_del)
+        await as_del_msg(message.chat.id, msg.message_id, 10)
+        await as_del_msg(message.chat.id, message.message_id, 10)
         return
     
     admins = await message.chat.get_administrators()
@@ -31,7 +33,8 @@ async def get_admin_list(message: types.Message):
         if admin.user.id == message.reply_to_message.from_user.id:
             msg_to = await message.reply(f"<b>❌ Админы не будут вызваны!</b>\
             \n * * * \n<b>Эта команда отправляется в ответ на сообщение.</b>\n * * * \nИ сообщение, в ответ на которое <a href='tg://user?id={users.id}'>вы</a> пытались вызвать админов, отправлено неприкосновенным лицом. Либо вы ошиблись целью.")
-            await as_del_msg(message.chat.id, msg_to.message_id, time_del)
+            await as_del_msg(message.chat.id, msg.message_id, 10)
+            await as_del_msg(message.chat.id, message.message_id, 10)
             return
     
     users = message.from_user
@@ -98,11 +101,13 @@ async def call_all(message: types.Message):
             users = message.from_user
             msg = await message.reply(f"<b>❌ Админы не будут вызваны!</b>\
             \n * * * \n<b>Эта команда отправляется в ответ на сообщение.</b>\n * * * \nИ сообщение, в ответ на которое <a href='tg://user?id={users.id}'>вы</a> пытались вызвать админов, отправлено неприкосновенным лицом. Либо вы ошиблись целью.")
-            await as_del_msg(message.chat.id, msg.message_id, time_del)
+            await as_del_msg(message.chat.id, msg.message_id, 10)
+            await as_del_msg(message.chat.id, message.message_id, 10)
             return
     else:
         msg = await message.reply("Эту команду следует отправлять в ответ на сообщение.")
-        await as_del_msg(message.chat.id, msg.message_id, time_del)
+        await as_del_msg(message.chat.id, msg.message_id, 10)
+        await as_del_msg(message.chat.id, message.message_id, 10)
         return
        
     admins = await message.chat.get_administrators()
@@ -110,7 +115,8 @@ async def call_all(message: types.Message):
         if admin.user.id == message.reply_to_message.from_user.id:
             msg_to = await message.reply(f"<b>❌ Админы не будут вызваны!</b>\
             \n * * * \n<b>Эта команда отправляется в ответ на сообщение.</b>\n * * * \nИ сообщение, в ответ на которое <a href='tg://user?id={users.id}'>вы</a> пытались вызвать админов, отправлено неприкосновенным лицом. Либо вы ошиблись целью.")
-            await as_del_msg(message.chat.id, msg_to.message_id, time_del)
+            await as_del_msg(message.chat.id, msg.message_id, 10)
+            await as_del_msg(message.chat.id, message.message_id, 10)
             return
     
     users = message.from_user
