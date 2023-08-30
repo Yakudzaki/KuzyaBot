@@ -587,11 +587,11 @@ async def botik_text_other(message: types.Message, funny, cor_tx, user_in_base, 
                     await ladna_func(message, word)
                     return
                               
-    pivo_words = ['пиво', 'пивo']
+    pivo_words = ['пиво', 'пивo', 'пива', 'пивa']
     if check_member(message.chat.id, 902350476) == True:
         if len(message.text.lower()) <= 25:
             for word in message.text.lower().split():
-                if len(word) >= 4 and len(word) < 6 and similaring(word, pivo_words, 91, 2):
+                if len(word) >= 3 and len(word) < 7 and similaring(word, pivo_words, 91, 2):
                     await pivo_func(message, word)
                     return
    
@@ -668,10 +668,8 @@ async def pivo_func(message: types.Message, word):
     user2 = get_user(902350476)
     
     if user2[0] == user[0]:
-        chances = randint(0, 100)
-        if chances < 50:
-            await message.reply("Пива Пивомэну!")
-            return
+        await message.reply("Пива Пивомэну!")
+        return
     
     if user[8] != None and user[8] != "":
         nick = user[8]
@@ -681,7 +679,7 @@ async def pivo_func(message: types.Message, word):
     nick2 = "Пивомэна"
 
     rpword = ["вызвали", "вызвал", "вызвала", "вызвало", "вызывает"]
-    rpemodz = ["🧑‍💻🥶", "🧑‍💻🧊🕺", "🧑‍💻💨💃", "🧑‍💻🌪👾", "🧑‍💻🌊🙀"]
+    rpemodz = ["👤🍻", "🕺🍻", "💃🍻", "👾🍻", "😺🍻"]
     
     action = rpword[user[4]]
     rpemodz = rpemodz[user[4]]

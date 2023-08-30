@@ -5,13 +5,13 @@ from keyboards.inline.dev_kb import dev_btn
 
 
 
-@dp.message_handler(commands=["!дев", "!dev"], private=True)
+# @dp.message_handler(commands=["!дев", "!dev"], is_private)
 async def dev_handler(message: types.Message):
 	user = message.from_user.id
 	
 	if user not in botovod_id:
 		await message.answer("Чёрт! Ты меня взломал :(")
-		return
+		return True
 	
 	else:
 		await message.answer("Добро пожаловать в меню разработчика", reply_markup=dev_btn)
