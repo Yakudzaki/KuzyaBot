@@ -678,10 +678,9 @@ async def pivo_func(message: types.Message, word):
 
     nick2 = "Пивомэна"
 
-    rpword = ["вызвали", "вызвал", "вызвала", "вызвало", "вызывает"]
     rpemodz = ["👤🍻", "🕺🍻", "💃🍻", "👾🍻", "😺🍻"]
     
-    action = rpword[user[4]]
+    action = "вызывает"
     rpemodz = rpemodz[user[4]]
     
 
