@@ -12,7 +12,7 @@ from utils.db.db_utils_warning import *
 from utils.db.db_utils_сhats import *
 from utils.db.relations.db_utils_moniker import *
 
-from ..f_lib.other import eight_years, morph_word, rp_check
+from ..f_lib.other import eight_years, morph_word, rp_check, as_del_msg
 from ..f_lib.pyrogram_f import pyro_get_chat_member
 
 
@@ -381,7 +381,10 @@ async def rp_command(message: types.Message):
     
     if message.reply_to_message:
         if message.reply_to_message.from_user.id in no_rp_list:
-            await bot.delete_message(chat_id=message.chat.id, message_id=message.message_id)
+            try:
+                await bot.delete_message(chat_id=message.chat.id, message_id=message.message_id)
+            except:
+                pass
             return
         
         user2 = create_user(message.reply_to_message.from_user.id, message.reply_to_message.from_user.username, message.reply_to_message.from_user.first_name)
@@ -401,7 +404,10 @@ async def rp_command(message: types.Message):
                     user2 = [user2[0], user2[1], user2[8], user2[3], user2[4], user2[5], user2[6], user2[7], user2[8]]
         
         if user2[0] in no_rp_list:
-            await bot.delete_message(chat_id=message.chat.id, message_id=message.message_id)
+            try:
+                await bot.delete_message(chat_id=message.chat.id, message_id=message.message_id)
+            except:
+                pass
             return
         
         nick2 = user2[2]
@@ -428,8 +434,10 @@ async def rp_command(message: types.Message):
         if action == "":
             await message.reply("<b>❌ Укажи действие</b>!\n Пример: !рп Убил")
             return
-        
-        await bot.delete_message(chat_id=message.chat.id, message_id=message.message_id)
+        try:
+            await bot.delete_message(chat_id=message.chat.id, message_id=message.message_id)
+        except:
+            pass
         
         rp_text = f"{html.escape(emodz)}<a href='tg://user?id={user[0]}'>{html.escape(user[2])}</a> {html.escape(action)} <a href='tg://user?id={user2[0]}'>{html.escape(nick2)}</a>{html.escape(replic)}"
         
@@ -481,7 +489,10 @@ async def rp_command(message: types.Message):
                     
             
             if user2[0] in no_rp_list:
-                await bot.delete_message(chat_id=message.chat.id, message_id=message.message_id)
+                try:
+                    await bot.delete_message(chat_id=message.chat.id, message_id=message.message_id)
+                except:
+                    pass
                 return
             nick2 = user2[1]
             command = message.text.split(" ")[0]
@@ -540,7 +551,10 @@ async def rp_command(message: types.Message):
                                 user2 = [user2[0], user2[1], user2[8], user2[3], user2[4], user2[5], user2[6], user2[7], user2[8]]
     
                     if user2[0] in no_rp_list:
-                        await bot.delete_message(chat_id=message.chat.id, message_id=message.message_id)
+                        try:
+                            await bot.delete_message(chat_id=message.chat.id, message_id=message.message_id)
+                        except:
+                            pass
                         return
 
 
