@@ -12,7 +12,7 @@ from utils.db.db_utils_warning import *
 from utils.db.db_utils_сhats import *
 from utils.db.relations.db_utils_moniker import *
 
-from ..f_lib.other import eight_years, morph_word, rp_check, as_del_msg
+from ..f_lib.other import eight_years, morph_word, rp_check
 from ..f_lib.pyrogram_f import pyro_get_chat_member
 
 
