@@ -193,13 +193,20 @@ async def all_monikers(message: types.Message):
             return
     
     if message.reply_to_message:
+        if message.chat.type != 'private':
+            warner = get_warner(message.chat.id, message.reply_to_message.from_user.id)
+            if warner == None:
+                warner = [message.chat.id, message.reply_to_message.from_user.id, 0, 0, 0]
+            if warner[4] != 0:
+                return
+        
         await bot.send_chat_action(message.chat.id, types.ChatActions.TYPING)
         id = message.reply_to_message.message_id
         us = message.reply_to_message.from_user
         user = create_user(us.id, us.username, us.first_name)
         msg = "🎭 Вот все прозвища:\n——\n"
         msg2 = ""
-        
+
         if check_moniks(user[0]):
             moniks = get_all_moniks(user[0])
             for monik in moniks:
@@ -278,14 +285,17 @@ async def your_profile(message: types.Message):
             except:
                 pass
         
+        if message.chat.type != 'private':
+            warner = get_warner(message.chat.id, message.reply_to_message.from_user.id)
+            if warner == None:
+                warner = [message.chat.id, message.reply_to_message.from_user.id, 0, 0, 0]
+            if warner[4] != 0:
+                return
         
         if message.chat.type == 'private':
             userwarn = ["—", "—", "—", "—"]
         else:
-            userwarn = get_warner(message.chat.id, message.from_user.id)
-            if userwarn == None:
-                userwarn = ["0", "0", "0", "0"]
-
+            userwarn = warner
 
         if user[6] > 100000:
             age = "Неизмеримо"
@@ -335,16 +345,20 @@ async def your_profile(message: types.Message):
                 set_username(usern2.id, username)
                 user2 = get_user(usern2.id)
             
-
+            if message.chat.type != 'private':
+                warner2 = get_warner(message.chat.id, usern2.id)
+                if warner2 == None:
+                    warner2 = [message.chat.id, usern2.id, 0, 0, 0]
+                if warner2[4] != 0:
+                    return
             
             if message.chat.type == 'private':
                 userwarn2 = ["—", "—", "—", "—"]
             else:
-                userwarn2 = get_warner(message.chat.id, user2[0])
-                if userwarn2 == None:
-                    userwarn2 = ["0", "0", "0", "0"]
-                
-                
+                userwarn2 = warner2
+            
+
+           
             if user2[6] > 100000:
                 age2 = "Неизмеримо"
             else:
@@ -410,9 +424,7 @@ async def my_profile(message: types.Message):
     if message.chat.type == 'private':
         userwarn = ["—", "—", "—", "—"]
     else:
-        userwarn = get_warner(message.chat.id, user[0])
-        if userwarn == None:
-            userwarn = ["0", "0", "0", "0"]
+        userwarn = warner
     
     if user[6] > 100000:
         age = "Неизмеримо"

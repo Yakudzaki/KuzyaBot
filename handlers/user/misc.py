@@ -418,6 +418,8 @@ async def moniker_handler(message: types.Message):
             
         if usern[0] in no_rp_list:
             return
+        if usern[9] == 3:
+            return
         
         users = message.from_user
         user = create_user(users.id, users.username, users.first_name)

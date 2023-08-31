@@ -298,7 +298,9 @@ async def botik_text_other(message: types.Message, funny, cor_tx, user_in_base, 
         return
 
 #Отзыв ботика
-
+    if warner[4] != 0:
+        return
+    
     botik_k = 0
     if message.text.lower() in botik_re1 or message.text.lower() in botik_re2:
         users = message.from_user
@@ -334,8 +336,7 @@ async def botik_text_other(message: types.Message, funny, cor_tx, user_in_base, 
     if not funny:
         return
     
-    if warner[4] != 0:
-        return
+
     
     if len(message.text) > 30:
         return
