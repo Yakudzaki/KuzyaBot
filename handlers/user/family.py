@@ -44,7 +44,13 @@ async def my_family(message: types.Message):
         user = create_user(us.id, us.username, us.first_name)
         msg = "💍 Ваша семья потенциально состоит из:\n\n"
         alone = 0
-
+        
+        if message.chat.type != 'private':
+            warner = get_warner(message.chat.id, us.id)
+            if warner == None:
+                warner = [message.chat.id, us.id, 0, 0, 0]
+            if warner[4] != 0:
+                return
 
 #ЛЮБОВНИКИ
         bradstvo = get_wlovers(user[0])
@@ -194,7 +200,13 @@ async def my_family(message: types.Message):
         user = create_user(us.id, us.username, us.first_name)
         msg = "💍 Ваша семья состоит из:\n\n"
         alone = 0
-
+        
+        if message.chat.type != 'private':
+            warner = get_warner(message.chat.id, us.id)
+            if warner == None:
+                warner = [message.chat.id, us.id, 0, 0, 0]
+            if warner[4] != 0:
+                return
 
 #ЛЮБОВНИКИ   
         brads = get_love(user[0])
@@ -317,9 +329,7 @@ async def marry(message: types.Message):
                 return
         else:
             return
-    
-    
-    
+
     user2 = await message_user_get(message)
     if user2 == None or user2[0] in no_rp_list:
         return
