@@ -1,5 +1,5 @@
 from loader import dp, bot
-
+import logging
 from aiogram import types
 from aiogram.dispatcher.filters import Command
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
@@ -77,7 +77,7 @@ async def meme(message: types.Message):
 
                 keyboard.add(*buttons)
                 await bot.send_chat_action(message.chat.id, types.ChatActions.UPLOAD_PHOTO)
-                await bot.send_photo(message.chat.id, second_a.get("href"), caption = f'☄️ Лови мем.\n\n<a href="{kuzya_news_link}">Канал с новостями</a>', reply_markup=keyboard, parse_mode="html", disable_web_page_preview=True)
+                await bot.send_photo(message.chat.id, second_a.get("href"), caption = f'☄️ Лови мем.\n\n<a href="{kuzya_news_link}">Канал с новостями</a>', reply_markup=keyboard, parse_mode="html")
 
     # except Exception as e:
     except:
@@ -111,9 +111,11 @@ async def meme(message: types.Message):
     
                     keyboard.add(*buttons)
                     await bot.send_chat_action(message.chat.id, types.ChatActions.UPLOAD_PHOTO)
-                    await bot.send_photo(message.chat.id, second_a.get("href"), caption = f'☄️ Лови мем.\n\n<a href="{kuzya_news_link}">Канал с новостями</a>', reply_markup=keyboard, parse_mode="html", disable_web_page_preview=True)
+                    await bot.send_photo(message.chat.id, second_a.get("href"), caption = f'☄️ Лови мем.\n\n<a href="{kuzya_news_link}">Канал с новостями</a>', reply_markup=keyboard, parse_mode="html")
     
-        except:
+        except Exception as e:
+            print(f"{e}")
+            logging.info(f"{e}")
             return
 
         
