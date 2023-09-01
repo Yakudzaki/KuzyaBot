@@ -354,6 +354,9 @@ async def anti_advert(message: types.Message, etype, user_in_base, userwarn):
                             await bot.delete_message(message.chat.id, message.message_id)
                             if userwarn[2] == 0:
                                 await message.answer(f"Было удалено сообщение с {entity.type}!")
+                            else:
+                                try:
+                                    await bot.restrict_chat_member(chat_id=message.chat.id, user_id=user.id, permissions=types.ChatPermissions(can_send_messages=False, can_send_media_messages=False, can_send_other_messages=False), until_date=int(time.time() + 600))
                             return 1
                         except:
                             admins = await message.chat.get_administrators()
@@ -414,6 +417,9 @@ async def anti_advert_t(message: types.Message, etype, user_in_base, userwarn):
                             await bot.delete_message(message.chat.id, message.message_id)
                             if userwarn[2] == 0:
                                 await message.answer(f"Было удалено сообщение с {entity.type}!")
+                            else:
+                                try:
+                                    await bot.restrict_chat_member(chat_id=message.chat.id, user_id=user.id, permissions=types.ChatPermissions(can_send_messages=False, can_send_media_messages=False, can_send_other_messages=False), until_date=int(time.time() + 600))
                             return 1
                         except:
                             admins = await message.chat.get_administrators()
