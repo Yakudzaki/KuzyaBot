@@ -8,7 +8,7 @@ from .owner_menu import dev_handler
 
 
 async def owner_func(message: types.Message, mctp, mrm, chat):
-    if mctp == True:
+    if mctp == True and ( message.text.lower() == "!дев" or message.text.lower() == "!dev" ):
         stop = await dev_handler(message)
         if stop == True:
             return
