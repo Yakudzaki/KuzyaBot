@@ -96,7 +96,7 @@ async def text_shield(message: types.Message, mrm, cor_tx, user_in_base, userwar
             else:
                 
                 if userwarn[2] >= 2:
-                    etype = ["url", "text_link", "mention", "text_mention"] #Правила для старых юзеров, если они имеют два варна.
+                    etype = ["url", "text_link", "mention", "text_mention", "bot_command"] #Правила для старых юзеров, если они имеют два варна.
                     stop = await anti_advert_t(message, etype, user_in_base, userwarn) 
                     ignore = 1
                     if stop != None:
@@ -104,7 +104,7 @@ async def text_shield(message: types.Message, mrm, cor_tx, user_in_base, userwar
                 
                 
                 if ( ( mrm == True and ent > 1 ) or userwarn[2] == 1 ) and not ignore:
-                    etype = ["url", "text_link"] #Правила для не новичков, если они делают несколько ентити в ответ или имеют один варн.
+                    etype = ["url", "text_link", "bot_command"] #Правила для не новичков, если они делают несколько ентити в ответ или имеют один варн.
                     stop = await anti_advert_t(message, etype, user_in_base, userwarn)
                     ignore = 1
                     if stop != None:
@@ -231,14 +231,14 @@ async def media_shield(message: types.Message, mrm, userwarn):
             else:
                 
                 if userwarn[2] >= 2:
-                    etype = ["url", "text_link", "mention", "text_mention"] #Правила для старых юзеров, если они имеют два варна.
+                    etype = ["url", "text_link", "mention", "text_mention", "bot_command"] #Правила для старых юзеров, если они имеют два варна.
                     stop = await anti_advert(message, etype, user_in_base, userwarn) 
                     ignore = 1
                     if stop != None:
                         return stop
                 
                 if not ignore and ( mrm == True or userwarn[2] == 1 ):
-                    etype = ["url", "text_link"] #Правила для старых юзеров, если они отправляют сообщение в ответ. Или имеют один варн.
+                    etype = ["url", "text_link", "bot_command"] #Правила для старых юзеров, если они отправляют сообщение в ответ. Или имеют один варн.
                     stop = await anti_advert(message, etype, user_in_base, userwarn)  
                     ignore = 1
                     if stop != None:
