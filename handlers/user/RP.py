@@ -18,6 +18,12 @@ from ..f_lib.pyrogram_f import pyro_get_chat_member
 
 @dp.message_handler(commands=["мануал"], commands_prefix="/!.") #Cама РП команда
 async def rp_manual(message: types.Message):
+    if message.chat.type != 'private':
+        warner = get_warner(message.chat.id, message.from_user.id)
+        if warner == None:
+            warner = [message.chat.id, message.from_user.id, 0, 0, 0]
+        if warner[4] != 0:
+            return
     funny = get_funny(message)
     if not funny:
         await message.answer("❌ В этом чате игры с ботом запрещены!")
@@ -57,6 +63,13 @@ async def rp_manual(message: types.Message):
 
 @dp.message_handler(commands=["список"], commands_prefix="/!.") #Cама РП команда
 async def rp_spis(message: types.Message):
+    if message.chat.type != 'private':
+        warner = get_warner(message.chat.id, message.from_user.id)
+        if warner == None:
+            warner = [message.chat.id, message.from_user.id, 0, 0, 0]
+        if warner[4] != 0:
+            return
+    
     funny = get_funny(message)
     if not funny:
         await message.answer("❌ В этом чате игры с ботом запрещены!")
@@ -354,13 +367,21 @@ async def do_8_y(user, user2, text, msg):
 
 @dp.message_handler(commands=["рп", "rp", "рпи", "rpи", "рпр", "rpр", "рпд", "rpд", "рпв", "rpв", "рпт", "rpт", "рпп", "rpп"], commands_prefix="/!.")
 async def rp_command(message: types.Message):
-
+    if message.chat.type != 'private':
+        warner = get_warner(message.chat.id, message.from_user.id)
+        if warner == None:
+            warner = [message.chat.id, message.from_user.id, 0, 0, 0]
+        if warner[4] != 0:
+            return
+    
     funny = get_funny(message)
     
     if not funny:
         await message.answer("❌ В этом чате игры с ботом запрещены!")
         return
     await bot.send_chat_action(message.chat.id, types.ChatActions.TYPING)
+    
+
     
     emodz = ""
     emodz1 = ""
