@@ -524,19 +524,28 @@ async def bio_handler(message: types.Message):
     create_user(users.id, users.username, users.first_name)
     bio = message.text.replace("+био ", "").replace("+Био ", "")
     raises = ["+био", "+Био", ""]
+    
     if bio in raises:
         msg = await message.reply("<b>❌ Укажите текст!</b>")
         await as_del_msg(message.chat.id, msg.message_id, time_del)
         return
-    elif len(bio) > 50:
+    
+    elif len(bio) > 50 and not bio.startswith("html: "):
         msg = await message.reply("<b>❌ Био не может содержать больше 50 символов!</b>")
         await as_del_msg(message.chat.id, msg.message_id, time_del)
         return
+    
     elif "https://" in bio:
         msg = await message.reply("<b>❌ Био не может содержать ссылок!</b>")
         await as_del_msg(message.chat.id, msg.message_id, time_del)
         await bot.delete_message(chat_id=message.chat.id, message_id=message.message_id)
         return
+    
+    elif bio.startswith("html: ") and len(bio.replace("html: ", "")) > 60:
+        msg = await message.reply("<b>❌ Html-био не может содержать больше 60 символов!</b>")
+        await as_del_msg(message.chat.id, msg.message_id, time_del)
+        return
+    
     else:
         user = message.from_user
         set_bio(user.id, bio)
