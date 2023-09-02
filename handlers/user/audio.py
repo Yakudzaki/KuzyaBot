@@ -152,7 +152,7 @@ async def say(message: types.Message):
                 else:
                     await message.reply("<b>❌ Укажите текст, либо сделайте ответ командой на то сообщение которое я должен сказать!</b>\nПример: !say привет; !скажи привет")
                     return
-                if len(text2) > 500:
+                if len(text2) > 500 and allow == 0 :
                     await message.reply("<b>❌ Вы превысили ограничение на количество символов</b>!\n Максимальное количество символов - 500")
                     return
                 if allow == 0:
@@ -175,7 +175,7 @@ async def say(message: types.Message):
                     await message.answer(text2)
                     return
             else:
-                if len(text) > 500:
+                if len(text) > 500 and allow == 0:
                     await message.reply("<b>❌ Вы превысили ограничение на количество символов</b>!\n Максимальное количество символов - 500")
                     return
                 if allow == 0:
@@ -206,7 +206,7 @@ async def say(message: types.Message):
             if text in sos:
                 await message.reply("<b>❌ Укажите текст, либо сделайте ответ командой на то сообщение которое я должен сказать!</b>\nПример: !say привет; !скажи привет")
                 return
-            elif len(text) > 500:
+            elif len(text) > 500 and allow == 0:
                 await message.reply("<b>❌ Вы превысили ограничение на количество символов</b>!\n Максимальное количество символов - 500")
             if allow == 0:
                 await bot.send_chat_action(message.chat.id, types.ChatActions.TYPING)
