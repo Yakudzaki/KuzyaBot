@@ -197,7 +197,7 @@ async def say(message: types.Message):
                     id = message.reply_to_message.message_id
                     await bot.send_chat_action(message.chat.id, types.ChatActions.TYPING)
                     await bot.delete_message(message.chat.id, message.message_id)
-                    await bot.send_message(message.chat.id, text, reply_to_message_id=id)
+                    await bot.send_message(message.chat.id, message.text.replace(f"{command} ", "").replace(f"{command}", ""), reply_to_message_id=id)
                     return
         else:
             command = message.text.split()[0]
@@ -216,7 +216,7 @@ async def say(message: types.Message):
             if allow == 1:
                 await bot.send_chat_action(message.chat.id, types.ChatActions.TYPING)
                 await bot.delete_message(message.chat.id, message.message_id)
-                await message.answer(text)
+                await message.answer(message.text.replace(f"{command} ", "").replace(f"{command}", ""))
                 return
     except:
         await message.answer("<b>❌ Укажите текст, либо сделайте ответ командой на то сообщение которое я должен сказать!</b>\nПример: !say привет; !скажи привет")
