@@ -152,7 +152,7 @@ async def say(message: types.Message):
                 else:
                     await message.reply("<b>❌ Укажите текст, либо сделайте ответ командой на то сообщение которое я должен сказать!</b>\nПример: !say привет; !скажи привет")
                     return
-                if len(text2) > 500 and allow == 0 :
+                if len(text2) > 500 and allow == 0:
                     await message.reply("<b>❌ Вы превысили ограничение на количество символов</b>!\n Максимальное количество символов - 500")
                     return
                 if allow == 0:
