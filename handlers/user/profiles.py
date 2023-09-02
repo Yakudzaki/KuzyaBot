@@ -306,7 +306,7 @@ async def your_profile(message: types.Message):
         if bio.startswith("html: "):
             bio = bio.replace("html: ", "")
         else:
-            bio = html.escape(bio)
+            bio = f"<em>{html.escape(bio)}</em>"
         
         rep = await string_rep(user[5], user[4])
         response_text = f"Это пользователь <a href='tg://user?id={user[0]}'>{html.escape(user[2])}</a>\
@@ -314,7 +314,7 @@ async def your_profile(message: types.Message):
         \n<b>👤 Username</b>: @{user[1]}\
         \n<b>🏷️ Ник</b>: {html.escape(user[2])}\
         \n<b>🎭 Прозвище</b>: {html.escape(user[8])}\
-        \n<b>📝 Био</b>: <em>{bio}</em>\
+        \n<b>📝 Био</b>: {bio}\
         \n<b>🚻 Пол</b>: {str(user[4]).replace('1', 'Мужской').replace('2', 'Женский').replace('0', '—').replace('3', str(html.escape(user[7]))).replace('4', str(html.escape(user[7])))}\
         \n<b>♾ Вид</b>: {str(user[4]).replace('1', str(html.escape(user[7]))).replace('2', str(html.escape(user[7]))).replace('0', str(html.escape(user[7]))).replace('3', '<tg-spoiler>Иной</tg-spoiler>').replace('4', '<tg-spoiler>Чеширский</tg-spoiler>')}\
         \n<b>⏳ Возраст</b>: {age} {years_letter(age)}\
@@ -374,7 +374,7 @@ async def your_profile(message: types.Message):
             if bio.startswith("html: "):
                 bio = bio.replace("html: ", "")
             else:
-                bio = html.escape(bio)
+                bio = f"<em>{html.escape(bio)}</em>"
             
             rep = await string_rep(user2[5], user2[4])
             response_text = f"Цитируется пользователь <a href='tg://user?id={user2[0]}'>{html.escape(user2[2])}</a>\
@@ -382,7 +382,7 @@ async def your_profile(message: types.Message):
             \n<b>👤 Username</b>: @{user2[1]}\
             \n<b>🏷️ Ник</b>: {html.escape(user2[2])}\
             \n<b>🎭 Прозвище</b>: {html.escape(user2[8])}\
-            \n<b>📝 Био</b>: <em>{bio}</em>\
+            \n<b>📝 Био</b>: {bio}\
             \n<b>🚻 Пол</b>: {str(user2[4]).replace('1', 'Мужской').replace('2', 'Женский').replace('0', '—').replace('3', str(html.escape(user2[7]))).replace('4', str(html.escape(user2[7])))}\
             \n<b>♾ Вид</b>: {str(user2[4]).replace('1', html.escape(user2[7])).replace('2', html.escape(user2[7])).replace('0', html.escape(user2[7])).replace('3', '<tg-spoiler>Иной</tg-spoiler>').replace('4', '<tg-spoiler>Чеширский</tg-spoiler>')}\
             \n<b>⏳ Возраст</b>: {age2} {years_letter(age2)}\
@@ -446,7 +446,7 @@ async def my_profile(message: types.Message):
     if bio.startswith("html: "):
         bio = bio.replace("html: ", "")
     else:
-        bio = html.escape(bio)
+        bio = f"<em>{html.escape(bio)}</em>"
     
     rep = await string_rep(user[5], user[4])
     response_text = f"Это пользователь <a href='tg://user?id={user[0]}'>{html.escape(user[2])}</a>\
@@ -454,7 +454,7 @@ async def my_profile(message: types.Message):
     \n<b>👤 Username</b>: @{user[1]}\
     \n<b>🏷️ Ник</b>: {html.escape(user[2])}\
     \n<b>🎭 Прозвище</b>: {html.escape(user[8])}\
-    \n<b>📝 Био</b>: <em>{bio}</em>\
+    \n<b>📝 Био</b>: {bio}\
     \n<b>🚻 Пол</b>: {str(user[4]).replace('1', 'Мужской').replace('2', 'Женский').replace('0', '—').replace('3', str(html.escape(user[7]))).replace('4', str(html.escape(user[7])))}\
     \n<b>♾ Вид</b>: {str(user[4]).replace('1', str(html.escape(user[7]))).replace('2', str(html.escape(user[7]))).replace('0', str(html.escape(user[7]))).replace('3', '<tg-spoiler>Иной</tg-spoiler>').replace('4', '<tg-spoiler>Чеширский</tg-spoiler>')}\
     \n<b>⏳ Возраст</b>: {age} {years_letter(age)}\
