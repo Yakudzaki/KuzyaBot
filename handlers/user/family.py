@@ -502,6 +502,10 @@ async def marry(message: types.Message):
         if stop != None:
             return
         
+        if message.text.lower() == "бросить всех":
+            await posil_nah_all(message)
+            return
+        
         if message.reply_to_message:
             if len(message.text.split()) > 1:
                 return
@@ -549,8 +553,8 @@ async def marry(message: types.Message):
 
 
 #БРОСИТЬ ВСЕХ
-@dp.message_handler(lambda message: message.text.lower() == "бросить всех")
-async def my_family(message: types.Message):
+# @dp.message_handler(lambda message: message.text.lower() == "бросить всех")
+async def posil_nah_all(message: types.Message):
     if message.chat.type != 'private':
         warner = get_warner(message.chat.id, message.from_user.id)
         if warner == None:
