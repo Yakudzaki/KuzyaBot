@@ -23,7 +23,9 @@ async def send_weather(message):
         city = message.text.replace(f'{command} ', '')
         
         if city == command:
-            await message.reply("<b>❌ Укажите запрос!</b>")
+            msg = await message.reply("<b>❌ Укажите запрос!</b>")
+            await as_del_msg(message.chat.id, msg.message_id, time_del)
+            await as_del_msg(message.chat.id, message.message_id, time_del)
             return
         
         code_to_smile = { 
