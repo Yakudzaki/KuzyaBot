@@ -753,7 +753,7 @@ async def string_rep(rep, gender):
             
             
 async def add_reputation_f(message: types.Message, gooderr, goodur):
-    if gooderr[5] < 10:
+    if gooderr[5] < -10:
         good2 = bad2
     
     if message.reply_to_message.text:
@@ -859,7 +859,7 @@ async def add_reputation_f(message: types.Message, gooderr, goodur):
                 
 async def take_reputation_f(message: types.Message, baderr, badur):
     
-    if baderr[5] < 10:
+    if baderr[5] < -10:
         bad2 = good2
 
     if message.reply_to_message.text:
