@@ -553,10 +553,15 @@ async def add_reputation(message: types.Message):
                     continue
             try:
                 if admino == 0:
-                    if gooderr[5] <= goodur[5]:
+                    if abs(gooderr[5]) <= abs(goodur[5]):
                         result = randint(0,10)
                         if result >= rep_separat_g:  
-                            add_rep(goodu.id)
+                            
+                            if gooderr[5] >= -10:
+                                add_rep(goodu.id)
+                            else:
+                                take_rep(goodu.id)
+                            
                             hide = choice(hide_ver)
                             if hide == 0:
                                 await message.answer(f"✅ Повышение засчитано (<a href='tg://user?id={goodu.id}'>+1</a>)")
@@ -566,7 +571,12 @@ async def add_reputation(message: types.Message):
                     else:
                         result = randint(0,10)
                         if result >= rep_converg_g:    
-                            add_rep(goodu.id)
+                            
+                            if gooderr[5] >= -10:
+                                add_rep(goodu.id)
+                            else:
+                                take_rep(goodu.id)
+                            
                             hide = choice(hide_ver)
                             if hide == 0:
                                 await message.answer(f"✅ Повышение засчитано (<a href='tg://user?id={goodu.id}'>+1</a>)")
@@ -666,10 +676,15 @@ async def take_reputation(message: types.Message):
                     continue
             try:
                 if admino == 0:
-                    if baderr[5] >= badur[5]:
+                    if abs(baderr[5]) >= abs(badur[5]):
                         result = randint(0,10)
                         if result >= rep_separat_b:
-                            take_rep(badu.id)
+                            
+                            if baderr[5] >= -10:
+                                take_rep(badu.id)
+                            else:
+                                add_rep(badu.id)
+                            
                             hide = choice(hide_ver)
                             if hide == 0:
                                 await message.answer(f"❌ Понижение засчитано (<a href='tg://user?id={badu.id}'>-1</a>)")
@@ -678,7 +693,12 @@ async def take_reputation(message: types.Message):
                     else:
                         result = randint(0,10)
                         if result >= rep_converg_b:
-                            take_rep(badu.id)
+                            
+                            if baderr[5] >= -10:
+                                take_rep(badu.id)
+                            else:
+                                add_rep(badu.id)
+                            
                             hide = choice(hide_ver)
                             if hide == 0:
                                 await message.answer(f"❌ Понижение засчитано (<a href='tg://user?id={badu.id}'>-1</a>)")
@@ -733,7 +753,8 @@ async def string_rep(rep, gender):
             
             
 async def add_reputation_f(message: types.Message, gooderr, goodur):
-
+    if gooderr[5] < 10:
+        good2 = bad2
     
     if message.reply_to_message.text:
         if message.reply_to_message.text.lower() in good2:
@@ -838,9 +859,9 @@ async def add_reputation_f(message: types.Message, gooderr, goodur):
                 
 async def take_reputation_f(message: types.Message, baderr, badur):
     
-    
- 
-    
+    if baderr[5] < 10:
+        bad2 = good2
+
     if message.reply_to_message.text:
         if message.reply_to_message.text.lower() in bad2:
             return
