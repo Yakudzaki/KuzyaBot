@@ -503,6 +503,11 @@ async def add_reputation(message: types.Message):
         if warnerer[4] != 0:
             return
 
+        global reps_user_id
+        if reps_user_id == gooder.id:
+            return
+        else:
+            reps_user_id = gooder.id
         
         if goodu.id == botik_id:
             hide = choice(hide_ver)
@@ -611,6 +616,12 @@ async def take_reputation(message: types.Message):
             warnerer = [message.chat.id, message.reply_to_message.from_user.id, 0, 0, 0]
         if warnerer[4] != 0:
             return
+        
+        global reps_user_id
+        if reps_user_id == bader.id:
+            return
+        else:
+            reps_user_id = bader.id
         
         if badu.id == botik_id:
             hide = choice(hide_ver)
@@ -787,6 +798,12 @@ async def add_reputation_f(message: types.Message, gooderr, goodur):
                     break
 
     if similar >= 90:
+        global reps_user_id
+        if reps_user_id == gooderr[0]:
+            return
+        else:
+            reps_user_id = gooderr[0]
+        
         if wrods == 'хорош' or wrods == 'харош':
             for word in message.text.lower().split():
                 if fuzz.WRatio(f"{wrods}о", word) > similar:
@@ -888,6 +905,12 @@ async def take_reputation_f(message: types.Message, baderr, badur):
 
     
     if similar >= 90:
+        
+        global reps_user_id
+        if reps_user_id == baderr[0]:
+            return
+        else:
+            reps_user_id = baderr[0]
         
         if message.chat.id not in legal_chats:
             await botik_leave_chat(message)

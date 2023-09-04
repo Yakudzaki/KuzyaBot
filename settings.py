@@ -68,3 +68,5 @@ reply_transfer = 0
 
 text_name = ""
 text_id = 0
+
+reps_user_id = 0
