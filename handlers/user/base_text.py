@@ -228,7 +228,7 @@ async def final_text(message: types.Message):
 
 
 #Нечеткое сравнение для повышения или понижения репутации
-    if mrm == True and mctp == False and message.from_user.id != message.reply_to_message.from_user.id:
+    if mrm == True and mctp == False and message.from_user.id != message.reply_to_message.from_user.id and warner[4] == 0:
         repu = message.reply_to_message.from_user
         if check_user(repu.id) == False:
             

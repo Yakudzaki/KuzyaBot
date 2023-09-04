@@ -801,7 +801,7 @@ async def add_reputation_f(message: types.Message, gooderr, goodur):
             return
         
         try:
-            if gooderr[5] <= goodur[5]:
+            if abs(gooderr[5]) <= abs(goodur[5]):
                 result = randint(0,10) - (100 - similar)/10
                 if result >= rep_separat_g:  
                     add_rep(goodur[0])
@@ -894,7 +894,7 @@ async def take_reputation_f(message: types.Message, baderr, badur):
             return
         
         try:
-            if baderr[5] >= badur[5]:
+            if abs(baderr[5]) >= abs(badur[5]):
                 result = randint(0,10) - (100 - similar)/10
                 if result >= rep_separat_b:
                     take_rep(badur[0])
