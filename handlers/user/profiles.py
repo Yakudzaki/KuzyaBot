@@ -798,12 +798,7 @@ async def add_reputation_f(message: types.Message, gooderr, goodur):
                     break
 
     if similar >= 90:
-        global reps_user_id
-        if reps_user_id == gooderr[0]:
-            return
-        else:
-            reps_user_id = gooderr[0]
-        
+
         if wrods == 'хорош' or wrods == 'харош':
             for word in message.text.lower().split():
                 if fuzz.WRatio(f"{wrods}о", word) > similar:
@@ -811,7 +806,11 @@ async def add_reputation_f(message: types.Message, gooderr, goodur):
                     logging.info("Отклонено")
                     return
 
-
+        global reps_user_id
+        if reps_user_id == gooderr[0]:
+            return
+        else:
+            reps_user_id = gooderr[0]
         
         if message.chat.id not in legal_chats:
             await botik_leave_chat(message)
