@@ -352,8 +352,11 @@ async def anti_advert(message: types.Message, etype, user_in_base, userwarn):
                     userrek = get_user(users.id)
                        
                     
-                    if userrek[5] >= reprekl and userwarn[2] == 0:
-                        await message.answer(f"Засвидетельствовано сообщение с {entity.type} от <a href='tg://user?id={user.id}'>человека</a> с высокой репутацией!")
+                    if abs(userrek[5]) >= reprekl and userwarn[2] == 0:
+                        if userrek[5] >= reprekl:
+                            await message.answer(f"Засвидетельствовано сообщение с {entity.type} от <a href='tg://user?id={user.id}'>человека</a> с высокой репутацией!")
+                        else:
+                            await message.answer(f"Мне страшно удалять сообщение с {entity.type} от <a href='tg://user?id={user.id}'>человека</a> с такой страшной репутацией!")
                         return
                     else:
                         try:
@@ -417,9 +420,13 @@ async def anti_advert_t(message: types.Message, etype, user_in_base, userwarn):
                 else:
                     userrek = get_user(users.id)
                     
-                    if userrek[5] >= reprekl and userwarn[2] == 0:
-                        await message.answer(f"Засвидетельствовано сообщение с {entity.type} от <a href='tg://user?id={user.id}'>человека</a> с высокой репутацией!")
+                    if abs(userrek[5]) >= reprekl and userwarn[2] == 0:
+                        if userrek[5] >= reprekl:
+                            await message.answer(f"Засвидетельствовано сообщение с {entity.type} от <a href='tg://user?id={user.id}'>человека</a> с высокой репутацией!")
+                        else:
+                            await message.answer(f"Мне страшно удалять сообщение с {entity.type} от <a href='tg://user?id={user.id}'>человека</a> с такой страшной репутацией!")
                         return
+                    
                     else:
                         try:
                             await bot.delete_message(message.chat.id, message.message_id)
