@@ -490,7 +490,19 @@ async def add_reputation(message: types.Message):
         else:
             return
         
+
+        warner = get_warner(message.chat.id, message.from_user.id)
+        if warner == None:
+            warner = [message.chat.id, message.from_user.id, 0, 0, 0]
+        if warner[4] != 0:
+            return
         
+        warnerer = get_warner(message.chat.id, message.reply_to_message.from_user.id)
+        if warnerer == None:
+            warnerer = [message.chat.id, message.reply_to_message.from_user.id, 0, 0, 0]
+        if warnerer[4] != 0:
+            return
+
         
         if goodu.id == botik_id:
             hide = choice(hide_ver)
@@ -588,7 +600,17 @@ async def take_reputation(message: types.Message):
         else:
             return
         
+        warner = get_warner(message.chat.id, message.from_user.id)
+        if warner == None:
+            warner = [message.chat.id, message.from_user.id, 0, 0, 0]
+        if warner[4] != 0:
+            return
         
+        warnerer = get_warner(message.chat.id, message.reply_to_message.from_user.id)
+        if warnerer == None:
+            warnerer = [message.chat.id, message.reply_to_message.from_user.id, 0, 0, 0]
+        if warnerer[4] != 0:
+            return
         
         if badu.id == botik_id:
             hide = choice(hide_ver)

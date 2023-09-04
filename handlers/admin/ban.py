@@ -9,7 +9,7 @@ import asyncio
 from utils.db.db_utils_members import *
 from utils.db.db_utils_users import *
 from utils.db.db_utils_warning import *
-from ..f_lib.other import message_user_get_ban
+from ..f_lib.other import message_user_get_ban, message_user_get
 from ..f_lib.pyrogram_f import get_delete_members
 from settings import *
 
