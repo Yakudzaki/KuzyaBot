@@ -754,10 +754,12 @@ async def string_rep(rep, gender):
             
 async def add_reputation_f(message: types.Message, gooderr, goodur):
     if gooderr[5] < -10:
-        good2 = bad2
+        good = bad2
+    else:
+        good = good2
     
     if message.reply_to_message.text:
-        if message.reply_to_message.text.lower() in good2:
+        if message.reply_to_message.text.lower() in good:
             return
 
     if utils.full_process(message.text.lower()) == False:
@@ -766,7 +768,7 @@ async def add_reputation_f(message: types.Message, gooderr, goodur):
     similar_r = 0
     if message.reply_to_message.text != None:
         if utils.full_process(message.reply_to_message.text.lower()):
-            simi_r = process.extractOne(message.reply_to_message.text.lower(), good2)
+            simi_r = process.extractOne(message.reply_to_message.text.lower(), good)
             similar_r = simi_r[1]
         else:
             similar_r = 0
@@ -776,7 +778,7 @@ async def add_reputation_f(message: types.Message, gooderr, goodur):
     
     similar = 0
     
-    if message.text.lower() in good2:
+    if message.text.lower() in good:
         similar = 100
         print(f"Гуд. {similar}: Сообщение: →{message.text.lower()}←")
         logging.info(f'Гуд. {similar}: Сообщение: [{message.text.lower()}]')
@@ -798,7 +800,7 @@ async def add_reputation_f(message: types.Message, gooderr, goodur):
             logging.info(f'Гуд. {similar}: Сообщение: [{message.text.lower()}] слово: [+++++]')
         
         else:
-            for word in good2:
+            for word in good:
                 if f"не{word[0]}{word[1]}" in text_l:
                     continue
                 
@@ -860,17 +862,19 @@ async def add_reputation_f(message: types.Message, gooderr, goodur):
 async def take_reputation_f(message: types.Message, baderr, badur):
     
     if baderr[5] < -10:
-        bad2 = good2
-
+        bad = good2
+    else:
+        bad = bad2
+    
     if message.reply_to_message.text:
-        if message.reply_to_message.text.lower() in bad2:
+        if message.reply_to_message.text.lower() in bad:
             return
     
     similar_r = 0
     
     if message.reply_to_message.text != None:
         if utils.full_process(message.reply_to_message.text.lower()):
-            simi_r = process.extractOne(message.reply_to_message.text.lower(), bad2)
+            simi_r = process.extractOne(message.reply_to_message.text.lower(), bad)
             similar_r = simi_r[1]
         else:
             similar_r = 0
@@ -880,7 +884,7 @@ async def take_reputation_f(message: types.Message, baderr, badur):
     
     similar = 0
     
-    if message.text.lower() in bad2:
+    if message.text.lower() in bad:
         similar = 100
         print(f"Бэд. {similar}: Сообщение: →{message.text.lower()}←")
         logging.info(f'Бэд. {similar}: Сообщение: [{message.text.lower()}]')
@@ -902,7 +906,7 @@ async def take_reputation_f(message: types.Message, baderr, badur):
             logging.info(f'Бэд. {similar}: Сообщение: [{message.text.lower()}] слово: [-----]')
         
         else:
-            for word in bad2:
+            for word in bad:
                 if f"не{word[0]}{word[1]}" in text_l:
                     continue
                 
