@@ -114,15 +114,15 @@ async def new_chat_member(message: types.Message):
         names = chat_m[2]
 
         if chat[16] != "" and chat[16] != None:
-            # set_hello_string(chat_m[0], '')
             await bot.send_chat_action(message.chat.id, types.ChatActions.TYPING)
             await bot.send_message(message.chat.id, f"{chat[5]}{names}{chat[6]}", parse_mode='html', reply_markup=hello, reply_to_message_id=chat_m[5])
+            # set_hello_string(chat_m[0], '')
             return
         
         else:
-            # set_hello_string(chat_m[0], '')
             await bot.send_chat_action(message.chat.id, types.ChatActions.TYPING)
             await bot.send_message(message.chat.id, f"{chat[5]}{names}{chat[6]}", parse_mode='html', reply_to_message_id=chat_m[5])
+            # set_hello_string(chat_m[0], '')
             return
 
 
