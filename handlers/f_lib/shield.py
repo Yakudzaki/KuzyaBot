@@ -356,7 +356,7 @@ async def anti_advert(message: types.Message, etype, user_in_base, userwarn):
                         if userrek[5] >= reprekl:
                             await message.answer(f"Засвидетельствовано сообщение с {entity.type} от <a href='tg://user?id={user.id}'>человека</a> с высокой репутацией!")
                         else:
-                            await message.answer(f"Мне страшно удалять сообщение с {entity.type} от <a href='tg://user?id={user.id}'>человека</a> с такой страшной репутацией!")
+                            await message.answer(f"Я боюсь удалять сообщение с {entity.type} от <a href='tg://user?id={user.id}'>человека</a> с такой страшной репутацией!")
                         return
                     else:
                         try:
@@ -424,7 +424,7 @@ async def anti_advert_t(message: types.Message, etype, user_in_base, userwarn):
                         if userrek[5] >= reprekl:
                             await message.answer(f"Засвидетельствовано сообщение с {entity.type} от <a href='tg://user?id={user.id}'>человека</a> с высокой репутацией!")
                         else:
-                            await message.answer(f"Мне страшно удалять сообщение с {entity.type} от <a href='tg://user?id={user.id}'>человека</a> с такой страшной репутацией!")
+                            await message.answer(f"Я боюсь удалять сообщение с {entity.type} от <a href='tg://user?id={user.id}'>человека</a> с такой страшной репутацией!")
                         return
                     
                     else:
