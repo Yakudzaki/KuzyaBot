@@ -338,73 +338,124 @@ async def botik_text_other(message: types.Message, funny, cor_tx, user_in_base, 
     
 
     
-    if len(message.text) > 30:
-        return
+    if len(message.text) <= 30:
     
-    first_step = False
-    text_l = message.text.lower()
-    if 'бот' in message.text.lower() or 'куз' in message.text.lower():
-        first_step = True
-        text_l = text_l.replace("!", "").replace("?", "").replace(".", "").replace("+", " ").replace("-", " ").replace(")", "").replace("(", "").replace("…", "").replace(",", "").replace(":", "").replace('"', '').replace("«", "").replace("»", "").replace("[", "").replace("]", "").replace("—", " ")
-    
-    simi1 = 0
-    simi2 = 0
-
+        first_step = False
+        text_l = message.text.lower()
+        if 'бот' in message.text.lower() or 'куз' in message.text.lower():
+            first_step = True
+            text_l = text_l.replace("!", "").replace("?", "").replace(".", "").replace("+", " ").replace("-", " ").replace(")", "").replace("(", "").replace("…", "").replace(",", "").replace(":", "").replace('"', '').replace("«", "").replace("»", "").replace("[", "").replace("]", "").replace("—", " ")
         
-    if first_step == True:
-        for word in text_l.split():
-            if simi2 == 1:
-                break
-            for word2 in botik_re2:
-                if word == word2:
-                    simi2 = 1
+        simi1 = 0
+        simi2 = 0
+    
+            
+        if first_step == True:
+            for word in text_l.split():
+                if simi2 == 1:
                     break
-
-                  
-                elif abs(len(word) - len(word2)) < 2 or word.startswith(word2):
-                    if similaring(word, [word2], 90, 2):
+                for word2 in botik_re2:
+                    if word == word2:
                         simi2 = 1
                         break
-                    else:
-                        continue
-                else:
-                    continue
     
-
-
-    if message.reply_to_message: 
-        if message.reply_to_message.from_user.id == botik_id and cor_tx <= 3:
-            botik_r = 0
-            users = message.from_user
-            
-            if simi2 != 1 and first_step == True:
-                for word in text_l.split():
-                    if simi1 == 1:
-                        break
-                    for word2 in botik_re1:
-                        if word == word2:
-                            simi1 = 1
+                    
+                    elif abs(len(word) - len(word2)) < 2 or word.startswith(word2):
+                        if similaring(word, [word2], 90, 2):
+                            simi2 = 1
                             break
-
-                        elif abs(len(word) - len(word2)) < 2 or word.startswith(word2):
-                            if similaring(word, [word2], 90, 2):
-                                simi1 = 1
-                                break
-                            else:
-                                continue
                         else:
                             continue
-            
-            
-            if simi2 == 1 or simi1 == 1:
-                botik_r = 1
-            
-            matre = 0
-            if matex(text_l):
-                matre = 1
+                    else:
+                        continue
+        
     
-            if matre != 0 or botik_r != 0:
-
+    
+        if message.reply_to_message: 
+            if message.reply_to_message.from_user.id == botik_id and cor_tx <= 3:
+                botik_r = 0
+                users = message.from_user
+                
+                if simi2 != 1 and first_step == True:
+                    for word in text_l.split():
+                        if simi1 == 1:
+                            break
+                        for word2 in botik_re1:
+                            if word == word2:
+                                simi1 = 1
+                                break
+    
+                            elif abs(len(word) - len(word2)) < 2 or word.startswith(word2):
+                                if similaring(word, [word2], 90, 2):
+                                    simi1 = 1
+                                    break
+                                else:
+                                    continue
+                            else:
+                                continue
+                
+                
+                if simi2 == 1 or simi1 == 1:
+                    botik_r = 1
+                
+                matre = 0
+                if matex(text_l):
+                    matre = 1
+        
+                if matre != 0 or botik_r != 0:
+    
+                    if user_in_base == False:
+                        create_user_main(users.id, users.username, users.first_name)
+                        if message.chat.type != 'private':
+                            if check_member(message.chat.id, message.from_user.id) == False:
+                                ment = await bot.get_chat_member(message.chat.id, message.from_user.id)
+                                if ment.status != "left" and ment.status != "kicked":
+                                    create_member(message.chat.id, message.from_user.id, ment.status)
+                    
+                    if matre == 1 and botik_r == 0 and botik_k != 1:
+                        await bot.send_chat_action(message.chat.id, types.ChatActions.TYPING)
+                        await message.reply(choice(botik_angry))
+                        matre = 0
+            
+                        return 1
+                    if matre == 1 and botik_r == 1 and botik_k != 1:
+                        await bot.send_chat_action(message.chat.id, types.ChatActions.TYPING)
+                        await message.reply(choice(botik_angry))
+                        matre = 0
+                        botik_r = 0
+            
+                        return 1
+                    if matre == 0 and botik_r == 1 and botik_k != 1:
+                        await bot.send_chat_action(message.chat.id, types.ChatActions.TYPING)
+                        chances = randint(0, 100)
+                        if chances < 80:
+                            await message.reply(choice(botik))
+                            botik_k = 1
+                            botik_r = 0
+                            return 1
+                        
+                        if chances >= 80:
+                            
+                            text = await get_citat()
+                            await message.reply(text, disable_web_page_preview=True)
+                            botik_r = 0
+                            return 1
+        
+        else:
+        
+            if simi2 == 1:
+    
+                if message.chat.id not in legal_chats and message.chat.type != 'private':
+                    await botik_leave_chat(message)
+                    return 1
+                
+                if matex(text_l) and cor_tx <= 3:
+                    await bot.send_chat_action(message.chat.id, types.ChatActions.TYPING)
+                    await message.reply(choice(botik_angry))
+                    return 1
+                
+                users = message.from_user
+                await bot.send_chat_action(message.chat.id, types.ChatActions.TYPING)
                 if user_in_base == False:
                     create_user_main(users.id, users.username, users.first_name)
                     if message.chat.type != 'private':
@@ -413,70 +464,18 @@ async def botik_text_other(message: types.Message, funny, cor_tx, user_in_base, 
                             if ment.status != "left" and ment.status != "kicked":
                                 create_member(message.chat.id, message.from_user.id, ment.status)
                 
-                if matre == 1 and botik_r == 0 and botik_k != 1:
-                    await bot.send_chat_action(message.chat.id, types.ChatActions.TYPING)
-                    await message.reply(choice(botik_angry))
-                    matre = 0
-        
-                    return 1
-                if matre == 1 and botik_r == 1 and botik_k != 1:
-                    await bot.send_chat_action(message.chat.id, types.ChatActions.TYPING)
-                    await message.reply(choice(botik_angry))
-                    matre = 0
-                    botik_r = 0
-        
-                    return 1
-                if matre == 0 and botik_r == 1 and botik_k != 1:
-                    await bot.send_chat_action(message.chat.id, types.ChatActions.TYPING)
+                
+                if len(text_l) <= 10:
                     chances = randint(0, 100)
                     if chances < 80:
                         await message.reply(choice(botik))
-                        botik_k = 1
-                        botik_r = 0
                         return 1
                     
                     if chances >= 80:
                         
                         text = await get_citat()
                         await message.reply(text, disable_web_page_preview=True)
-                        botik_r = 0
                         return 1
-    
-    else:
-       
-        if simi2 == 1:
-
-            if message.chat.id not in legal_chats and message.chat.type != 'private':
-                await botik_leave_chat(message)
-                return 1
-            
-            if matex(text_l) and cor_tx <= 3:
-                await bot.send_chat_action(message.chat.id, types.ChatActions.TYPING)
-                await message.reply(choice(botik_angry))
-                return 1
-            
-            users = message.from_user
-            await bot.send_chat_action(message.chat.id, types.ChatActions.TYPING)
-            if user_in_base == False:
-                create_user_main(users.id, users.username, users.first_name)
-                if message.chat.type != 'private':
-                    if check_member(message.chat.id, message.from_user.id) == False:
-                        ment = await bot.get_chat_member(message.chat.id, message.from_user.id)
-                        if ment.status != "left" and ment.status != "kicked":
-                            create_member(message.chat.id, message.from_user.id, ment.status)
-            
-            
-            if len(text_l) <= 10:
-                chances = randint(0, 100)
-                if chances < 80:
-                    await message.reply(choice(botik))
-                    return 1
-                
-                if chances >= 80:
-                    
-                    text = await get_citat()
-                    await message.reply(text, disable_web_page_preview=True)
-                    return 1
             
 
 
