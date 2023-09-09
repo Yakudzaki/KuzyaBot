@@ -29,6 +29,7 @@ connect.commit()
 
 def create_monik(moniker_id, monik): #Регистрация прозвища за юзером
     cursor.execute("INSERT INTO moniks VALUES(?,?,?,?,?,?,?,?,?)", (moniker_id, monik, 0, "", "", "", "", "", "",))
+    check_monik(moniker_id, "")
     connect.commit()
 
 def add_m_rep(moniker_id, monik): #Добавить один репутации к прозвищу.
