@@ -715,9 +715,14 @@ async def take_reputation(message: types.Message):
 async def string_rep(rep, gender):
     
     if rep < 0:
+        if rep <= -1000:
+            return "ㅤ✳︎ㅤ"
         
-        if rep <= -100:
-            return f"{str(gender).replace('1', 'Люцифер').replace('2', 'Лилит').replace('0', 'Дьябло').replace('3', 'Азатот').replace('4', 'Бегемот')}"
+        if rep <= -500 and rep > -1000:
+            return "Великий Древний"
+        
+        if rep <= -100 and rep > -500:
+            return f"{str(gender).replace('1', 'Люцифер').replace('2', 'Лилит').replace('0', 'Дьябло').replace('3', 'Дьябло').replace('4', 'Дьябло')}"
         
         if rep <= -50 and rep > -100:
             return "Само Зло"
@@ -748,9 +753,14 @@ async def string_rep(rep, gender):
         if rep >= 50 and rep < 100:
             return "Святость"
         
-        if rep >= 100:
+        if rep >= 100 and rep < 500:
             return f"{str(gender).replace('1', 'Бог').replace('2', 'Богиня').replace('0', 'Божество').replace('3', 'Божество').replace('4', 'Божество')}"
             
+        if rep >= 500 and rep < 1000:
+            return "Демиург"
+        
+        if rep >= 1000:
+            return "ㅤ✳︎ㅤ"
             
 async def add_reputation_f(message: types.Message, gooderr, goodur):
     if gooderr[5] < -10:
