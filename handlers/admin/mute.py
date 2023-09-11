@@ -62,10 +62,12 @@ async def mute(message: types.Message):
             muteint = mute.split("ч")[0]
             muteint = muteint.split("д")[0]
             muteint = muteint.split("м")[0]
+            muteint = muteint.split("c")[0]
             
             muteint = muteint.split("h")[0]
             muteint = muteint.split("d")[0]
             muteint = muteint.split("m")[0]
+            muteint = muteint.split("s")[0]
             
             mutetype = mute.replace(f"{muteint}", "")
             muteint = int(muteint)
@@ -81,7 +83,7 @@ async def mute(message: types.Message):
         nick2 = html.escape(muted[2])
         comment = html.escape(comment)
         
-        if muteint == 0:
+        if muteint <= 0:
             await bot.restrict_chat_member(message.chat.id, muted[0], ChatPermissions(False))
             mut_type = 'Навсегда'
             
@@ -100,7 +102,14 @@ async def mute(message: types.Message):
         elif mutetype.lower().startswith('д') or mutetype.lower().startswith('d'):
             await bot.restrict_chat_member(message.chat.id, muted[0], ChatPermissions(False), until_date=datetime.timedelta(days=muteint))
             mut_type = f'{muteint} д.'
-        
+       
+        elif mutetype.lower().startswith('с') or mutetype.lower().startswith('s'):
+            if muteint >= 60:
+                await bot.restrict_chat_member(message.chat.id, muted[0], ChatPermissions(False), until_date=int(time.time() + muteint))
+                mut_type = f'{muteint} cек.'
+            else:
+                await message.reply('Высокая вероятность вечного мута!')
+                return
         else:
             await bot.restrict_chat_member(message.chat.id, muted[0], ChatPermissions(False))
             comment = " ".join(text_l.split()[1:])
