@@ -249,16 +249,19 @@ async def your_profile(message: types.Message):
             return
     
     if message.reply_to_message:
-        await bot.send_chat_action(message.chat.id, types.ChatActions.TYPING)
+        
         usern = message.reply_to_message.from_user
         
         if usern.id == botik_id:
+            await bot.send_chat_action(message.chat.id, types.ChatActions.TYPING)
             await message.reply("Я Кузя 🙃")
             return
         if usern.id in no_rp_list:
             return
         
         if check_user(usern.id):
+            if message.reply_to_message.from_user.first_name == "":
+                return
             create_user_main(usern.id, usern.username, usern.first_name)
             if usern.is_bot == True:
                 set_specie(usern.id, "Бот")
@@ -274,7 +277,7 @@ async def your_profile(message: types.Message):
             set_username(usern.id, username)
             user = get_user(usern.id)
         
-        
+        await bot.send_chat_action(message.chat.id, types.ChatActions.TYPING)
         if message.chat.type != 'private':
             try:
                 if check_member(message.chat.id, message.reply_to_message.from_user.id) == False:
@@ -284,8 +287,8 @@ async def your_profile(message: types.Message):
                         
             except:
                 pass
-        
-        if message.chat.type != 'private':
+                
+
             warner = get_warner(message.chat.id, message.reply_to_message.from_user.id)
             if warner == None:
                 warner = [message.chat.id, message.reply_to_message.from_user.id, 0, 0, 0]
@@ -327,6 +330,10 @@ async def your_profile(message: types.Message):
         msg = await bot.send_message(message.chat.id, response_text, parse_mode='html', reply_to_message_id=id, disable_web_page_preview=True)
         await as_del_msg(message.chat.id, msg.message_id, time_del)
         
+        if message.reply_to_message.from_user.first_name == "":
+            delete_user(message.reply_to_message.from_user.id)
+            await bot.send_message(message.chat.id, f'<a href="tg://user?id={user[0]}">{html.escape(user[2])}</a> попадает в некролог!😭', parse_mode='html')
+
         try:
             usern2 = message.reply_to_message.forward_from
             if usern2.id == botik_id:
