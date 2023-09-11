@@ -338,7 +338,7 @@ async def marry(message: types.Message):
         us = message.from_user
         user = create_user(us.id, us.username, us.first_name)
         mar = get_marry(user[0])
-        if len(mar) >= ( user[5]/10 ) + 1:
+        if len(mar) >= abs(( user[5]/10 ) + 1):
             await message.reply(f"❌ У вас превышен лимит на такие отношения.")
             return
         
@@ -466,7 +466,7 @@ async def marry(message: types.Message):
         user = create_user(us.id, us.username, us.first_name)
         
         lov = get_love(user[0])
-        if len(lov) >= ( user[5]/5 ) + 2:
+        if len(lov) >= abs(( user[5]/5 ) + 2):
             await message.reply(f"❌ У вас превышен лимит на такие отношения.")
             return
         
@@ -670,7 +670,7 @@ async def marry(message: types.Message):
         us = message.from_user
         user = create_user(us.id, us.username, us.first_name)
         bra = get_sibl(user[0])
-        if len(bra) >= ( user[5]/5 ) + 2:
+        if len(bra) >= abs(( user[5]/5 ) + 2):
             await message.reply(f"❌ У вас превышен лимит на такие отношения.")
             return
         
