@@ -301,7 +301,12 @@ async def check_all_members(message: types.Message):
     
     users = get_all_users()
     for chato in legal_chats:
-        chat_memberses = await get_chat_members(chato)
+        
+        try:
+            chat_memberses = await get_chat_members(chato)
+        except:
+            continue
+        
         chat_members = chat_memberses[0]
         for user in users:
             print(f'{chato}→{user}')
