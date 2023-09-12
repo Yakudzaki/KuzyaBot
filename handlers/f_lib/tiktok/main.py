@@ -2,7 +2,6 @@ import os, re, configparser, requests
 import urllib
 from aiogram import Bot, types
 from loader import dp, bot
-import os, logging, aioschedule, asyncio
 from app import server_dir
 
 from aiogram.dispatcher import Dispatcher, FSMContext
@@ -23,7 +22,7 @@ def download_video(video_url, name):
     else:
         pass
  
-@dp.message_handler(content_types=['text'])
+
 async def tiktok(message: types.Message):
     if not os.path.exists('videos'):
         os.makedirs('videos')

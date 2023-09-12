@@ -6,7 +6,7 @@ from settings import *
 from utils.db import *
 
 from ..f_lib.mats import *
-from ..f_lib.tiktok.main import *
+from ..f_lib.tiktok.main import tiktok
 from ..f_lib.shield import *
 from ..admin.owner import *
 from .games import botik_text_other
