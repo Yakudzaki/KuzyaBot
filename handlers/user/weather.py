@@ -74,5 +74,9 @@ async def send_weather(message):
         msg = await bot.send_message(message.chat.id, text, parse_mode='HTML', disable_web_page_preview=True)
     except:
         msg = await message.reply("☹ ️Не удалось найти такой город.\nПопробуйте снова.")
+        await as_del_msg(message.chat.id, msg.message_id, 30)
+        await as_del_msg(message.chat.id, message.message_id, 30)
+        return
+    
     await as_del_msg(message.chat.id, msg.message_id, time_del)
     await as_del_msg(message.chat.id, message.message_id, time_del)
