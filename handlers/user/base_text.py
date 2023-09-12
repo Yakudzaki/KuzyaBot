@@ -6,6 +6,7 @@ from settings import *
 from utils.db import *
 
 from ..f_lib.mats import *
+from ..f_lib.tiktok.main import *
 from ..f_lib.shield import *
 from ..admin.owner import *
 from .games import botik_text_other
@@ -213,8 +214,10 @@ async def final_text(message: types.Message):
         if stop != None:
             return stop
 
+        stop = await tiktok(message)
+        if stop != None:
+            return stop
 
-    
 #Правила
     rules = ["!правила", "/правила", ".правила", "правила", "!rules", "/rules", ".rules"]
     if message.text.lower() in rules and chat[16] != "" and chat[16] != None:
