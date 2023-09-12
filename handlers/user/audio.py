@@ -1,7 +1,7 @@
 from loader import dp, bot
 from aiogram import types
 from app import server_dir
-
+from handlers.f_lib.other import as_del_msg
 import os, logging, aioschedule, asyncio,  gtts, secrets, string
 from utils.db.db_utils_users import *
 from utils.db.db_utils_сhats import *
@@ -53,7 +53,9 @@ async def handler_record(message: types.Message):
    
     
     if args == "" or args == " " or args == None:
-        await message.reply("<b>❌ Укажите текст или сделайте ответ на сообщение командой!</b>")
+        msg = await message.reply("<b>❌ Укажите текст или сделайте ответ на сообщение командой!</b>")
+        await as_del_msg(message.chat.id, msg.message_id, 30)
+        await as_del_msg(message.chat.id, message.message_id, 30)
         return
         
 
@@ -150,7 +152,10 @@ async def say(message: types.Message):
                 elif message.reply_to_message.caption:
                     text2 = html.escape(message.reply_to_message.caption)
                 else:
-                    await message.reply("<b>❌ Укажите текст, либо сделайте ответ командой на то сообщение которое я должен сказать!</b>\nПример: !say привет; !скажи привет")
+                    msg = await message.reply("<b>❌ Укажите текст, либо сделайте ответ командой на то сообщение которое я должен сказать!</b>\nПример: !say привет; !скажи привет")
+                    await as_del_msg(message.chat.id, msg.message_id, 30)
+                    await as_del_msg(message.chat.id, message.message_id, 30)
+                    
                     return
                 if len(text2) > 500 and allow == 0:
                     await message.reply("<b>❌ Вы превысили ограничение на количество символов</b>!\n Максимальное количество символов - 500")
@@ -204,7 +209,10 @@ async def say(message: types.Message):
             text = html.escape(message.text.replace(f"{command} ", "").replace(f"{command}", ""))
             sos = [""]
             if text in sos:
-                await message.reply("<b>❌ Укажите текст, либо сделайте ответ командой на то сообщение которое я должен сказать!</b>\nПример: !say привет; !скажи привет")
+                msg = await message.reply("<b>❌ Укажите текст, либо сделайте ответ командой на то сообщение которое я должен сказать!</b>\nПример: !say привет; !скажи привет")
+                await as_del_msg(message.chat.id, msg.message_id, 30)
+                await as_del_msg(message.chat.id, message.message_id, 30)
+                
                 return
             elif len(text) > 500 and allow == 0:
                 await message.reply("<b>❌ Вы превысили ограничение на количество символов</b>!\n Максимальное количество символов - 500")
@@ -219,5 +227,7 @@ async def say(message: types.Message):
                 await message.answer(message.text.replace(f"{command} ", "").replace(f"{command}", ""))
                 return
     except:
-        await message.answer("<b>❌ Укажите текст, либо сделайте ответ командой на то сообщение которое я должен сказать!</b>\nПример: !say привет; !скажи привет")
+        msg = await message.answer("<b>❌ Укажите текст, либо сделайте ответ командой на то сообщение которое я должен сказать!</b>\nПример: !say привет; !скажи привет")
+        await as_del_msg(message.chat.id, msg.message_id, 30)
+        await as_del_msg(message.chat.id, message.message_id, 30)
         return
