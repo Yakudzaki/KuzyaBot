@@ -31,7 +31,9 @@ async def wiki_handler(message: types.Message):
     command = message.text.split()[0]
     request = message.text.replace(f"{command} ", "")
     if request == command:
-        await message.reply("<b>❌ Укажите запрос!</b>")
+        msg = await message.reply("<b>❌ Укажите запрос!</b>")
+        await as_del_msg(message.chat.id, msg.message_id, 30)
+        await as_del_msg(message.chat.id, message.message_id, 30)
         return
     try:
         result = summary(request)
