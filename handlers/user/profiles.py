@@ -280,18 +280,18 @@ async def your_profile(message: types.Message):
         await bot.send_chat_action(message.chat.id, types.ChatActions.TYPING)
         if message.chat.type != 'private':
             try:
-                if check_member(message.chat.id, message.reply_to_message.from_user.id) == False:
-                    ment = await bot.get_chat_member(message.chat.id, message.reply_to_message.from_user.id)
+                if check_member(message.chat.id, usern.id) == False:
+                    ment = await bot.get_chat_member(message.chat.id, usern.id)
                     if ment.status != "left" and ment.status != "kicked":
-                        create_member(message.chat.id, message.reply_to_message.from_user.id, ment.status)
+                        create_member(message.chat.id, usern.id, ment.status)
                         
             except:
                 pass
                 
 
-            warner = get_warner(message.chat.id, message.reply_to_message.from_user.id)
+            warner = get_warner(message.chat.id, usern.id)
             if warner == None:
-                warner = [message.chat.id, message.reply_to_message.from_user.id, 0, 0, 0]
+                warner = [message.chat.id, usern.id, 0, 0, 0]
             if warner[4] != 0:
                 return
         
@@ -311,8 +311,12 @@ async def your_profile(message: types.Message):
         else:
             bio = f"<em>{html.escape(bio)}</em>"
         
+        name = usern.first_name
+        if usern.last_name != None and usern.last_name != "":
+            name = usern.first_name + " " + usern.last_name
+        
         rep = await string_rep(user[5], user[4])
-        response_text = f"Это пользователь <a href='tg://user?id={user[0]}'>{html.escape(user[2])}</a>\
+        response_text = f"Это пользователь <a href='tg://user?id={user[0]}'>{html.escape(name)}</a>\
         \n\n<b>🆔 ID</b>: <code>{user[0]}</code>\
         \n<b>👤 Username</b>: @{user[1]}\
         \n<b>🏷️ Ник</b>: {html.escape(user[2])}\
@@ -383,8 +387,12 @@ async def your_profile(message: types.Message):
             else:
                 bio = f"<em>{html.escape(bio)}</em>"
             
+            name2 = usern2.first_name
+            if usern2.last_name != None and usern2.last_name != "":
+                name2 = usern2.first_name + " " + usern2.last_name
+            
             rep = await string_rep(user2[5], user2[4])
-            response_text = f"Цитируется пользователь <a href='tg://user?id={user2[0]}'>{html.escape(user2[2])}</a>\
+            response_text = f"Цитируется пользователь <a href='tg://user?id={user2[0]}'>{html.escape(name2)}</a>\
             \n\n<b>🆔 ID</b>: <code>{user2[0]}</code>\
             \n<b>👤 Username</b>: @{user2[1]}\
             \n<b>🏷️ Ник</b>: {html.escape(user2[2])}\
@@ -408,16 +416,17 @@ async def your_profile(message: types.Message):
 #Профиль свой
 @dp.message_handler(lambda message: message.text.lower() in whoiam)
 async def my_profile(message: types.Message):
+    users = message.from_user
+    
     if message.chat.type != 'private':
-        warner = get_warner(message.chat.id, message.from_user.id)
+        warner = get_warner(message.chat.id, users.id)
         if warner == None:
-            warner = [message.chat.id, message.from_user.id, 0, 0, 0]
+            warner = [message.chat.id, users.id, 0, 0, 0]
         if warner[4] != 0:
             return
     
     await bot.send_chat_action(message.chat.id, types.ChatActions.TYPING)
-    users = message.from_user
-   
+
     if check_user(users.id):
         user = create_user(users.id, users.username, users.first_name)
 
@@ -432,10 +441,10 @@ async def my_profile(message: types.Message):
         user = get_user(users.id)
     
     if message.chat.type != 'private':
-        if check_member(message.chat.id, message.from_user.id) == False:
-            ment = await bot.get_chat_member(message.chat.id, message.from_user.id)
+        if check_member(message.chat.id, users.id) == False:
+            ment = await bot.get_chat_member(message.chat.id, users.id)
             if ment.status != "left" and ment.status != "kicked":
-                create_member(message.chat.id, message.from_user.id, ment.status)
+                create_member(message.chat.id, users.id, ment.status)
     
 
     
@@ -454,9 +463,13 @@ async def my_profile(message: types.Message):
         bio = bio.replace("html: ", "")
     else:
         bio = f"<em>{html.escape(bio)}</em>"
+        
+    name = users.first_name
+    if users.last_name != None and users.last_name != "":
+        name = users.first_name + " " + users.last_name
     
     rep = await string_rep(user[5], user[4])
-    response_text = f"Это пользователь <a href='tg://user?id={user[0]}'>{html.escape(user[2])}</a>\
+    response_text = f"Это пользователь <a href='tg://user?id={user[0]}'>{html.escape(name)}</a>\
     \n\n<b>🆔 ID</b>: <code>{user[0]}</code>\
     \n<b>👤 Username</b>: @{user[1]}\
     \n<b>🏷️ Ник</b>: {html.escape(user[2])}\
