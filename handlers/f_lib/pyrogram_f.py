@@ -78,8 +78,12 @@ async def pyro_get_chat_member(chat_id, username):
 async def pyro_tiktok(message):
     if message.text.startswith('https://vm.tiktok.com') or message.text.startswith('https://www.tiktok.com'):
         app = Client("Кузя | Бот", api_id=api_id, api_hash=api_hash, bot_token=bot_token, in_memory=True)
+        stop = None
         await app.start()
-        stop = await tiktok_dl(app, message)
+        try:
+            stop = await tiktok_dl(app, message)
+        except:
+            pass
         await app.stop()
         return stop
 
