@@ -88,13 +88,12 @@ async def tiktok_dl(app, message):
 
     
     
-    a = app.send_message(chat_id=message.chat.id,
-                         text='__Downloading File to the Server__',
-                         parse_mode='md')
+    a = await app.send_message(chat_id=message.chat.id,
+                         text='__Downloading File to the Server__')
     link = re.findall(r'\bhttps?://.*[(tiktok|douyin)]\S+', message.text)[0]
     link = link.split("?")[0]
 
-
+    print(link)
 
     
     params = {
@@ -132,7 +131,7 @@ async def tiktok_dl(app, message):
                     percent = 100
                 if show == 1:
                     try:
-                        a.edit(f'__**URL :**__ __{message.text}__\n'
+                        await a.edit(f'__**URL :**__ __{message.text}__\n'
                                f'__**Total Size :**__ __{total_size} MB__\n'
                                f'__**Downloaded :**__ __{percent}%__\n',
                                disable_web_preview=False)
@@ -141,17 +140,16 @@ async def tiktok_dl(app, message):
                     if percent == 100:
                         show = 0
 
-        a.edit(f'__Downloaded to the server!\n'
+        await a.edit(f'__Downloaded to the server!\n'
                f'Uploading to Telegram Now ⏳__')
         start = time.time()
         title = filename
-        app.send_document(chat_id=message.chat.id,
+        await app.send_document(chat_id=message.chat.id,
                           document=f"./{directory}/{filename}",
                           caption=f"**File :** __{filename}__\n"
                           f"**Size :** __{total_size} MB__\n\n",
-                          file_name=f"{directory}",
-                          parse_mode='md')
-        a.delete()
+                          file_name=f"{directory}")
+        await a.delete()
         try:
             shutil.rmtree(directory)
         except:
