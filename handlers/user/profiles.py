@@ -792,8 +792,12 @@ async def add_reputation_f(message: types.Message, gooderr, goodur):
         if gooderr[9] == 3 or goodur[9] == 3:
             return
     
-    elif goodur[9] == 3:
+    if goodur[9] == 3:
         return
+    
+    elif len(gooderr) >= 9:
+        if gooderr[9] == 3:
+            return
     
     if message.reply_to_message.text:
         if message.reply_to_message.text.lower() in good:
@@ -903,13 +907,13 @@ async def take_reputation_f(message: types.Message, baderr, badur):
     else:
         bad = bad2
     
-    if len(baderr) >= 9:
-        if baderr[9] == 3 or badur[9] == 3:
+    if badur[9] == 3:
+        return
+    
+    elif len(baderr) >= 9:
+        if baderr[9] == 3:
             return
     
-    elif badur[9] == 3:
-        return
-        
     if message.reply_to_message.text:
         if message.reply_to_message.text.lower() in bad:
             return
