@@ -105,7 +105,7 @@ async def tiktok_dl(app, message):
     }
     headers = {
       'x-rapidapi-host': "tiktok-info.p.rapidapi.com",
-      'x-rapidapi-key': "f9d65af755msh3c8cac23b52a5eep108a33jsnbf7de971bb72"
+      'x-rapidapi-key': "26e1a0c909msh8e056c16d27e5d8p1adc83jsnf65f5368260f"
     }
     
     ### Get your Free TikTok API from https://rapidapi.com/TerminalWarlord/api/tiktok-info/
@@ -120,6 +120,14 @@ async def tiktok_dl(app, message):
             return
     except:
         pass
+    
+    try:
+        if rere['message'] == "You are not subscribed to this API.":
+            await a.edit(f'У Кузи пропала подписка на API.')
+            return
+    except:
+        pass
+    
     r = rere['videoLinks']['download']
     directory = str(round(time.time()))
     filename = str(int(time.time()))+'.mp4'
