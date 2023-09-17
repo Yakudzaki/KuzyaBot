@@ -112,7 +112,15 @@ async def tiktok_dl(app, message):
     #Using the default one can stop working any moment 
     
     api = f"https://tiktok-info.p.rapidapi.com/dl/"
-    r = requests.get(api, params=params, headers=headers).json()['videoLinks']['download']
+    rere = requests.get(api, params=params, headers=headers).json()
+    print(f"{rere}")
+    try:
+        if rere['status'] == "failed":
+            await a.edit(f'Не вышло!')
+            return
+    except:
+        pass
+    r = rere['videoLinks']['download']
     directory = str(round(time.time()))
     filename = str(int(time.time()))+'.mp4'
     size = int(requests.head(r).headers['Content-length'])
