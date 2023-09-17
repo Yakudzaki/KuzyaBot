@@ -112,7 +112,11 @@ async def tiktok_dl(app, message):
     #Using the default one can stop working any moment 
     
     api = f"https://tiktok-info.p.rapidapi.com/dl/"
-    rere = requests.get(api, params=params, headers=headers).json()
+    ret = requests.get(api, params=params, headers=headers)
+    if ret.text == "Service No Longer Available":
+        await a.edit(f"Service No Longer Available")
+        return
+    rere = ret.json()
     print(f"{rere}")
     try:
         if rere['status'] == "failed":
