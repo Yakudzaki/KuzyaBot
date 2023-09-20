@@ -56,7 +56,7 @@ async def ban(message: types.Message):
         await bot.kick_chat_member(message.chat.id, baned[0], types.ChatPermissions(False))
         nick = html.escape(message.from_user.first_name)
         nick2 = html.escape(baned[2])
-        if comment == " ":
+        if comment == " " or comment == "":
             await message.reply(f'👤| Администратор: <a href="tg://user?id={message.from_user.id}">{nick}</a>\n🛑| Забанил: <a href="tg://user?id={baned[0]}">{nick2}</a>\n⏰| Срок: навсегда')
         else:
             await message.reply(f'👤| Администратор: <a href="tg://user?id={message.from_user.id}">{nick}</a>\n🛑| Забанил: <a href="tg://user?id={baned[0]}">{nick2}</a>\n⏰| Срок: навсегда\n📃| Причина: {comment}')
