@@ -2,8 +2,8 @@ from loader import dp, bot
 from aiogram import types
 import openai  #pip install openai
 from settings import kuzya_news_link
-
-keys = openai.api_key = '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'
+import requests
+keys = openai.api_key = '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'
 
 
 @dp.message_handler(commands=["chat", "чат"], commands_prefix="!/.")
@@ -38,7 +38,7 @@ async def handle_chat(message: types.Message):
     elif result == 'bad':
         await message.reply(f"<b>❌ Не удалось сгенерировать картинку</b>!")
     else:
-        await bot.send_photo(message.chat.id, result, f"Текст генерации: {text_photo}", reply_to_message_id=message.id)
+        await bot.send_photo(message.chat.id, result, f"Текст генерации: {text_photo}", reply_to_message_id=message.message_id)
 
 
 def process_img_step(messages):
@@ -57,10 +57,12 @@ def process_img_step(messages):
             return image_url
 
         except Exception as er:
+            print(er)
             if str(er) == "You exceeded your current quota, please check your plan and billing details.":
                 return "bad"
             elif "Incorrect API key provided" in str(er):
                 return "bad"
+                
             else:
                 return 'bad'
                 

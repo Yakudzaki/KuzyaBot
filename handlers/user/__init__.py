@@ -2,7 +2,7 @@ from .admins import dp
 from .audio import dp
 from .callback import dp
 from .clans import dp
-# from .openai import dp
+from .openai import dp
 from .family import dp
 from .games import dp
 from .help import dp
