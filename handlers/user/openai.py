@@ -3,7 +3,7 @@ from aiogram import types
 import openai  #pip install openai
 from settings import kuzya_news_link
 import requests
-keys = openai.api_key = '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'
+keys = openai.api_key = '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'
 
 
 @dp.message_handler(commands=["chat", "чат"], commands_prefix="!/.")
@@ -83,6 +83,7 @@ def process_chat_step(messages):
             return chat_response["choices"][0]["text"]
 
         except Exception as er:
+            print(er)
             if str(er) == "You exceeded your current quota, please check your plan and billing details.":
                 return "error"
             elif "Incorrect API key provided" in str(er):
@@ -103,6 +104,7 @@ def process_edit_step(messages):
             return chat_response['data'][0]['url']
 
         except Exception as er:
+            print(er)
             if str(er) == "You exceeded your current quota, please check your plan and billing details.":
                 return "error"
             elif "Incorrect API key provided" in str(er):
