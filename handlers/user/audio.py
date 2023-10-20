@@ -255,8 +255,9 @@ async def handler_quotly(message: types.Message):
     else:
         username = message.reply_to_message.from_user.first_name
     
-    file_name = get_quotly(message.reply_to_message.from_user.id, TOKEN, ava_url, text, username)
-
+    name = get_quotly(message.reply_to_message.from_user.id, TOKEN, ava_url, text, username)
+    await bot.send_sticker(message.chat.id, open(server_dir + f"/quote/{name}.webp", "rb"), reply_to_message_id=message.message_id)
+    os.remove(server_dir + f"/quote/{name}.webp")
 ##############################
 def get_avatar_url(user_id, token):
     url = f"https://api.telegram.org/bot{token}/getUserProfilePhotos"
