@@ -236,7 +236,7 @@ async def say(message: types.Message):
         await as_del_msg(message.chat.id, message.message_id, 30)
         return
         
-@dp.message_handler(commands=["qqq"], commands_prefix="/!.")
+@dp.message_handler(commands=["q"], commands_prefix="/!.")
 async def handler_quotly(message: types.Message):
     if not message.reply_to_message:
         return
