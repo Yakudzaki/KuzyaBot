@@ -244,12 +244,17 @@ async def handler_quotly(message: types.Message):
     ava_url = get_avatar_url(message.reply_to_message.from_user.id, TOKEN)
     if ava_url == None:
         return
-    if message.reply_to_message.text:
-        text = message.reply_to_message.text
-    elif message.reply_to_message.caption:
-        text = message.reply_to_message.text
+    if len(message.text.split()) > 1:
+        text = message.text.replace(message.text.split()[0]+" ", "")
     else:
-        return
+        if message.reply_to_message.text:
+            text = message.reply_to_message.text
+        elif message.reply_to_message.caption:
+            text = message.reply_to_message.text
+        else:
+            return
+    
+    
     if message.reply_to_message.from_user.last_name:
         username = message.reply_to_message.from_user.first_name + message.reply_to_message.from_user.last_name
     else:
