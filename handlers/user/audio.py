@@ -9,6 +9,10 @@ from utils.db.db_utils_warning import *
 from settings import *
 import html
 import asyncio
+from data import config
+TOKEN = config.TOKEN
+import requests
+import base64
 
 @dp.message_handler(commands=["record", "рекорд"], commands_prefix="/!.")
 async def handler_record(message: types.Message):
@@ -231,3 +235,86 @@ async def say(message: types.Message):
         await as_del_msg(message.chat.id, msg.message_id, 30)
         await as_del_msg(message.chat.id, message.message_id, 30)
         return
+        
+@dp.message_handler(commands=["qqq"], commands_prefix="/!.")
+async def handler_quotly(message: types.Message):
+    if not message.reply_to_message:
+        return
+        
+    ava_url = get_avatar_url(message.reply_to_message.from_user.id, TOKEN)
+    if ava_url == None:
+        return
+    if message.reply_to_message.text:
+        text = message.reply_to_message.text
+    elif message.reply_to_message.caption:
+        text = message.reply_to_message.text
+    else:
+        return
+    if message.reply_to_message.from_user.last_name:
+        username = message.reply_to_message.from_user.first_name + message.reply_to_message.from_user.last_name
+    else:
+        username = message.reply_to_message.from_user.first_name
+    
+    file_name = get_quotly(message.reply_to_message.from_user.id, TOKEN, ava_url, text, username)
+
+##############################
+def get_avatar_url(user_id, token):
+    url = f"https://api.telegram.org/bot{token}/getUserProfilePhotos"
+    params = {
+        "user_id": user_id,
+        "limit": 1
+    }
+    response = requests.get(url, params=params)
+    data = response.json()
+    
+    if data["ok"]:
+        photos = data["result"]["photos"]
+        if photos:
+            file_id = photos[0][0]["file_id"]
+            file_url = f"https://api.telegram.org/bot{token}/getFile"
+            file_params = {
+                "file_id": file_id
+            }
+            file_response = requests.get(file_url, params=file_params)
+            file_data = file_response.json()
+            
+            if file_data["ok"]:
+                file_path = file_data["result"]["file_path"]
+                avatar_url = f"https://api.telegram.org/file/bot{token}/{file_path}"
+                return avatar_url
+    
+    return None
+    
+def get_quotly(user_id, token, ava_url, text, username):
+    avatar = ava_url
+    
+    json = {
+    "type": "quote",
+    "format": "webp",
+    "backgroundColor": "#282a39",
+    "width": 512,
+    "height": 768,
+    "scale": 2,
+    "messages": [
+        {
+        "entities": [],
+        "avatar": True,
+        "from": {
+            "id": 1,
+            "name": username,
+            "photo": {
+            "url": avatar
+            }
+        },
+        "text": text,
+        "replyMessage": {}
+        }
+    ]
+    }
+    alphabet = string.ascii_letters + string.digits
+    name = ''.join(secrets.choice(alphabet) for i in range(16))
+    
+    response = requests.post('https://bot.lyo.su/quote/generate', json=json).json()
+    buffer = base64.b64decode(response['result']['image'].encode('utf-8'))
+    open(server_dir + f'/quote/{name}.webp', 'wb').write(buffer)
+    return name
