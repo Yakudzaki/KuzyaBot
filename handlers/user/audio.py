@@ -301,7 +301,7 @@ def get_quotly(user_id, token, ava_url, text, username):
         "entities": [],
         "avatar": True,
         "from": {
-            "id": 1,
+            "id": user_id,
             "name": username,
             "photo": {
             "url": avatar
