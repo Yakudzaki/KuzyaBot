@@ -5,23 +5,26 @@ from settings import kuzya_news_link
 import requests
 keys = openai.api_key = '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'
 
-import g4f
 
-@dp.message_handler(commands=['кузя', 'чат', 'chat'], commands_prefix="!/.")
-async def chatgpt(message: types.Message):
+@dp.message_handler(commands=["chat", "чат"], commands_prefix="!/.")
+async def handle_chat(message: types.Message):
+    hello = f"Тебе пишет {message.from_user.first_name}:"
     command = message.text.split()[0]
-    promt = message.text.replace(f'{command} ', '')
-        
-    if promt == command:
-        msg = await message.reply("<b>❌ Укажите запрос!</b>")
+    text = hello + message.text.replace(f'{command} ',  '')
+    result = process_chat_step(text)
+
+    if result == '':
         return
-    response = g4f.ChatCompletion.create(
-    model = "gpt-3.5-turbo",
-    messages = [{"role":  "user", "content": promt}],
-    stream = True
-    )
-    
-    await message.reply(f"{response}\n\n<a href='https://t.me/KuzyaBotNews'>Канал с новостями 🗞</a>", disable_web_page_preview=True)
+    if result == 'no key':
+        await message.reply('<b>⛱️ ChatGpt в отпуске!</b> (тех. работы)', disable_web_page_preview=True, parse_mode="html")
+        return
+    elif result == 'limit':
+        await message.reply(f"<b>Вы не можете отправлять сообщения больше {str(limited)} символов</b>!")
+    elif result == 'error':
+        await message.reply(f"<b>Ошибка! ChatGPT прислал ошибку</b>.")
+    else:
+        await message.reply(f"<b>ChatGPT</b>: {result}\n\n<a href='{kuzya_news_link}'>Канал с новостями</a>", parse_mode="html", disable_web_page_preview=True)
+
 
 @dp.message_handler(commands=['img'], commands_prefix="!/.")
 async def handle_chat(message: types.Message):
