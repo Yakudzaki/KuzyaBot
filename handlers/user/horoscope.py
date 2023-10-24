@@ -4,7 +4,7 @@ from aiogram import types
 from loader import dp, bot
 
 
-@dp.message_handler(commands=['гороскоп'], commands_prefix="/!.)
+@dp.message_handler(commands=['гороскоп'], commands_prefix="/!.")
 async def command_horoscope(message: types.Message):
     keyboard = types.InlineKeyboardMarkup()
     keyboard.row(
