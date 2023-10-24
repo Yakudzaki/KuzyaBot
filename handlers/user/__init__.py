@@ -15,6 +15,8 @@ from .RP import dp
 from .start import dp
 from .weather import dp
 from .wiki import dp
+from .anime import dp
+from .horoscope import dp
 from .easters import dp
 
 __all__ = ['dp']
