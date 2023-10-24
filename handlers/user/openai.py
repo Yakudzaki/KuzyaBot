@@ -4,7 +4,7 @@ import openai  #pip install openai
 from settings import kuzya_news_link
 import requests
 keys = openai.api_key = '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'
-
+import html
 import g4f
 
 @dp.message_handler(commands=['кузя', 'чат', 'chat'], commands_prefix="!/.")
@@ -20,8 +20,9 @@ async def chatgpt(message: types.Message):
     messages = [{"role":  "user", "content": promt}],
     stream = True
     )
-    
-    await message.reply(f"{response}\n\n<a href='https://t.me/KuzyaBotNews'>Канал с новостями 🗞</a>", disable_web_page_preview=True)
+    for message in response:
+        print(response, flush=True, end='')
+    # await message.reply(f"{html.escape(response)}\n\n<a href='https://t.me/KuzyaBotNews'>Канал с новостями 🗞</a>", disable_web_page_preview=True)
 
 @dp.message_handler(commands=['img'], commands_prefix="!/.")
 async def handle_chat(message: types.Message):
