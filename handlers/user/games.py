@@ -289,6 +289,15 @@ async def corob(message: types.Message):
 
         
         return
+
+
+@dp.message_handler(commands=["кнб"], commands_prefix="!/.")
+async def cnb(message: types.Message):
+    await bot.send_message(
+        message.chat.id, 
+        "Я готов играть!\nВыбери предмет, что бы сыграть со мной🎭", 
+        reply_markup= buttons
+    )
     
 
 #БЕЗ DP, ТАК КАК ИМПОРТИРУЕТСЯ В EASTERS, В ХЕНДЛЕР ТЕКСТА, ПОСЛЕ АНТИРЕКЛАМЫ.
