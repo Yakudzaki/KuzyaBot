@@ -17,6 +17,7 @@ from .weather import dp
 from .wiki import dp
 from .anime import dp
 from .horoscope import dp
+from .tiktok import dp
 from .easters import dp
 
 __all__ = ['dp']
