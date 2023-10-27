@@ -524,6 +524,18 @@ async def botik_text_other(message: types.Message, funny, cor_tx, user_in_base, 
         
         await message.reply(answer)
 
+#Беседа_Канал_Кузи
+    if message.text.lower() in ["ссылка", "дай ссылку", "канал", "ссылки", "беседа"]):
+        await bot.send_message(
+            message.chat.id, 
+            f'''
+💬 Официальная первая беседа бота:
+https://t.me/+dtjdlruC5x45NTk6
+👨‍💻 Официальный канал разработки:
+@KuzyaBotNews''', 
+            parse_mode='html'
+        )
+
 #ПОНГ_КОНГ_ДУНКАН
     if message.text.lower() == "пинг" and cor_tx <= 2:
         await bot.send_chat_action(message.chat.id, types.ChatActions.TYPING)
