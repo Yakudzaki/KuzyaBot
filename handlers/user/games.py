@@ -9,6 +9,7 @@ from utils.db.db_utils_members import *
 from utils.db.db_utils_users import *
 from utils.db.db_utils_warning import *
 from utils.db.db_utils_сhats import *
+from keyboard.inline.cnb_btn import cnb_btn
 
 from ..f_lib.other import (as_del_msg, botik_leave_chat, matex, morph_word,
                            similaring)
@@ -296,7 +297,7 @@ async def cnb(message: types.Message):
     await bot.send_message(
         message.chat.id, 
         "Я готов играть!\nВыбери предмет, что бы сыграть со мной🎭", 
-        reply_markup= buttons
+        reply_markup = cnb_btn
     )
     
 
