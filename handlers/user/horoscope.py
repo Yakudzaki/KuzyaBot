@@ -2,10 +2,32 @@ import requests
 import json
 from aiogram import types
 from loader import dp, bot
-
+from utils.db.db_utils_users import *
+from utils.db.db_utils_warning import *
+from utils.db.db_utils_сhats import *
 
 @dp.message_handler(commands=['гороскоп'], commands_prefix="/!.")
 async def command_horoscope(message: types.Message):
+    users = message.from_user
+    
+    if message.chat.type != 'private':
+        chats = message.chat.id #Отсюда и далее, до пустой строки - выключатель этого прикола.
+        chat = get_chat(chats)
+        if check_chat(message.chat.id):
+            create_chat(message.chat.id)
+            chat = get_chat(chats)
+    
+        funny = chat[4] #проверка разрешения приколов
+        if not funny:
+            await message.answer("❌ В этом чате игры с ботом запрещены!")
+            return
+        
+        warner = get_warner(message.chat.id, message.from_user.id)
+        if warner == None:
+            warner = [message.chat.id, message.from_user.id, 0, 0, 0]
+        if warner[4] != 0:
+            return
+    
     keyboard = types.InlineKeyboardMarkup()
     keyboard.row(
         types.InlineKeyboardButton(text="Овен ♈", callback_data='horoscope_aries'),
@@ -36,6 +58,26 @@ async def command_horoscope(message: types.Message):
 
 @dp.callback_query_handler(lambda c: c.data.startswith('horoscope_'))
 async def process_horoscope(callback: types.CallbackQuery):
+    users = message.from_user
+    
+    if message.chat.type != 'private':
+        chats = message.chat.id #Отсюда и далее, до пустой строки - выключатель этого прикола.
+        chat = get_chat(chats)
+        if check_chat(message.chat.id):
+            create_chat(message.chat.id)
+            chat = get_chat(chats)
+    
+        funny = chat[4] #проверка разрешения приколов
+        if not funny:
+            await message.answer("❌ В этом чате игры с ботом запрещены!")
+            return
+        
+        warner = get_warner(message.chat.id, message.from_user.id)
+        if warner == None:
+            warner = [message.chat.id, message.from_user.id, 0, 0, 0]
+        if warner[4] != 0:
+            return
+    
     await bot.delete_message(callback.message.chat.id, callback.message.message_id)
     horoscope_name = callback.data.split('_')[1]
     link = f'https://horoscopes.rambler.ru/api/front/v1/horoscope/today/{horoscope_name}/'
