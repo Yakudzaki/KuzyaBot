@@ -32,3 +32,5 @@ async def send_video(message: types.Message):
         except:
         	await message.reply("😢 Не удалось скачать видео!")
         	await bot.send_sticker(message.chat.id, "CAACAgIAAxkBAAJSC2U65o9xJhSVFgbCctFBk7yqLwL4AAKjOQACjz_QSTwjn1gib7t0MAQ")
+        return 1
+    return

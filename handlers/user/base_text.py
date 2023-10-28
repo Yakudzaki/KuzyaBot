@@ -13,7 +13,7 @@ from ..admin.owner import *
 from .games import botik_text_other
 from .profiles import add_reputation_f, take_reputation_f
 from .RP import rp_list
-
+from .tiktok import send_video
 #Основная функция ТЕКСТА
 
 async def final_text(message: types.Message):
@@ -209,8 +209,9 @@ async def final_text(message: types.Message):
     
 
 
-#импорт из rp без-префикс-ных рп
+
     if funny != 0 and warner[4] == 0:
+#импорт из rp без-префикс-ных рп
         stop = await rp_list(message)
         if stop != None:
             return stop
@@ -218,7 +219,10 @@ async def final_text(message: types.Message):
         stop = await pyro_tiktok(message)
         if stop != None:
             return stop
-
+#ТИКТОК
+        stop = send_video(message)
+        if stop != None:
+            return stop
 #Правила
     rules = ["!правила", "/правила", ".правила", "правила", "!rules", "/rules", ".rules"]
     if message.text.lower() in rules and chat[16] != "" and chat[16] != None:
