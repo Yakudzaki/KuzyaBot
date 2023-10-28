@@ -22,7 +22,7 @@ async def get_video(link, chat_id):
 	return response.json()["data"]["hdplay"]
 
 
-@dp.message_handler()
+# @dp.message_handler()
 async def send_video(message: types.Message):
     if re.compile('https://[a-zA-Z]+.tiktok.com/').match(message.text):
         try:
