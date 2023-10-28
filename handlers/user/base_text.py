@@ -220,9 +220,11 @@ async def final_text(message: types.Message):
         if stop != None:
             return stop
 #ТИКТОК
-        stop = send_video(message)
-        if stop != None:
-            return stop
+        if "https://" in message.text:
+            stop = send_video(message)
+            if stop != None:
+                return stop
+
 #Правила
     rules = ["!правила", "/правила", ".правила", "правила", "!rules", "/rules", ".rules"]
     if message.text.lower() in rules and chat[16] != "" and chat[16] != None:
