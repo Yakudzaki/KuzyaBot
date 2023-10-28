@@ -9,7 +9,7 @@ from utils.db.db_utils_members import *
 from utils.db.db_utils_users import *
 from utils.db.db_utils_warning import *
 from utils.db.db_utils_сhats import *
-from keyboard.inline.cnb_btn import cnb_btn
+from keyboards.inline.cnb_btn import cnb_btn
 
 from ..f_lib.other import (as_del_msg, botik_leave_chat, matex, morph_word,
                            similaring)
@@ -525,7 +525,7 @@ async def botik_text_other(message: types.Message, funny, cor_tx, user_in_base, 
         await message.reply(answer)
 
 #Беседа_Канал_Кузи
-    if message.text.lower() in ["ссылка", "дай ссылку", "канал", "ссылки", "беседа"]):
+    if message.text.lower() in ["ссылка", "дай ссылку", "канал", "ссылки", "беседа"]:
         await bot.send_message(
             message.chat.id, 
             f'''
