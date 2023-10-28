@@ -6,7 +6,6 @@ from settings import *
 from utils.db import *
 
 from ..f_lib.mats import *
-from ..f_lib.pyrogram_f import pyro_tiktok
 # from ..f_lib.tiktok.main import tiktok
 from ..f_lib.shield import *
 from ..admin.owner import *
@@ -213,10 +212,6 @@ async def final_text(message: types.Message):
     if funny != 0 and warner[4] == 0:
 #импорт из rp без-префикс-ных рп
         stop = await rp_list(message)
-        if stop != None:
-            return stop
-
-        stop = await pyro_tiktok(message)
         if stop != None:
             return stop
 #ТИКТОК
