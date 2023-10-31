@@ -215,7 +215,7 @@ async def final_text(message: types.Message):
             return stop
 #ТИКТОК
         if "https://" in message.text:
-            stop = send_video(message)
+            stop = await send_video(message)
             if stop != None:
                 return stop
 
