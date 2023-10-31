@@ -7,22 +7,31 @@ keys = openai.api_key = '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'
 import html
 import g4f
 
-@dp.message_handler(commands=['кузя', 'чат', 'chat'], commands_prefix="!/.")
+# @dp.message_handler(commands=['кузя', 'чат', 'chat'], commands_prefix="!/.")
 async def chatgpt(message: types.Message):
     command = message.text.split()[0]
     promt = message.text.replace(f'{command} ', '')
-        
+    user = f"user:{message.from_user.id}" 
+    
     if promt == command:
         msg = await message.reply("<b>❌ Укажите запрос!</b>")
         return
+    
+    response = chatgptg4f(promt, user)
+    # for message in response:
+    # print(response, flush=True, end='')
+    print(response)
+    # await message.reply(f"{html.escape(response)}\n\n<a href='https://t.me/KuzyaBotNews'>Канал с новостями 🗞</a>", disable_web_page_preview=True)
+
+
+def chatgptg4f(promt, user):
     response = g4f.ChatCompletion.create(
     model = "gpt-3.5-turbo",
-    messages = [{"role":  "user", "content": promt}],
-    stream = True
+    messages = [{"role":  user, "content": promt}],
+    stream = False
     )
-    for message in response:
-        print(response, flush=True, end='')
-    # await message.reply(f"{html.escape(response)}\n\n<a href='https://t.me/KuzyaBotNews'>Канал с новостями 🗞</a>", disable_web_page_preview=True)
+    return response
+
 
 @dp.message_handler(commands=['img'], commands_prefix="!/.")
 async def handle_chat(message: types.Message):
