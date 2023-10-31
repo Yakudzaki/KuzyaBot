@@ -1,6 +1,6 @@
 from aiogram import types
 from loader import bot, dp
-
+import random
 
 @dp.callback_query_handler(lambda c: c.data in ['1', '2', '3'])
 async def process_callback_yes(callback: types.CallbackQuery):
