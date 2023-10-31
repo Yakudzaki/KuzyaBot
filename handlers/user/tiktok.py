@@ -28,7 +28,7 @@ async def send_video(message: types.Message):
         try:
             video_link = await get_video(message.text, message.chat.id)
             await bot.send_chat_action(message.chat.id, 'upload_video')
-            await message.reply_video(video_link, caption=f"✅ Скачано с помощью '<a href='tg://user?id={botik_id}'>Кузи</a>\n\n")
+            await message.reply_video(video_link, caption=f"✅ Скачано с помощью <a href='tg://user?id={botik_id}'>Кузи</a>\n\n")
         except:
             await message.reply("😢 Не удалось скачать видео!")
             await bot.send_sticker(message.chat.id, "CAACAgIAAxkBAAJSC2U65o9xJhSVFgbCctFBk7yqLwL4AAKjOQACjz_QSTwjn1gib7t0MAQ")
