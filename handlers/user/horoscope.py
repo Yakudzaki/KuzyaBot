@@ -88,4 +88,4 @@ async def process_horoscope(callback: types.CallbackQuery):
     h1 = data['h1'].replace('сегодня', date)
     text = data['text']
     
-    await bot.send_photo(callback.from_user.id, img_url, caption=f"<b>{h1}</b>\n\n{text}", parse_mode="html")
+    await bot.send_photo(callback.message.chat.id, img_url, caption=f"<b>{h1}</b>\n\n{text}", parse_mode="html")
