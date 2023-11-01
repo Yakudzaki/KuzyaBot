@@ -58,23 +58,23 @@ async def command_horoscope(message: types.Message):
 
 @dp.callback_query_handler(lambda c: c.data.startswith('horoscope_'))
 async def process_horoscope(callback: types.CallbackQuery):
-    users = message.from_user
+    users = callback.message.from_user
     
-    if message.chat.type != 'private':
-        chats = message.chat.id #Отсюда и далее, до пустой строки - выключатель этого прикола.
+    if callback.message.chat.type != 'private':
+        chats = callback.message.chat.id #Отсюда и далее, до пустой строки - выключатель этого прикола.
         chat = get_chat(chats)
-        if check_chat(message.chat.id):
-            create_chat(message.chat.id)
+        if check_chat(callback.message.chat.id):
+            create_chat(callback.message.chat.id)
             chat = get_chat(chats)
     
         funny = chat[4] #проверка разрешения приколов
         if not funny:
-            await message.answer("❌ В этом чате игры с ботом запрещены!")
+            await callback.message.answer("❌ В этом чате игры с ботом запрещены!")
             return
         
-        warner = get_warner(message.chat.id, message.from_user.id)
+        warner = get_warner(callback.message.chat.id, callback.message.from_user.id)
         if warner == None:
-            warner = [message.chat.id, message.from_user.id, 0, 0, 0]
+            warner = [callback.message.chat.id, callback.message.from_user.id, 0, 0, 0]
         if warner[4] != 0:
             return
     
