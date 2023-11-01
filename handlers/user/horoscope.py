@@ -55,11 +55,11 @@ async def command_horoscope(message: types.Message):
     )
     
     await message.reply("Выбери свой гороскоп:", reply_markup=keyboard)
+    await bot.delete_message(message.chat.id, message.message_id)
 
 @dp.callback_query_handler(lambda c: c.data.startswith('horoscope_'))
 async def process_horoscope(callback: types.CallbackQuery):
-    users = callback.message.from_user
-    
+   
     if callback.message.chat.type != 'private':
         chats = callback.message.chat.id #Отсюда и далее, до пустой строки - выключатель этого прикола.
         chat = get_chat(chats)
@@ -72,9 +72,9 @@ async def process_horoscope(callback: types.CallbackQuery):
             await callback.message.answer("❌ В этом чате игры с ботом запрещены!")
             return
         
-        warner = get_warner(callback.message.chat.id, callback.message.from_user.id)
+        warner = get_warner(callback.message.chat.id, callback.from_user.id)
         if warner == None:
-            warner = [callback.message.chat.id, callback.message.from_user.id, 0, 0, 0]
+            warner = [callback.message.chat.id, callback.from_user.id, 0, 0, 0]
         if warner[4] != 0:
             return
     
