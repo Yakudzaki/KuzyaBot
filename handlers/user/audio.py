@@ -6,6 +6,7 @@ import os, logging, aioschedule, asyncio,  gtts, secrets, string
 from utils.db.db_utils_users import *
 from utils.db.db_utils_сhats import *
 from utils.db.db_utils_warning import *
+from ..f_lib.other import is_sub
 from settings import *
 import html
 import asyncio
@@ -258,12 +259,13 @@ async def handler_quotly(message: types.Message):
             warner = [message.chat.id, message.from_user.id, 0, 0, 0]
         if warner[4] != 0:
             return
-    
-    ava_url = get_avatar_url(message.reply_to_message.from_user.id, TOKEN)
-    if ava_url == None:
-        return
+
     if len(message.text.split()) > 1:
+        sub = await is_sub(message)
+        if sub == False:
+            return
         text = message.text.replace(message.text.split()[0]+" ", "")
+    
     else:
         if message.reply_to_message.text:
             text = message.reply_to_message.text
@@ -272,6 +274,9 @@ async def handler_quotly(message: types.Message):
         else:
             return
     
+    ava_url = get_avatar_url(message.reply_to_message.from_user.id, TOKEN)
+    if ava_url == None:
+        return
     
     if message.reply_to_message.from_user.last_name:
         username = message.reply_to_message.from_user.first_name + message.reply_to_message.from_user.last_name

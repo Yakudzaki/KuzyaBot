@@ -1176,7 +1176,7 @@ def years_letter(num):
 async def is_sub(message): 
     temp = await bot.get_chat_member(kuzya_news_name, message.from_user.id) 
     if temp.status == 'left': 
-        await message.reply('<b>Чтобы воспользоваться KuzyaGрt вы должны быть подписаны на канал ниже!</b>', 
+        await message.reply('<b>Чтобы воспользоваться этой функцией вы должны быть подписаны на канал ниже!</b>', 
                                reply_markup = channel_btn) 
         return False
     else:
