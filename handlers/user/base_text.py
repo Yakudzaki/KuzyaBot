@@ -220,7 +220,7 @@ async def final_text(message: types.Message):
             if stop != None:
                 return stop
 
-        if mrm == True and message.reply_to_message.from_user.id == botik_id and 'КузяGpt' in message.reply_to_message.text and len(message.text.split()) >= 2:
+        if mrm == True and message.reply_to_message.from_user.id == botik_id and 'КузяGpt' in message.reply_to_message.text and len(message.text.split()) >= 3:
             stop = await chatgpt(message)
             if stop != None:
                 return stop
