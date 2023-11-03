@@ -6,9 +6,31 @@ import requests
 keys = openai.api_key = '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'
 import html
 import g4f
+from utils.db.db_utils_users import *
+from utils.db.db_utils_warning import *
+from utils.db.db_utils_сhats import *
 
 @dp.message_handler(commands=['кузя', 'чат', 'chat'], commands_prefix="!/.")
 async def chatgpt(message: types.Message):
+    if message.chat.type != 'private':
+        chats = message.chat.id #Отсюда и далее, до пустой строки - выключатель этого прикола.
+        chat = get_chat(chats)
+        if check_chat(message.chat.id):
+            create_chat(message.chat.id)
+            chat = get_chat(chats)
+    
+        funny = chat[4] #проверка разрешения приколов
+        if not funny:
+            await message.answer("❌ В этом чате игры с ботом запрещены!")
+            return
+        
+        warner = get_warner(message.chat.id, message.from_user.id)
+        if warner == None:
+            warner = [message.chat.id, message.from_user.id, 0, 0, 0]
+        if warner[4] != 0:
+            return
+    
+    
     command = message.text.split()[0]
     promt = message.text.replace(f'{command} ', '')
     user = f"user:{message.from_user.id}" 
@@ -36,6 +58,25 @@ async def chatgptg4f(promt, user):
 
 @dp.message_handler(commands=['img'], commands_prefix="!/.")
 async def handle_chat(message: types.Message):
+    if message.chat.type != 'private':
+        chats = message.chat.id #Отсюда и далее, до пустой строки - выключатель этого прикола.
+        chat = get_chat(chats)
+        if check_chat(message.chat.id):
+            create_chat(message.chat.id)
+            chat = get_chat(chats)
+    
+        funny = chat[4] #проверка разрешения приколов
+        if not funny:
+            await message.answer("❌ В этом чате игры с ботом запрещены!")
+            return
+        
+        warner = get_warner(message.chat.id, message.from_user.id)
+        if warner == None:
+            warner = [message.chat.id, message.from_user.id, 0, 0, 0]
+        if warner[4] != 0:
+            return
+    
+    
     result = process_img_step(message.text.replace('/img',  '').replace("!img", ""))
     text_photo = message.text.replace('/img',  '').replace("!img", "")
     if result == 'no key':

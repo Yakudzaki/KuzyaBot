@@ -8,8 +8,7 @@ from utils.db.db_utils_сhats import *
 
 @dp.message_handler(commands=['гороскоп'], commands_prefix="/!.")
 async def command_horoscope(message: types.Message):
-    users = message.from_user
-    
+   
     if message.chat.type != 'private':
         chats = message.chat.id #Отсюда и далее, до пустой строки - выключатель этого прикола.
         chat = get_chat(chats)
