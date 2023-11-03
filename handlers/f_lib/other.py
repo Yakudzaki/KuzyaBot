@@ -1,5 +1,5 @@
 from loader import dp, bot
-from keyboards.inline import channel_btn
+from keyboards.inline.channel_kb import channel_btn
 from aiogram import types
 import asyncio
 import logging
