@@ -40,7 +40,7 @@ async def chatgpt(message: types.Message):
             msg = await message.reply("<b>❌ Укажите запрос!</b>")
             return 1
     
-    user = f"user:{message.from_user.id}" 
+    user = f"{message.from_user.first_name}" 
     await bot.send_chat_action(message.chat.id, types.ChatActions.TYPING)
 
     response = await chatgptg4f(promt, user)
