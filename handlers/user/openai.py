@@ -9,6 +9,7 @@ import g4f
 from utils.db.db_utils_users import *
 from utils.db.db_utils_warning import *
 from utils.db.db_utils_сhats import *
+from ..f_lib.other import is_sub
 
 @dp.message_handler(commands=['кузя', 'чат', 'chat'], commands_prefix="!/.")
 async def chatgpt(message: types.Message):
@@ -29,6 +30,9 @@ async def chatgpt(message: types.Message):
             warner = [message.chat.id, message.from_user.id, 0, 0, 0]
         if warner[4] != 0:
             return
+    sub = await is_sub(message.from_user.id)
+    if sub == False:
+        return 1
     
     if message.reply_to_message and message.reply_to_message.from_user.id == botik_id and not message.text.startswith("!") and not message.text.startswith(".") and not message.text.startswith("/"):
         promt = message.text
