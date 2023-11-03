@@ -1,4 +1,5 @@
 from loader import dp, bot
+from keyboards.inline import channel_btn
 from aiogram import types
 import asyncio
 import logging
@@ -1170,3 +1171,11 @@ def years_letter(num):
         return ""
     else:
         return "годов"
+
+
+async def is_sub(user_id): 
+    temp = await bot.get_chat_member("@KuzyaBotNews", user_id) 
+            if temp.status == 'left': 
+                await message.reply('<b>Чтобы воспользоваться KuzyaGpt вы должны быть подписаны на канал ниже!</b>', 
+                                       reply_markup = channel_btn) 
+                return
