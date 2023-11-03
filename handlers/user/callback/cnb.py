@@ -15,29 +15,32 @@ async def process_callback_yes(callback: types.CallbackQuery):
                 return
     
     rand = random.choice(["🗿Камень", "✂️Ножницы", "📄Бумагу"])
-    await bot.delete_message(callback.message.chat.id, callback.message.message_id)
+    # await bot.delete_message(callback.message.chat.id, callback.message.message_id)
     
     if callback.data == '1':
-        await callback.message.answer("Я выбрал " + rand + f"\nА <a href='tg://user?id={callback.from_user.id}'>ты</a> выбрал 🗿Камень")
+        msg1 = "Я выбрал " + rand + f"\nА <a href='tg://user?id={callback.from_user.id}'>ты</a> выбрал 🗿Камень"
         if rand == '🗿Камень':
-            await callback.message.answer("У нас ничья🤝")
+            msg2 = "У нас ничья🤝"
         elif rand == '✂️Ножницы':
-            await callback.message.answer(f"<a href='tg://user?id={callback.from_user.id}'>Ты</a> выиграл🥇")
+            msg2 = f"<a href='tg://user?id={callback.from_user.id}'>Ты</a> выиграл🥇"
         else:
-            await callback.message.answer("Я победил🥇")
+            msg2 = "Я победил🥇"
     elif callback.data == '2':
-        await callback.message.answer("Я выбрал " + rand + f"\nА <a href='tg://user?id={callback.from_user.id}'>ты</a> выбрал ✂️Ножницы")
+        msg1 = "Я выбрал " + rand + f"\nА <a href='tg://user?id={callback.from_user.id}'>ты</a> выбрал ✂️Ножницы"
         if rand == '🗿Камень':
-            await callback.message.answer("Я победил🥇")
+            msg2 = "Я победил🥇"
         elif rand == '✂️Ножницы':
-            await callback.message.answer("У нас ничья🤝")
+            msg2 = "У нас ничья🤝"
         else:
-            await callback.message.answer(f"<a href='tg://user?id={callback.from_user.id}'>Ты</a> победил🥇")
+            msg2 = f"<a href='tg://user?id={callback.from_user.id}'>Ты</a> победил🥇"
     elif callback.data == '3':
-        await callback.message.answer("Я выбрал " + rand + f"\nА <a href='tg://user?id={callback.from_user.id}'>ты</a> выбрал 📄Бумагу")
+        msg1 = "Я выбрал " + rand + f"\nА <a href='tg://user?id={callback.from_user.id}'>ты</a> выбрал 📄Бумагу"
         if rand == '🗿Камень':
-            await callback.message.answer(f"<a href='tg://user?id={callback.from_user.id}'>Ты</a> победил🥇")
+            msg2 = f"<a href='tg://user?id={callback.from_user.id}'>Ты</a> победил🥇"
         elif rand == '✂️Ножницы':
-            await callback.message.answer("Я победил🥇")
+            msg2 = "Я победил🥇"
         else:
-            await callback.message.answer("У нас ничья🤝")
+            msg2 = "У нас ничья🤝"
+    
+    msg = msg1 + '\n—\n' + msg2
+    await callback.message.edit_text(msg)
