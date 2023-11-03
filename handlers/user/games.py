@@ -296,7 +296,7 @@ async def corob(message: types.Message):
 async def cnb(message: types.Message):
     await bot.send_message(
         message.chat.id, 
-        "Я готов играть!\nВыбери предмет, что бы сыграть со мной🎭", 
+        f"Я готов играть<a href='tg://user?id={message.from_user.id}'>‎</a>!\nВыбери предмет, что бы сыграть со мной🎭", 
         reply_markup = cnb_btn
     )
     

@@ -1176,9 +1176,11 @@ def years_letter(num):
 async def is_sub(message): 
     temp = await bot.get_chat_member(kuzya_news_name, message.from_user.id) 
     if temp.status == 'left': 
-        msg = await message.reply('<b>Чтобы воспользоваться этой функцией вы должны быть подписаны на канал ниже!</b>', 
-                               reply_markup = channel_btn) 
-        await as_del_msg(message.chat.id, msg.message_id, time_del)
+        if not message.reply_to_message:
+            msg = await message.reply('<b>Чтобы воспользоваться этой функцией вы должны быть подписаны на канал ниже!</b>', 
+                                reply_markup = channel_btn) 
+            await as_del_msg(message.chat.id, msg.message_id, time_del)
+        
         return False
     else:
         return True
