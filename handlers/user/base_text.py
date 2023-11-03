@@ -12,6 +12,7 @@ from .games import botik_text_other
 from .profiles import add_reputation_f, take_reputation_f
 from .RP import rp_list
 from .tiktok import send_video
+from .openai import chatgpt
 #Основная функция ТЕКСТА
 
 async def final_text(message: types.Message):
@@ -219,6 +220,10 @@ async def final_text(message: types.Message):
             if stop != None:
                 return stop
 
+        if mrm == True and message.reply_to_message.from_user.id == botik_id and 'КузяGpt' in message.reply_to_message.text:
+            stop = await chatgpt(message)
+            if stop != None:
+                return stop
 #Правила
     rules = ["!правила", "/правила", ".правила", "правила", "!rules", "/rules", ".rules"]
     if message.text.lower() in rules and chat[16] != "" and chat[16] != None:

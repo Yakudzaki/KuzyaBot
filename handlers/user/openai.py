@@ -1,7 +1,7 @@
 from loader import dp, bot
 from aiogram import types
 import openai  #pip install openai
-from settings import kuzya_news_link
+from settings import kuzya_news_link, botik_id
 import requests
 keys = openai.api_key = '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'
 import html
@@ -30,22 +30,27 @@ async def chatgpt(message: types.Message):
         if warner[4] != 0:
             return
     
+    if message.reply_to_message and message.reply_to_message.from_user.id == botik_id and not message.text.startswith("!") and not message.text.startswith(".") and not message.text.startswith("/"):
+        promt = message.text
     
-    command = message.text.split()[0]
-    promt = message.text.replace(f'{command} ', '')
+    else:
+        command = message.text.split()[0]
+        promt = message.text.replace(f'{command} ', '')
+        if promt == command:
+            msg = await message.reply("<b>❌ Укажите запрос!</b>")
+            return 1
+    
     user = f"user:{message.from_user.id}" 
     await bot.send_chat_action(message.chat.id, types.ChatActions.TYPING)
-    if promt == command:
-        msg = await message.reply("<b>❌ Укажите запрос!</b>")
-        return
-    
+
     response = await chatgptg4f(promt, user)
     # for message in response:
     # print(response, flush=True, end='')
     # print(response)
     # await message.reply(f"{html.escape(response)}\n\n<a href='https://t.me/KuzyaBotNews'>Канал с новостями 🗞</a>", disable_web_page_preview=True)
     await bot.send_chat_action(message.chat.id, types.ChatActions.TYPING)
-    await message.reply(f"{response}", disable_web_page_preview=True, parse_mode='Markdown')
+    await message.reply(f"{response}\n\nКузяGpt", disable_web_page_preview=True, parse_mode='Markdown')
+    return 1
 
 async def chatgptg4f(promt, user):
     response = await g4f.ChatCompletion.create_async(
