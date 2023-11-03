@@ -532,7 +532,7 @@ async def botik_text_other(message: types.Message, funny, cor_tx, user_in_base, 
 💬 Официальная первая беседа бота:
 https://t.me/+dtjdlruC5x45NTk6
 👨‍💻 Официальный канал разработки:
-@KuzyaBotNews''', 
+{kuzya_news_name}''', 
             parse_mode='html'
         )
 

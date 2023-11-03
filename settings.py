@@ -39,7 +39,8 @@ botik_username = "@KuzyaRobot"
 
 botovod_id = [5759932615, yakudza_id, 5730177063] #айди ботоводов, и VIP.
 kuzya_news_id = -1001973919415 # Айди канала новостей про Кузю.
-kuzya_news_link = "https://t.me/KuzyaBotNews"
+kuzya_news_link = "https://t.me/KuzyaDev"
+kuzya_news_name = "@KuzyaDev"
 helpers_ids = [5246100940, 1644643904, 556640068, 979139697, 1002807451, 1069481559] #Айдишники тех, кому можно делать перезапуск в случае чего.
 
 
