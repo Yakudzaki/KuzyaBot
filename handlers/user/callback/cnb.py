@@ -7,11 +7,11 @@ async def process_callback_yes(callback: types.CallbackQuery):
 
     for entity in callback.message.entities:
         if entity.type != "text_mention":
-            await callback.message.answer("Это не твоя кнопка!", show_alert=True)
+            await callback.answer("Это не твоя кнопка!", show_alert=True)
             return
         else:
             if entity.user.id != callback.from_user.id:
-                await callback.message.answer("Это не твоя кнопка!", show_alert=True)
+                await callback.answer("Это не твоя кнопка!", show_alert=True)
                 return
     
     rand = random.choice(["🗿Камень", "✂️Ножницы", "📄Бумагу"])
