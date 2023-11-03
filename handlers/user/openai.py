@@ -52,6 +52,8 @@ async def chatgpt(message: types.Message):
     # print(response, flush=True, end='')
     # print(response)
     # await message.reply(f"{html.escape(response)}\n\n<a href={kuzya_news_link}>Канал с новостями 🗞</a>", disable_web_page_preview=True)
+    if f"{response}" == "":
+        return 1
     await bot.send_chat_action(message.chat.id, types.ChatActions.TYPING)
     await message.reply(f"{response}\n\nКузяGpt", disable_web_page_preview=True, parse_mode='Markdown')
     return 1
