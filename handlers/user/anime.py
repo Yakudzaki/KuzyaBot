@@ -9,7 +9,7 @@ async def send_image(message: types.Message):
     url = "https://pic.re/image"
     response = requests.post(url)
     data = response.json()
-    
+    await bot.send_chat_action(message.chat.id, types.ChatActions.UPLOAD_PHOTO)
     # Получение данных о фотографии
     file_url = data["file_url"]
     source = data["source"]
