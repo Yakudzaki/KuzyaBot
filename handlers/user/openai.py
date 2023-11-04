@@ -5,7 +5,7 @@ from settings import kuzya_news_link, botik_id
 import requests
 keys = openai.api_key = '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'
 import html
-import g4f
+import g4f, asyncio
 from utils.db.db_utils_users import *
 from utils.db.db_utils_warning import *
 from utils.db.db_utils_сhats import *
@@ -48,10 +48,6 @@ async def chatgpt(message: types.Message):
     await bot.send_chat_action(message.chat.id, types.ChatActions.TYPING)
 
     response = await chatgptg4f(promt, user)
-    # for message in response:
-    # print(response, flush=True, end='')
-    # print(response)
-    # await message.reply(f"{html.escape(response)}\n\n<a href={kuzya_news_link}>Канал с новостями 🗞</a>", disable_web_page_preview=True)
     if f"{response}" == "":
         response = "Без комментариев!"
     await bot.send_chat_action(message.chat.id, types.ChatActions.TYPING)
@@ -59,11 +55,18 @@ async def chatgpt(message: types.Message):
     return 1
 
 async def chatgptg4f(promt, user):
-    response = await g4f.ChatCompletion.create_async(
-    model = "gpt-3.5-turbo",
-    messages = [{"role":  user, "content": promt}],
-    stream = False
-    )
+    response = ""
+    while response == "":
+        try:
+            response = await g4f.ChatCompletion.create_async(
+                model = "gpt-3.5-turbo",
+                messages=[{"role": user, "content": promt}],
+                stream = False,
+            )
+        except Exception as e:
+            print(e)
+            return response
+
     return response
 
 
