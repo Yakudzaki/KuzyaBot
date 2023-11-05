@@ -784,7 +784,7 @@ def dice_game(message: types.Message):
 # 43 - 3 лимона
 # 1 - 3 BAR
 
-@dp.message_handler(commands=["dice", "дайс"], commands_prefix="/!.")
+@dp.message_handler(commands=["dice", "дайс", "дайсы"], commands_prefix="/!.")
 async def dice_kuz(message: types.Message):
     if message.chat.type != 'private':
         chats = message.chat.id #Отсюда и далее, до пустой строки - выключатель этого прикола.
