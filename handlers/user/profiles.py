@@ -60,6 +60,24 @@ async def my_warns(message: types.Message):
     await message.reply(f"Количество ваших варнов - {userwarn[2]}")
     return
 
+#Мой баланс
+@dp.message_handler(lambda message: message.text.lower() == "баланс")
+async def my_balance(message: types.Message):
+    if message.chat.type != 'private':
+        warner = get_warner(message.chat.id, message.from_user.id)
+        if warner == None:
+            warner = [message.chat.id, message.from_user.id, 0, 0, 0]
+        if warner[4] != 0:
+            return
+    
+    await bot.send_chat_action(message.chat.id, types.ChatActions.TYPING)
+    
+    users = message.from_user
+    user = create_user(users.id, users.username, users.first_name)
+    
+    msg = await message.reply(f"Количество ваших кузиров - {user[11]}")
+    await as_del_msg(message.chat.id, msg.message_id, time_del)
+    await as_del_msg(message.chat.id, message.message_id, time_del)
 
 #Чужие варны
 @dp.message_handler(lambda message: message.text.lower() == "варны")
