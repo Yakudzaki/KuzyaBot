@@ -4,7 +4,7 @@ import globales
 from loader import bot
 from settings import *
 from utils.db import *
-
+from random import randint
 from ..f_lib.mats import *
 from ..f_lib.shield import *
 from ..admin.owner import *
@@ -224,6 +224,17 @@ async def final_text(message: types.Message):
             stop = await chatgpt(message)
             if stop != None:
                 return stop
+    
+#БАЛАНС
+    if warner[4] == 0 and mrm == True and mctp == False and message.reply_to_message.from_user.id != botik_id:
+        if check_user(message.reply_to_message.from_user.id) == False:
+            warner1 = get_warner(message.chat.id, message.reply_to_message.from_user.id)
+        
+            if warner1 == None:
+                warner1 = [message.chat.id, message.reply_to_message.from_user.id, 0, 0, 0]
+            if warner1[4] == 0:
+                add_kuzir(message.reply_to_message.from_user.id, randint(0,10))
+
 #Правила
     rules = ["!правила", "/правила", ".правила", "правила", "!rules", "/rules", ".rules"]
     if message.text.lower() in rules and chat[16] != "" and chat[16] != None:
