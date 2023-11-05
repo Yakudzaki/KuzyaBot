@@ -429,6 +429,9 @@ async def final_dice(message: types.Message):
         funny = chat[4] #проверка разрешения приколов
         shield = chat[13]
         
+        if check_user(user.id):
+            sticker_limit = sticker_limit - 1
+        
         cor = globales.get_cor()
         
         user_cor_v = cor[0]
