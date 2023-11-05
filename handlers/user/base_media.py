@@ -503,7 +503,7 @@ async def final_dice(message: types.Message):
         
     if check_user(user.id):
         return
-    if message.from_user.id == 777000 and message.sender_chat and message.forward_from_chat and message.is_automatic_forward:
+    if message.from_user.id == 777000:
         return
     
     users = get_user(user.id)
