@@ -11,6 +11,7 @@ from aiogram.utils import executor
 from aiogram.dispatcher.filters import AdminFilter, IsReplyFilter
 from settings import *
 from ..f_lib.shield import *
+from ..f_lib.other import kuzya_wait
 from .games import dice_game
 
 
@@ -530,7 +531,12 @@ async def final_dice(message: types.Message):
         wins = dice_game(emoji, value) * 100
         if wins != 0:
             add_kuzir(user.id, wins)
-
+            await kuzya_wait(5)
+            if wins > 0:
+                await message.reply(f"👍| Вы выиграли {wins} кузиров!")
+            else:
+                await message.reply(f"👎| Вы проиграли {abs(wins)} кузиров!")
+                
 #Основная функция кругетсы
 
 async def final_videonote(message: types.Message):
