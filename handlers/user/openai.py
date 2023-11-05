@@ -56,7 +56,12 @@ async def chatgpt(message: types.Message):
 
 async def chatgptg4f(promt, user):
     response = ""
+    i = 0
     while response == "":
+        i = i + 1
+        if i == 25:
+            response = "Без комментариев!"
+            print("i==25")
         try:
             response = await g4f.ChatCompletion.create_async(
                 model = "gpt-3.5-turbo",
@@ -66,7 +71,6 @@ async def chatgptg4f(promt, user):
         except Exception as e:
             print(e)
             return response
-
     return response
 
 
