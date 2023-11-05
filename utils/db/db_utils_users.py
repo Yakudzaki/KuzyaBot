@@ -186,7 +186,9 @@ def add_rep(user_id):
     cursor.execute("UPDATE users SET reputation = reputation + 1 WHERE user_id = ?", (user_id,))
     connect.commit()
 
-
+def add_kuzir(user_id, value):
+    cursor.execute("UPDATE users SET balance = balance + ? WHERE user_id = ?", (value, user_id,))
+    connect.commit()
 
 def take_rep(user_id):
     cursor.execute("UPDATE users SET reputation = reputation - 1 WHERE user_id = ?", (user_id,))

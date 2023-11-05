@@ -294,12 +294,36 @@ async def corob(message: types.Message):
 
 @dp.message_handler(commands=["кнб"], commands_prefix="!/.")
 async def cnb(message: types.Message):
+    if message.chat.type != 'private':
+        chats = message.chat.id #Отсюда и далее, до пустой строки - выключатель этого прикола.
+        chat = get_chat(chats)
+        if check_chat(message.chat.id):
+            create_chat(message.chat.id)
+            chat = get_chat(chats)
+    
+        funny = chat[4] #проверка разрешения приколов
+        if not funny:
+            await message.answer("❌ В этом чате игры с ботом запрещены!")
+            return
+        
+        warner = get_warner(message.chat.id, message.from_user.id)
+        if warner == None:
+            warner = [message.chat.id, message.from_user.id, 0, 0, 0]
+        if warner[4] != 0:
+            return
+    
     await bot.send_message(
         message.chat.id, 
         f"Я готов играть<a href='tg://user?id={message.from_user.id}'>‎</a>!\nВыбери предмет, что бы сыграть со мной🎭", 
         reply_markup = cnb_btn
     )
     
+    if message.chat.type != 'private':
+        try:
+            await bot.delete_message(message.chat.id, message.message_id)
+        except:
+            pass
+    return
 
 #БЕЗ DP, ТАК КАК ИМПОРТИРУЕТСЯ В EASTERS, В ХЕНДЛЕР ТЕКСТА, ПОСЛЕ АНТИРЕКЛАМЫ.
 async def botik_text_other(message: types.Message, funny, cor_tx, user_in_base, warner):
@@ -710,3 +734,75 @@ async def pivo_func(message: types.Message, word):
     await message.answer(f"{html.escape(rpemodz)} | <a href='tg://user?id={user[0]}'>{html.escape(nick)}</a> {html.escape(action)} <a href='tg://user?id={user2[0]}'>{html.escape(nick2)}</a>", parse_mode="html")
 
     return
+
+def dice_game(message: types.Message):
+    # ‘🎲’, ‘🎯’, ‘🏀’, ‘⚽️’, ‘🎳’, or ‘🎰’
+    if message.dice:
+        emoji = message.dice.emoji
+        value = message.dice.value
+        print(f"emoji = {emoji} value = {value}")
+        if emoji == "🎲":
+            wins = value - 4
+            return wins
+        if emoji == "🎯": #win
+            if value == 6:
+                return 2
+            else:
+                return -1
+        if emoji == "🏀": #win
+            if value == 4 or value == 5:
+                return 0.5
+            else:
+                return -1
+        if emoji == '⚽': #win
+            if value == 4 or value == 5 or value == 3:
+                return 0.5
+            else:
+                return -1
+        if emoji == "🎳": #win
+            if value == 6:
+                return 2
+            else:
+                return -1
+        if emoji == "🎰":
+            if value == 22:
+                return 10
+            elif value == 64:
+                return 50
+            elif value == 43:
+                return 10
+            elif value == 1:
+                return -10
+            else:
+                return -1
+    return 0
+    
+
+# Казино:
+# 22 - 3 сливы
+# 64 - 777
+# 43 - 3 лимона
+# 1 - 3 BAR
+
+@dp.message_handler(commands=["dice", "дайс"], commands_prefix="/!.")
+async def dice_kuz(message: types.Message):
+    if message.chat.type != 'private':
+        chats = message.chat.id #Отсюда и далее, до пустой строки - выключатель этого прикола.
+        chat = get_chat(chats)
+        if check_chat(message.chat.id):
+            create_chat(message.chat.id)
+            chat = get_chat(chats)
+    
+        funny = chat[4] #проверка разрешения приколов
+        if not funny:
+            await message.answer("❌ В этом чате игры с ботом запрещены!")
+            return
+        
+        warner = get_warner(message.chat.id, message.from_user.id)
+        if warner == None:
+            warner = [message.chat.id, message.from_user.id, 0, 0, 0]
+        if warner[4] != 0:
+            return
+    msg= "<code>🎲</code> — Кубик\n<code>🎯</code> — Дартс\n<code>🏀</code> — Баскетбол\n<code>⚽️</code> — Футбол\n<code>🎳</code> — Боулинг\n<code>🎰</code> — Казино"
+    await message.answer(msg)
+    
