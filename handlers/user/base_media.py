@@ -530,16 +530,16 @@ async def final_dice(message: types.Message):
             if warner[4] != 0:
                 return
         
-        emoji = message.dice.emoji
-        value = message.dice.value
-        wins = dice_game(emoji, value) * 100
-        if wins != 0:
-            add_kuzir(user.id, wins)
-            await kuzya_wait(5)
-            if wins > 0:
-                await message.reply(f"👍| Вы выиграли {wins} кузиров!")
-            else:
-                await message.reply(f"👎| Вы проиграли {abs(wins)} кузиров!")
+            emoji = message.dice.emoji
+            value = message.dice.value
+            wins = dice_game(emoji, value) * 100
+            if wins != 0:
+                add_kuzir(user.id, wins)
+                await kuzya_wait(5)
+                if wins > 0:
+                    await message.reply(f"👍| Вы выиграли {wins} кузиров!")
+                else:
+                    await message.reply(f"👎| Вы проиграли {abs(wins)} кузиров!")
                 
 #Основная функция кругетсы
 
