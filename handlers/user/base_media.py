@@ -529,7 +529,23 @@ async def final_dice(message: types.Message):
                 warner = [message.chat.id, message.from_user.id, 0, 0, 0]
             if warner[4] != 0:
                 return
-        
+
+            if message.forward_from_chat:
+                await kuzya_wait(5)
+                wins = -100
+                await message.reply(f"❌| Читер теряет {abs(wins)} кузиров!")
+                return
+            if message.forward_from:
+                await kuzya_wait(5)
+                wins = -100
+                await message.reply(f"❌| Читер теряет {abs(wins)} кузиров!")
+                return
+            if message.forward_sender_name:
+                await kuzya_wait(5)
+                wins = -100
+                await message.reply(f"❌| Читер теряет {abs(wins)} кузиров!")
+                return
+
             emoji = message.dice.emoji
             value = message.dice.value
             wins = dice_game(emoji, value) * 100
