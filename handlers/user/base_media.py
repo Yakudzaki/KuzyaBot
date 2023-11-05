@@ -496,6 +496,8 @@ async def final_dice(message: types.Message):
                 await bot.delete_message(message.chat.id, message.message_id)
                 return
         
+    if check_user(message.from_user.id):
+        return
     
     users = get_user(user.id)
     if users[11] < 100:
@@ -506,8 +508,27 @@ async def final_dice(message: types.Message):
                 pass
         return
     else:
-        value = dice_game(message) * 100
-        if value != 0:
+        if message.chat.type != 'private':
+            chats = message.chat.id #Отсюда и далее, до пустой строки - выключатель этого прикола.
+            chat = get_chat(chats)
+            if check_chat(message.chat.id):
+                create_chat(message.chat.id)
+                chat = get_chat(chats)
+        
+            funny = chat[4] #проверка разрешения приколов
+            if not funny:
+                return
+            
+            warner = get_warner(message.chat.id, message.from_user.id)
+            if warner == None:
+                warner = [message.chat.id, message.from_user.id, 0, 0, 0]
+            if warner[4] != 0:
+                return
+        
+        emoji = message.dice.emoji
+        value = message.dice.value
+        wins = dice_game(emoji, value) * 100
+        if wins != 0:
             add_kuzir(user.id, value)
 
 #Основная функция кругетсы

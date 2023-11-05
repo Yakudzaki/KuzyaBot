@@ -735,47 +735,43 @@ async def pivo_func(message: types.Message, word):
 
     return
 
-def dice_game(message: types.Message):
+def dice_game(emoji, value):
     # ‘🎲’, ‘🎯’, ‘🏀’, ‘⚽️’, ‘🎳’, or ‘🎰’
-    if message.dice:
-        emoji = message.dice.emoji
-        value = message.dice.value
-        print(f"emoji = {emoji} value = {value}")
-        if emoji == "🎲":
-            wins = value - 4
-            return wins
-        if emoji == "🎯": #win
-            if value == 6:
-                return 2
-            else:
-                return -1
-        if emoji == "🏀": #win
-            if value == 4 or value == 5:
-                return 0.5
-            else:
-                return -1
-        if emoji == '⚽': #win
-            if value == 4 or value == 5 or value == 3:
-                return 0.5
-            else:
-                return -1
-        if emoji == "🎳": #win
-            if value == 6:
-                return 2
-            else:
-                return -1
-        if emoji == "🎰":
-            if value == 22:
-                return 10
-            elif value == 64:
-                return 50
-            elif value == 43:
-                return 10
-            elif value == 1:
-                return -10
-            else:
-                return -1
-    return 0
+    print(f"emoji = {emoji} value = {value}")
+    if emoji == "🎲":
+        wins = value - 4
+        return wins
+    if emoji == "🎯": #win
+        if value == 6:
+            return 2
+        else:
+            return -1
+    if emoji == "🏀": #win
+        if value == 4 or value == 5:
+            return 0.5
+        else:
+            return -1
+    if emoji == '⚽': #win
+        if value == 4 or value == 5 or value == 3:
+            return 0.5
+        else:
+            return -1
+    if emoji == "🎳": #win
+        if value == 6:
+            return 2
+        else:
+            return -1
+    if emoji == "🎰":
+        if value == 22:
+            return 10
+        elif value == 64:
+            return 50
+        elif value == 43:
+            return 10
+        elif value == 1:
+            return -10
+        else:
+            return -1
     
 
 # Казино:
