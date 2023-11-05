@@ -1102,8 +1102,8 @@ def eight_years_main(chat_id, user1, user2, message): #user1 - кто возмо
 
 
 async def eight_years_sending(chat_id, user, message): #сообщение — то которое кузя послал. (ну или любое иное. если кто внесет...)
-    money = randint(-25,-200)
-    if users[11] < money:
+    money = 0 - randint(25,200)
+    if user[11] < abs(money):
         if user[6] >= 18:
             rpword = "посадили на восемь лет строгача!"
             rpemodz = ["👤→⛓", "👨‍🦰→⛓", "👩→⛓", "👾→⛓", "🐱→⛓"]
@@ -1126,9 +1126,9 @@ async def eight_years_sending(chat_id, user, message): #сообщение — �
     else:
         await asyncio.sleep(30)
         await bot.send_chat_action(chat_id, types.ChatActions.TYPING)
-        add_kuzir(user.id, money)
+        add_kuzir(user[0], money)
         lose = choice(['☹️','😓','😔','😞','😟','😢','😥','😦','😭','🙁','😩'])
-        text = f"{lose} | Вы дали взятку в размере {abs(money)} кузиров, чтобы не попасть за решетку!"
+        text = f"{lose} | <a href='tg://user?id={user[0]}'>Вы</a> дали взятку в размере {abs(money)} кузиров, чтобы не попасть за решетку!"
         await bot.send_message(chat_id, text, reply_to_message_id=message.message_id, parse_mode="html")
     
 def years_letter(num):
