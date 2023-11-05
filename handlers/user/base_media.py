@@ -547,7 +547,10 @@ async def final_dice(message: types.Message):
             wins = -100
             await message.reply(f"❌| Читер теряет {abs(wins)} кузиров!")
             return
-
+        
+        if message.chat.type == 'private':
+            return
+        
         emoji = message.dice.emoji
         value = message.dice.value
         wins = dice_game(emoji, value) * 100
