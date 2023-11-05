@@ -1102,26 +1102,33 @@ def eight_years_main(chat_id, user1, user2, message): #user1 - кто возмо
 
 
 async def eight_years_sending(chat_id, user, message): #сообщение — то которое кузя послал. (ну или любое иное. если кто внесет...)
-    if user[6] >= 18:
-        rpword = "посадили на восемь лет строгача!"
-        rpemodz = ["👤→⛓", "👨‍🦰→⛓", "👩→⛓", "👾→⛓", "🐱→⛓"]
+    money = randint(-25,-200)
+    if users[11] < money:
+        if user[6] >= 18:
+            rpword = "посадили на восемь лет строгача!"
+            rpemodz = ["👤→⛓", "👨‍🦰→⛓", "👩→⛓", "👾→⛓", "🐱→⛓"]
+        else:
+            rpword = "отправили на четыре года в колонию!"
+            rpemodz = ["👤→⛓", "👨‍🦰→⛓", "👩→⛓", "👾→⛓", "🐱→⛓"]
+        
+        user = get_user(user[0])
+        
+        nick2 = morph_word(user[0], user[2], user[4])[3]    
+        
+        action = rpword
+        rpemodz = rpemodz[user[4]]
+        
+        text = f"{html.escape(rpemodz)} | <a href='tg://user?id={user[0]}'>{html.escape(nick2)}</a> {html.escape(action)}"
+        
+        await asyncio.sleep(30)
+        await bot.send_chat_action(chat_id, types.ChatActions.TYPING)
+        await bot.send_message(chat_id, text, reply_to_message_id=message.message_id, parse_mode="html")
     else:
-        rpword = "отправили на четыре года в колонию!"
-        rpemodz = ["👤→⛓", "👨‍🦰→⛓", "👩→⛓", "👾→⛓", "🐱→⛓"]
-    
-    user = get_user(user[0])
-    
-    nick2 = morph_word(user[0], user[2], user[4])[3]    
-    
-    action = rpword
-    rpemodz = rpemodz[user[4]]
-    
-    text = f"{html.escape(rpemodz)} | <a href='tg://user?id={user[0]}'>{html.escape(nick2)}</a> {html.escape(action)}"
-    
-    await asyncio.sleep(30)
-    await bot.send_chat_action(chat_id, types.ChatActions.TYPING)
-    await bot.send_message(chat_id, text, reply_to_message_id=message.message_id, parse_mode="html")
-    
+        await asyncio.sleep(30)
+        await bot.send_chat_action(chat_id, types.ChatActions.TYPING)
+        add_kuzir(user.id, money)
+        lose = choice(['☹️','😓','😔','😞','😟','😢','😥','😦','😭','🙁','😩'])
+        msg = await message.reply(f"{lose} | Вы дали взятку в размере {abs(money)} кузиров, чтобы не попасть за решетку!")
     
 def years_letter(num):
     num = str(num)
