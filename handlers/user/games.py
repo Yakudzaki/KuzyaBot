@@ -737,7 +737,7 @@ async def pivo_func(message: types.Message, word):
 
 def dice_game(emoji, value):
     # ‘🎲’, ‘🎯’, ‘🏀’, ‘⚽️’, ‘🎳’, or ‘🎰’
-    print(f"emoji = {emoji} value = {value}")
+    # print(f"emoji = {emoji} value = {value}")
     if emoji == "🎲":
         wins = value - 4
         return wins
