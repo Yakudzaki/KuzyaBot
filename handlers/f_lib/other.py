@@ -1128,7 +1128,8 @@ async def eight_years_sending(chat_id, user, message): #сообщение — �
         await bot.send_chat_action(chat_id, types.ChatActions.TYPING)
         add_kuzir(user.id, money)
         lose = choice(['☹️','😓','😔','😞','😟','😢','😥','😦','😭','🙁','😩'])
-        msg = await message.reply(f"{lose} | Вы дали взятку в размере {abs(money)} кузиров, чтобы не попасть за решетку!")
+        text = f"{lose} | Вы дали взятку в размере {abs(money)} кузиров, чтобы не попасть за решетку!"
+        await bot.send_message(chat_id, text, reply_to_message_id=message.message_id, parse_mode="html")
     
 def years_letter(num):
     num = str(num)
