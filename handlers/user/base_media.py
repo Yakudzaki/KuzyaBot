@@ -11,7 +11,7 @@ from aiogram.utils import executor
 from aiogram.dispatcher.filters import AdminFilter, IsReplyFilter
 from settings import *
 from ..f_lib.shield import *
-from ..f_lib.other import kuzya_wait
+from ..f_lib.other import kuzya_wait, as_del_msg
 from .games import dice_game
 
 
@@ -535,17 +535,23 @@ async def final_dice(message: types.Message):
         if message.forward_from_chat:
             await kuzya_wait(5)
             wins = -100
-            await message.reply(f"❌| Читер теряет {abs(wins)} кузиров!")
+            msg = await message.reply(f"❌| Читер теряет {abs(wins)} кузиров!")
+            await as_del_msg(message.chat.id, msg.message_id, time_del)
+            await as_del_msg(message.chat.id, message.message_id, time_del)
             return
         if message.forward_from:
             await kuzya_wait(5)
             wins = -100
-            await message.reply(f"❌| Читер теряет {abs(wins)} кузиров!")
+            msg = await message.reply(f"❌| Читер теряет {abs(wins)} кузиров!")
+            await as_del_msg(message.chat.id, msg.message_id, time_del)
+            await as_del_msg(message.chat.id, message.message_id, time_del)
             return
         if message.forward_sender_name:
             await kuzya_wait(5)
             wins = -100
-            await message.reply(f"❌| Читер теряет {abs(wins)} кузиров!")
+            msg = await message.reply(f"❌| Читер теряет {abs(wins)} кузиров!")
+            await as_del_msg(message.chat.id, msg.message_id, time_del)
+            await as_del_msg(message.chat.id, message.message_id, time_del)
             return
         
         if message.chat.type == 'private':
@@ -560,10 +566,11 @@ async def final_dice(message: types.Message):
             add_kuzir(user.id, wins)
             await kuzya_wait(5)
             if wins > 0:
-                await message.reply(f"{wine} | Вы выиграли {wins} кузиров!")
+                msg = await message.reply(f"{wine} | Вы выиграли {wins} кузиров!")
             else:
-                await message.reply(f"{lose} | Вы проиграли {abs(wins)} кузиров!")
-
+                msg = await message.reply(f"{lose} | Вы проиграли {abs(wins)} кузиров!")
+            await as_del_msg(message.chat.id, msg.message_id, time_del)
+        await as_del_msg(message.chat.id, message.message_id, time_del)
 
 #Основная функция кругетсы
 

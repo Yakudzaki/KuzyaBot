@@ -21,7 +21,7 @@ cursor.execute("""CREATE TABLE IF NOT EXISTS users(
     moniker    TEXT    NOT NULL DEFAULT '',
     ban        INTEGER DEFAULT (0),
     clan_id    INTEGER REFERENCES clans (id) ON DELETE SET NULL,
-    balance    INTEGER DEFAULT (5000),
+    balance    INTEGER DEFAULT (500),
     marry_id   INTEGER REFERENCES users (user_id) ON DELETE SET NULL,
     FOREIGN KEY (
         clan_id
@@ -78,7 +78,7 @@ def create_user_main(user_id, username, nick):
 
     if check_username(username):
         create_user_simpe(user_id, username, nick)
-        user = [user_id, username, nick, "Нет", 0, 0, 20, "Человек", "", 0, None, 5000, None]
+        user = [user_id, username, nick, "Нет", 0, 0, 20, "Человек", "", 0, None, 500, None]
         return user
     
     else:
@@ -86,13 +86,13 @@ def create_user_main(user_id, username, nick):
         if user[0] != user_id:
             set_username_simple(user[0], str(user[0]))
             create_user_simpe(user_id, username, nick)
-            user = [user_id, username, nick, "Нет", 0, 0, 20, "Человек", "", 0, None, 5000, None]
+            user = [user_id, username, nick, "Нет", 0, 0, 20, "Человек", "", 0, None, 500, None]
             return user
         else:
             return user
 
 def create_user_simpe(user_id, username, nick):
-    cursor.execute("INSERT INTO users VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)", (user_id, username, nick, "Нет", 0, 0, 20, "Человек", "", 0, None, 5000, None, ))
+    cursor.execute("INSERT INTO users VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)", (user_id, username, nick, "Нет", 0, 0, 20, "Человек", "", 0, None, 500, None, ))
     print(f"Создан юзер {user_id} {username} {nick}")
     connect.commit()
 
