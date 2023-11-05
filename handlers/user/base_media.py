@@ -496,7 +496,7 @@ async def final_dice(message: types.Message):
                 await bot.delete_message(message.chat.id, message.message_id)
                 return
         
-    if check_user(message.from_user.id):
+    if check_user(user.id):
         return
     
     users = get_user(user.id)
@@ -529,7 +529,7 @@ async def final_dice(message: types.Message):
         value = message.dice.value
         wins = dice_game(emoji, value) * 100
         if wins != 0:
-            add_kuzir(user.id, value)
+            add_kuzir(user.id, wins)
 
 #Основная функция кругетсы
 
