@@ -75,7 +75,7 @@ async def my_balance(message: types.Message):
     users = message.from_user
     user = create_user(users.id, users.username, users.first_name)
     
-    msg = await message.reply(f"Количество ваших кузиров - {user[11]}")
+    msg = await message.reply(f"💰| Количество ваших кузиров - <b>{user[11]}</b>")
     await as_del_msg(message.chat.id, msg.message_id, time_del)
     await as_del_msg(message.chat.id, message.message_id, time_del)
 
