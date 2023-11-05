@@ -557,10 +557,8 @@ async def final_dice(message: types.Message):
                 add_kuzir(user.id, wins)
                 await kuzya_wait(5)
                 if wins > 0:
-                    await message.reply(f"👍| Вы выиграли {wins} кузиров!")
                     await message.reply(f"{wine} | Вы выиграли {wins} кузиров!")
                 else:
-                    await message.reply(f"👎| Вы проиграли {abs(wins)} кузиров!")
                     await message.reply(f"{lose} | Вы проиграли {abs(wins)} кузиров!")
         else:
            
