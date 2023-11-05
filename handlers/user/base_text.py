@@ -229,12 +229,16 @@ async def final_text(message: types.Message):
     if warner[4] == 0 and mrm == True and mctp == False and randint(0,5) == 3 and message.reply_to_message.from_user.id not in no_rp_list and message.reply_to_message.from_user.id != botik_id and message.reply_to_message.from_user.id != message.from_user.id:
         if check_user(message.reply_to_message.from_user.id) == False:
             warner1 = get_warner(message.chat.id, message.reply_to_message.from_user.id)
-        
+            global kuzer1
+            global kuzer2
+            if message.reply_to_message.from_user.id == kuzer2 or message.reply_to_message.from_user.id == kuzer1 or message.from_user.id == kuzer1 or message.from_user.id == kuzer2:
+                return
             if warner1 == None:
                 warner1 = [message.chat.id, message.reply_to_message.from_user.id, 0, 0, 0]
             if warner1[4] == 0:
                 add_kuzir(message.reply_to_message.from_user.id, randint(0,10))
-
+                kuzer1 = message.from_user.id
+                kuzer2 = message.reply_to_message.from_user.id
 #Правила
     rules = ["!правила", "/правила", ".правила", "правила", "!rules", "/rules", ".rules"]
     if message.text.lower() in rules and chat[16] != "" and chat[16] != None:

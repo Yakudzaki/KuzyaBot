@@ -72,3 +72,6 @@ text_name = ""
 text_id = 0
 
 reps_user_id = 0
+
+kuzer1 = 0
+kuzer2 = 0
