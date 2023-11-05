@@ -326,6 +326,7 @@ async def your_profile(message: types.Message):
         \n<b>♾ Вид</b>: {str(user[4]).replace('1', str(html.escape(user[7]))).replace('2', str(html.escape(user[7]))).replace('0', str(html.escape(user[7]))).replace('3', '<tg-spoiler>Иной</tg-spoiler>').replace('4', '<tg-spoiler>Чеширский</tg-spoiler>')}\
         \n<b>⏳ Возраст</b>: {age} {years_letter(age)}\
         \n<b>👑 Репутация</b>: {rep} ({user[5]})\
+        \n<b>💰 Баланс</b>: {user[11]}\
         \n<b>️⚠️ Варны</b>: {userwarn[2]}"
         id = message.reply_to_message.message_id
         if choice([True, False]):
@@ -402,6 +403,7 @@ async def your_profile(message: types.Message):
             \n<b>♾ Вид</b>: {str(user2[4]).replace('1', html.escape(user2[7])).replace('2', html.escape(user2[7])).replace('0', html.escape(user2[7])).replace('3', '<tg-spoiler>Иной</tg-spoiler>').replace('4', '<tg-spoiler>Чеширский</tg-spoiler>')}\
             \n<b>⏳ Возраст</b>: {age2} {years_letter(age2)}\
             \n<b>👑 Репутация</b>: {rep} ({user2[5]})\
+            \n<b>💰 Баланс</b>: {user2[11]}\
             \n<b>️⚠️ Варны</b>: {userwarn2[2]}"
             id = message.reply_to_message.message_id
             if choice([True, False]):
@@ -479,6 +481,7 @@ async def my_profile(message: types.Message):
     \n<b>♾ Вид</b>: {str(user[4]).replace('1', str(html.escape(user[7]))).replace('2', str(html.escape(user[7]))).replace('0', str(html.escape(user[7]))).replace('3', '<tg-spoiler>Иной</tg-spoiler>').replace('4', '<tg-spoiler>Чеширский</tg-spoiler>')}\
     \n<b>⏳ Возраст</b>: {age} {years_letter(age)}\
     \n<b>👑 Репутация</b>: {rep} ({user[5]})\
+    \n<b>💰 Баланс</b>: {user[11]}\
     \n<b>️⚠️ Варны</b>: {userwarn[2]}"
     if choice([True, False]):
             response_text += f"\n\n<a href='{kuzya_news_link}'>🗞 Канал с новостями</a>"
