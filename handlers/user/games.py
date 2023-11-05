@@ -753,7 +753,7 @@ def dice_game(emoji, value):
             return -1
     if emoji == '⚽': #win
         if value == 4 or value == 5 or value == 3:
-            return 0.5
+            return 0.3
         else:
             return -1
     if emoji == "🎳": #win
@@ -763,11 +763,11 @@ def dice_game(emoji, value):
             return -1
     if emoji == "🎰":
         if value == 22:
-            return 10
+            return 15
         elif value == 64:
             return 50
         elif value == 43:
-            return 10
+            return 15
         elif value == 1:
             return -10
         else:
