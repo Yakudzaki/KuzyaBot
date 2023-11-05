@@ -226,7 +226,7 @@ async def final_text(message: types.Message):
                 return stop
     
 #БАЛАНС
-    if warner[4] == 0 and mrm == True and mctp == False and message.reply_to_message.from_user.id != botik_id and message.reply_to_message.from_user.id != message.from_user.id and randint(0,5) == 3:
+    if warner[4] == 0 and mrm == True and mctp == False and randint(0,5) == 3 and message.reply_to_message.from_user.id not in no_rp_list and message.reply_to_message.from_user.id != botik_id and message.reply_to_message.from_user.id != message.from_user.id:
         if check_user(message.reply_to_message.from_user.id) == False:
             warner1 = get_warner(message.chat.id, message.reply_to_message.from_user.id)
         
