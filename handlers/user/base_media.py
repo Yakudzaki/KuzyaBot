@@ -570,7 +570,7 @@ async def final_dice(message: types.Message):
             else:
                 msg = await message.reply(f"{lose} | Вы проиграли {abs(wins)} кузиров!")
             await as_del_msg(message.chat.id, msg.message_id, time_del)
-        await as_del_msg(message.chat.id, message.message_id, time_del)
+            await as_del_msg(message.chat.id, message.message_id, time_del)
 
 #Основная функция кругетсы
 
