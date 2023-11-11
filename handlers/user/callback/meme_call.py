@@ -10,6 +10,10 @@ import aiohttp
 from bs4 import BeautifulSoup
 
 
+@dp.callback_query_handler(text="close")
+async def close(call: types.CallbackQuery):
+    await call.message.delete()
+
 
 @dp.callback_query_handler(text="update")
 
