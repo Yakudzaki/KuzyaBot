@@ -18,12 +18,8 @@ async def anti_flood(*args, **kwargs):
     message = args[0]
     await message.answer("Мем читай, а не спамь сука!", show_alert=True)
 
-
-
 @dp.message_handler(commands=["meme", "mem", "мем"], commands_prefix="/!.")
-
 @dp.throttled(anti_flood,rate=2)
-
 async def meme(message: types.Message):
     users = message.from_user
     
@@ -70,14 +66,13 @@ async def meme(message: types.Message):
                 keyboard = types.InlineKeyboardMarkup()
 
                 buttons = [
-
-                    types.InlineKeyboardButton(text="🔄 Обновить", callback_data="update")
-
+                    types.InlineKeyboardButton(text="🔄 Обновить", callback_data="update"),
+                    types.InlineKeyboardButton(text="🔻 Закрыть", callback_data="close")
                 ]
 
                 keyboard.add(*buttons)
                 await bot.send_chat_action(message.chat.id, types.ChatActions.UPLOAD_PHOTO)
-                await bot.send_photo(message.chat.id, second_a.get("href"), caption = f'☄️ Лови мем.\n\n<a href="{kuzya_news_link}">Канал с новостями</a>', reply_markup=keyboard, parse_mode="html")
+                await bot.send_photo(message.chat.id, second_a.get("href"), caption = f'🌐 Лови мем.\n\n<a href="{kuzya_news_link}">Канал с новостями</a>', reply_markup=keyboard, parse_mode="html")
 
     # except Exception as e:
     except:
@@ -104,22 +99,15 @@ async def meme(message: types.Message):
                     keyboard = types.InlineKeyboardMarkup()
     
                     buttons = [
-    
-                        types.InlineKeyboardButton(text="🔄 Обновить", callback_data="update")
-    
+                        types.InlineKeyboardButton(text="🔄 Обновить", callback_data="update"),
+                        types.InlineKeyboardButton(text="🔻 Закрыть", callback_data="close")
                     ]
     
                     keyboard.add(*buttons)
                     await bot.send_chat_action(message.chat.id, types.ChatActions.UPLOAD_PHOTO)
-                    await bot.send_photo(message.chat.id, second_a.get("href"), caption = f'☄️ Лови мем.\n\n<a href="{kuzya_news_link}">Канал с новостями</a>', reply_markup=keyboard, parse_mode="html")
+                    await bot.send_photo(message.chat.id, second_a.get("href"), caption = f'🌐 Лови мем.\n\n<a href="{kuzya_news_link}">Канал с новостями</a>', reply_markup=keyboard, parse_mode="html")
     
         except Exception as e:
             print(f"{e}")
             logging.info(f"{e}")
             return
-
-        
-        # except Exception as e:
-    
-            # print(e)
-            
