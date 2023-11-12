@@ -51,7 +51,7 @@ async def update(call: types.CallbackQuery):
                 keyboard.add(*buttons)
 
                 await call.message.edit_media(InputMediaPhoto(second_a.get("href")))
-                await call.message.edit_caption(f"Обновлено", reply_markup=keyboard)
+                await call.message.edit_caption(f"✔️ Обновлено", reply_markup=keyboard)
 
     except Exception as e:
 
