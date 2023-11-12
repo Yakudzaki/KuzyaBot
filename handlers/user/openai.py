@@ -6,6 +6,7 @@ import requests
 keys = openai.api_key = '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'
 import html
 import g4f, asyncio
+from gradio_client import Client
 from utils.db.db_utils_users import *
 from utils.db.db_utils_warning import *
 from utils.db.db_utils_сhats import *
@@ -49,7 +50,7 @@ async def chatgpt(message: types.Message):
 
     response = await chatgptg4f(promt, user)
     if f"{response}" == "":
-        response = "Без комментариев!"
+        response = "Извините, но я не могу помочь вам с этим запросом."
     await bot.send_chat_action(message.chat.id, types.ChatActions.TYPING)
     await message.reply(f"{response}\n\nКузяGpt", disable_web_page_preview=True, parse_mode='Markdown')
     return 1
@@ -60,7 +61,7 @@ async def chatgptg4f(promt, user):
     while response == "":
         i = i + 1
         if i == 25:
-            response = "Без комментариев!"
+            response = "Извините, но я не могу помочь вам с этим запросом."
             print("i==25")
         try:
             response = await g4f.ChatCompletion.create_async(
@@ -72,6 +73,43 @@ async def chatgptg4f(promt, user):
             print(e)
             return response
     return response
+
+
+@dp.message_handler(commands=['звук'], commands_prefix="!/.")
+async def sound(message: types.Message):
+    if message.chat.type != 'private':
+        chats = message.chat.id #Отсюда и далее, до пустой строки - выключатель этого прикола.
+        chat = get_chat(chats)
+        if check_chat(message.chat.id):
+            create_chat(message.chat.id)
+            chat = get_chat(chats)
+    
+        funny = chat[4] #проверка разрешения приколов
+        if not funny:
+            await message.answer("❌ В этом чате игры с ботом запрещены!")
+            return
+        
+        warner = get_warner(message.chat.id, message.from_user.id)
+        if warner == None:
+            warner = [message.chat.id, message.from_user.id, 0, 0, 0]
+        if warner[4] != 0:
+            return
+
+    command = message.text.split()[0]
+    promt = message.text.replace(f'{command} ', '')
+    if promt == command:
+        msg = await message.reply("<b>❌ Укажите запрос!</b>")
+        return
+
+    client = Client("https://declare-lab-tango.hf.space/")
+    file_search = client.predict(
+            f"{promt}",
+            100,
+            3,
+            api_name="/predict"
+    )
+    await bot.send_chat_action(message.chat.id, types.ChatAction.Record)
+    await bot.send_voice(chat_id=message.chat.id, voice=open(file_search, 'rb'))
 
 
 @dp.message_handler(commands=['img'], commands_prefix="!/.")
