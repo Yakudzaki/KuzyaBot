@@ -4,8 +4,6 @@ from handlers.user.joke import anti_flood, get_joke
 from aiogram import types
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
-from random import randint, choice
-
 
 @dp.callback_query_handler(text="closej")
 async def close(call: types.CallbackQuery):
