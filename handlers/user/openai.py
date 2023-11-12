@@ -6,7 +6,6 @@ import requests
 keys = openai.api_key = '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'
 import html
 import g4f, asyncio
-from gradio_client import Client
 from utils.db.db_utils_users import *
 from utils.db.db_utils_warning import *
 from utils.db.db_utils_сhats import *
