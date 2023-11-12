@@ -3,7 +3,6 @@ from aiogram import types
 import openai  #pip install openai
 from settings import kuzya_news_link, botik_id
 import requests
-keys = openai.api_key = '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'
 import html
 import g4f, asyncio
 from utils.db.db_utils_users import *
@@ -11,6 +10,11 @@ from utils.db.db_utils_warning import *
 from utils.db.db_utils_сhats import *
 from ..f_lib.other import is_sub
 from gradio_client import Client
+from googletrans import Translator
+
+
+keys = openai.api_key = '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'
+translator = Translator()
 
 
 @dp.message_handler(commands=['кузя', 'чат', 'chat'], commands_prefix="!/.")
@@ -102,9 +106,10 @@ async def sound(message: types.Message):
         msg = await message.reply("<b>❌ Укажите запрос!</b>")
         return
     await bot.send_chat_action(message.chat.id, types.ChatActions.RECORD_VOICE)
+    translated_text = translator.translate(promt, dest='en').text
     client = Client("https://declare-lab-tango.hf.space/")
     file_search = client.predict(
-            f"{promt}",
+            f"{translated_promt}",
             100,
             3,
             api_name="/predict"
