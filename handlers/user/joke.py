@@ -8,6 +8,14 @@ from settings import kuzya_news_link
 from utils.db.db_utils_сhats import *
 from bs4 import BeautifulSoup
 import requests
+from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
+
+
+async def anti_flood(*args, **kwargs):
+
+    message = args[0]
+    await message.answer("Шутку читай, а не спамь сука!", show_alert=True)
+
 
 async def get_joke():
     try:
@@ -26,6 +34,7 @@ async def get_joke():
 
 
 @dp.message_handler(commands=["шутка", "анекдот"], commands_prefix="/!.")
+@dp.throttled(anti_flood,rate=2)
 async def joke(message: types.Message):
     text = await get_joke()
     await bot.send_chat_action(message.chat.id, types.ChatActions.TYPING)
@@ -51,9 +60,16 @@ async def joke(message: types.Message):
     
     user = create_user(users.id, users.username, users.first_name)
     
+    keyboard = InlineKeyboardMarkup()
 
+    buttons = [
+                    InlineKeyboardButton(text="🔄 Обновить", callback_data="updatej"),
+                    InlineKeyboardButton(text="🔻 Закрыть", callback_data="closej")
+                ]
+
+    keyboard.add(*buttons)
     
-    await message.reply(text, disable_web_page_preview=True)
+    await message.reply(text, disable_web_page_preview=True, reply_markup=keyboard)
     
 
 async def get_citat():
