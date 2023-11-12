@@ -11,6 +11,8 @@ from utils.db.db_utils_users import *
 from utils.db.db_utils_warning import *
 from utils.db.db_utils_сhats import *
 from ..f_lib.other import is_sub
+from gradio_client import Client
+
 
 @dp.message_handler(commands=['кузя', 'чат', 'chat'], commands_prefix="!/.")
 async def chatgpt(message: types.Message):
@@ -108,7 +110,7 @@ async def sound(message: types.Message):
             3,
             api_name="/predict"
     )
-    await bot.send_chat_action(message.chat.id, types.ChatAction.Record)
+    await bot.send_chat_action(message.chat.id, types.ChatAction.record_voice)
     await bot.send_voice(chat_id=message.chat.id, voice=open(file_search, 'rb'))
 
 
