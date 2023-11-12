@@ -116,7 +116,7 @@ async def sound(message: types.Message):
     )
     
     await bot.send_chat_action(message.chat.id, types.ChatActions.UPLOAD_VOICE)
-    await bot.send_voice(chat_id=message.chat.id, voice=open(file_search, 'rb'))
+    await bot.reply_voice(chat_id=message.chat.id, voice=open(file_search, 'rb'))
 
 
 @dp.message_handler(commands=['img'], commands_prefix="!/.")
