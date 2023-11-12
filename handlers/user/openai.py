@@ -101,7 +101,7 @@ async def sound(message: types.Message):
     if promt == command:
         msg = await message.reply("<b>❌ Укажите запрос!</b>")
         return
-
+    await bot.send_chat_action(message.chat.id, types.ChatActions.RECORD_VOICE)
     client = Client("https://declare-lab-tango.hf.space/")
     file_search = client.predict(
             f"{promt}",
@@ -109,7 +109,7 @@ async def sound(message: types.Message):
             3,
             api_name="/predict"
     )
-    await bot.send_chat_action(message.chat.id, types.ChatAction.RECORD_VOICE)
+    
     await bot.send_chat_action(message.chat.id, types.ChatActions.UPLOAD_VOICE)
     await bot.send_voice(chat_id=message.chat.id, voice=open(file_search, 'rb'))
 
