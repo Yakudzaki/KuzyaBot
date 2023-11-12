@@ -17,7 +17,7 @@ async def close(call: types.CallbackQuery):
 
 @dp.callback_query_handler(text="update")
 
-@dp.throttled(anti_flood,rate=5)
+@dp.throttled(anti_flood,rate=2)
 
 async def update(call: types.CallbackQuery):
 
