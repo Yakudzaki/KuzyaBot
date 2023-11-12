@@ -220,10 +220,11 @@ async def final_text(message: types.Message):
             if stop != None:
                 return stop
 
-        if mrm == True and message.reply_to_message.from_user.id == botik_id and 'КузяGpt' in message.reply_to_message.text and len(message.text.split()) >= 3:
-            stop = await chatgpt(message)
-            if stop != None:
-                return stop
+        if mrm == True and message.reply_to_message.text and message.reply_to_message.from_user.id == botik_id: 
+            if 'КузяGpt' in message.reply_to_message.text and len(message.text.split()) >= 3:
+                stop = await chatgpt(message)
+                if stop != None:
+                    return stop
     
 #БАЛАНС
     if warner[4] == 0 and mrm == True and mctp == False and randint(0,5) == 3 and message.reply_to_message.from_user.id not in no_rp_list and message.reply_to_message.from_user.id != botik_id and message.reply_to_message.from_user.id != message.from_user.id:
