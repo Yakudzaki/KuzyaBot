@@ -419,6 +419,7 @@ async def final_sticker(message: types.Message):
 
 async def final_dice(message: types.Message):
     user = message.from_user
+    delit = False
     if message.chat.type != 'private':
         chats = message.chat.id
         if check_chat(message.chat.id):
@@ -455,7 +456,7 @@ async def final_dice(message: types.Message):
         chat_cor_ph = cor[13]
         cor_ph = cor[14]
         
-        
+
         if message.from_user.id != user_cor_st:
             user_cor_st = message.from_user.id
             cor_st = 0
@@ -464,6 +465,7 @@ async def final_dice(message: types.Message):
             cor_st = 0
         if cor_st >= sticker_limit and user.id not in whitelist:
             await bot.delete_message(message.chat.id, message.message_id)
+            delit = True
             if user_cor_v == message.from_user.id and chat_cor_v == message.chat.id:
                 cor_v = 0
     
@@ -493,19 +495,20 @@ async def final_dice(message: types.Message):
                 await restrict_chat(message)
     
     #Антибот и игры
-            
-            if shield == 2:
-                await antibot(message)
-                
-            if funny == 0:
+
+            if funny == 0 and delit == False:
                 await bot.delete_message(message.chat.id, message.message_id)
                 return
-        
+            
+            if shield == 2 and delit == False:
+                await antibot(message)
+    
     if check_user(user.id):
         return
     if message.from_user.id == 777000:
         return
-    
+    if delit:
+        return
     users = get_user(user.id)
     if users[11] < 100:
         if message.chat.type != 'private':
@@ -565,10 +568,13 @@ async def final_dice(message: types.Message):
         if wins != 0:
             add_kuzir(user.id, wins)
             await kuzya_wait(5)
-            if wins > 0:
-                msg = await message.reply(f"{wine} | Вы выиграли {wins} кузиров!")
-            else:
-                msg = await message.reply(f"{lose} | Вы проиграли {abs(wins)} кузиров!")
+            try:
+                if wins > 0:
+                    msg = await message.reply(f"{wine} | Вы выиграли {wins} кузиров!")
+                else:
+                    msg = await message.reply(f"{lose} | Вы проиграли {abs(wins)} кузиров!")
+            except:
+                pass
             await as_del_msg(message.chat.id, msg.message_id, time_del)
             await as_del_msg(message.chat.id, message.message_id, time_del)
 
