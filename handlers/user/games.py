@@ -605,6 +605,20 @@ https://t.me/+dtjdlruC5x45NTk6
     
         await message.reply(f"""Шанс этого {h2}% """)
     
+    if message.text.lower().startswith('выбери ') or message.text.lower().startswith('выбери,'):
+        chat_id = message.chat.id
+        args = message.get_args()
+        try:
+            text1 = str(message.text.split()[1])
+            text2 = str(message.text.split()[3])
+        except:
+            await message.reply("Введите данные корректно!\nПример: Выбери Арбуз или Дыня")
+            return
+        x = ['Разумеется первый вариант!', 'Разумеется второй вариант!', 'Я думаю первый!', 'Я думаю второй!', f"Я выбираю: {text1}", f"Я выбираю: {text2}"]
+        rz = choice(x)
+        await message.reply(f'📌 | {message.from_user.get_mention(as_html=True)}, {rz}', parse_mode='html')
+    
+
 #(ЧИСТО ПРИКОЛЫ)
     if message.chat.type != 'private' and message.from_user.id == 1987035430:
         sorry_words = ["прости", "извини", "сорри", "прасти", "извени", "прощени"]
