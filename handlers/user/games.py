@@ -553,18 +553,23 @@ async def botik_text_other(message: types.Message, funny, cor_tx, user_in_base, 
         await bot.send_message(
             message.chat.id, 
             f'''
-💬 Официальная первая беседа бота:
-https://t.me/+dtjdlruC5x45NTk6
 👨‍💻 Официальный канал разработки:
-{kuzya_news_name}''', 
+{kuzya_news_name}
+💬 Официальный чат Кузи:
+https://t.me/+dtjdlruC5x45NTk6
+''', 
             parse_mode='html'
         )
 
 #ПОНГ_КОНГ_ДУНКАН
     if message.text.lower() == "пинг" and cor_tx <= 2:
         await bot.send_chat_action(message.chat.id, types.ChatActions.TYPING)
-        await message.answer("ПОНГ")
-        users = message.from_user
+        a = time.time()
+        bot_message = await message.answer(f'⚙ Проверка пинга....')
+        if bot_message:
+          	 b = time.time()
+          	 await bot_message.edit_text(f'🏓 Пинг: {round((b - a) * 1000)} ms')
+            users = message.from_user
     
     if message.text.lower() == "кинг" and cor_tx <= 2:
         await bot.send_chat_action(message.chat.id, types.ChatActions.TYPING)
