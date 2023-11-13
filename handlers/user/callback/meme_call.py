@@ -43,9 +43,8 @@ async def update(call: types.CallbackQuery):
                 keyboard = types.InlineKeyboardMarkup()
 
                 buttons = [
-
-                    types.InlineKeyboardButton(text="🔄 Обновить", callback_data="update")
-
+                    types.InlineKeyboardButton(text="🔄 Обновить", callback_data="update"),
+                    types.InlineKeyboardButton(text="🔻 Закрыть", callback_data="close")
                 ]
 
                 keyboard.add(*buttons)

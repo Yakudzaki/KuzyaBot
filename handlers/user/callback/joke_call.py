@@ -23,6 +23,6 @@ async def update(call: types.CallbackQuery):
                     InlineKeyboardButton(text="🔻 Закрыть", callback_data="closej")
                 ]
 
-                keyboard.add(*buttons)
+    keyboard.add(*buttons)
 
-                await call.message.edit_text(text, reply_markup=keyboard)
+    await call.message.edit_text(text, reply_markup=keyboard)
