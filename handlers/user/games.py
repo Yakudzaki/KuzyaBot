@@ -334,10 +334,9 @@ async def botik_text_other(message: types.Message, funny, cor_tx, user_in_base, 
 #Отзыв ботика
     if warner[4] != 0:
         return
-    
+    users = message.from_user
     botik_k = 0
     if message.text.lower() in botik_re1 or message.text.lower() in botik_re2:
-        users = message.from_user
         
         chat_id = message.chat.id
         
@@ -408,7 +407,7 @@ async def botik_text_other(message: types.Message, funny, cor_tx, user_in_base, 
         if message.reply_to_message: 
             if message.reply_to_message.from_user.id == botik_id and cor_tx <= 3:
                 botik_r = 0
-                users = message.from_user
+
                 
                 if simi2 != 1 and first_step == True:
                     for word in text_l.split():
@@ -541,7 +540,7 @@ async def botik_text_other(message: types.Message, funny, cor_tx, user_in_base, 
         ]
         await bot.send_chat_action(message.chat.id, types.ChatActions.TYPING)
         answer = choice(ball_answers)
-        users = message.from_user
+
         
         if user_in_base == False:
             create_user_main(users.id, users.username, users.first_name)
@@ -567,14 +566,14 @@ https://t.me/+dtjdlruC5x45NTk6
         a = time.time()
         bot_message = await message.answer(f'⚙ Проверка пинга....')
         if bot_message:
-          	 b = time.time()
-          	 await bot_message.edit_text(f'🏓 Пинг: {round((b - a) * 1000)} ms')
-            users = message.from_user
+          	b = time.time()
+          	await bot_message.edit_text(f'🏓 Пинг: {round((b - a) * 1000)} ms')
+
     
     if message.text.lower() == "кинг" and cor_tx <= 2:
         await bot.send_chat_action(message.chat.id, types.ChatActions.TYPING)
         await message.answer("КОНГ")
-        users = message.from_user
+
 
     if message.text.lower() in duncan_words and cor_tx <= 2:
         await bot.send_chat_action(message.chat.id, types.ChatActions.TYPING)
@@ -592,7 +591,7 @@ https://t.me/+dtjdlruC5x45NTk6
     if message.text.lower().startswith('шанс ') or message.text.lower().startswith('шанс,'):
     
         await bot.send_chat_action(message.chat.id, types.ChatActions.TYPING)
-        users = message.from_user
+
         
         if user_in_base == False:
             create_user_main(users.id, users.username, users.first_name)
