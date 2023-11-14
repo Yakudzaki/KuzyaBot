@@ -487,7 +487,6 @@ async def botik_text_other(message: types.Message, funny, cor_tx, user_in_base, 
                     await message.reply(choice(botik_angry))
                     return 1
                 
-                users = message.from_user
                 await bot.send_chat_action(message.chat.id, types.ChatActions.TYPING)
                 if user_in_base == False:
                     create_user_main(users.id, users.username, users.first_name)
