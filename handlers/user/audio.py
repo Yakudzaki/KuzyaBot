@@ -279,7 +279,7 @@ async def handler_quotly(message: types.Message):
         return
     
     if message.reply_to_message.from_user.last_name:
-        username = message.reply_to_message.from_user.first_name + message.reply_to_message.from_user.last_name
+        username = f"{message.reply_to_message.from_user.first_name} {message.reply_to_message.from_user.last_name}"
     else:
         username = message.reply_to_message.from_user.first_name
     
