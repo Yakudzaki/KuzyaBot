@@ -55,14 +55,22 @@ async def chatgpt(message: types.Message):
     user = f"{message.from_user.first_name}" 
     await bot.send_chat_action(message.chat.id, types.ChatActions.TYPING)
 
-    response = await chatgptg4f(promt, user)
+    response = await chatgptg4f(promt, user, g4f.models.gpt_4)
     if f"{response}" == "" or "您的免费额度不够使用这个模型啦，请点击右上角登录继续使用" in f"{response}":
-        response = "Извините, но я не могу помочь вам с этим запросом."
+        if "您的免费额度不够使用这个模型啦，请点击右上角登录继续使用" in f"{response}":
+            print("Китайская  квота!")
+        
+        response = await chatgptg4f(promt, user, "gpt-3.5-turbo")
+        if f"{response}" == "" or "您的免费额度不够使用这个模型啦，请点击右上角登录继续使用" in f"{response}":
+            if "您的免费额度不够使用这个模型啦，请点击右上角登录继续使用" in f"{response}":
+                print("Китайская  квота!")
+            response = "Извините, но я не могу помочь вам с этим запросом."
+    
     await bot.send_chat_action(message.chat.id, types.ChatActions.TYPING)
     await message.reply(f"{response}\n\nКузяGpt", disable_web_page_preview=True, parse_mode='Markdown')
     return 1
 
-async def chatgptg4f(promt, user):
+async def chatgptg4f(promt, user, moddel):
     response = ""
     i = 0
     while response == "":
@@ -72,7 +80,7 @@ async def chatgptg4f(promt, user):
             print("i==25")
         try:
             response = await g4f.ChatCompletion.create_async(
-                model = g4f.models.gpt_4,
+                model = moddel,
                 # model="gpt-3.5-turbo",
                 messages=[{"role": user, "content": promt}],
                 stream = False,
