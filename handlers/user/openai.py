@@ -12,6 +12,8 @@ from ..f_lib.other import is_sub
 from gradio_client import Client
 from googletrans import Translator
 
+print("g4f.version - " + g4f.version)  # Check version
+print(g4f.Provider.Ails.params)  # Supported args
 
 keys = openai.api_key = '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'
 # # translator = Translator()
@@ -70,7 +72,8 @@ async def chatgptg4f(promt, user):
             print("i==25")
         try:
             response = await g4f.ChatCompletion.create_async(
-                model = "gpt-3.5-turbo",
+                model = g4f.models.gpt_4,
+                # model="gpt-3.5-turbo",
                 messages=[{"role": user, "content": promt}],
                 stream = False,
             )
