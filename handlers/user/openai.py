@@ -14,7 +14,7 @@ from googletrans import Translator
 
 
 keys = openai.api_key = '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'
-translator = Translator()
+# # translator = Translator()
 
 
 @dp.message_handler(commands=['кузя', 'чат', 'chat'], commands_prefix="!/.")
@@ -54,7 +54,7 @@ async def chatgpt(message: types.Message):
     await bot.send_chat_action(message.chat.id, types.ChatActions.TYPING)
 
     response = await chatgptg4f(promt, user)
-    if f"{response}" == "":
+    if f"{response}" == "" or "您的免费额度不够使用这个模型啦，请点击右上角登录继续使用" in f"{response}":
         response = "Извините, но я не могу помочь вам с этим запросом."
     await bot.send_chat_action(message.chat.id, types.ChatActions.TYPING)
     await message.reply(f"{response}\n\nКузяGpt", disable_web_page_preview=True, parse_mode='Markdown')
