@@ -75,9 +75,9 @@ async def chatgptg4f(promt, user, moddel):
     i = 0
     while response == "":
         i = i + 1
-        if i == 25:
+        if i == 5:
             response = "Извините, но я не могу помочь вам с этим запросом."
-            print("i==25")
+            print("i==5")
         try:
             response = await g4f.ChatCompletion.create_async(
                 model = moddel,
