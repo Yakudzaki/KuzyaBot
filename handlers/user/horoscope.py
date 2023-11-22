@@ -6,6 +6,7 @@ from utils.db.db_utils_users import *
 from utils.db.db_utils_warning import *
 from utils.db.db_utils_сhats import *
 
+
 @dp.message_handler(commands=['гороскоп'], commands_prefix="/!.")
 async def command_horoscope(message: types.Message):
    
@@ -80,11 +81,13 @@ async def process_horoscope(callback: types.CallbackQuery):
     await bot.delete_message(callback.message.chat.id, callback.message.message_id)
     horoscope_name = callback.data.split('_')[1]
     link = f'https://horoscopes.rambler.ru/api/front/v1/horoscope/today/{horoscope_name}/'
-    response = requests.get(link)
-    data = json.loads(response.text)
-    img_url = data['meta']['og_image']
-    date = data['source']
-    h1 = data['h1'].replace('сегодня', date)
-    text = data['text']
-    
-    await bot.send_photo(callback.message.chat.id, img_url, caption=f"<b>{h1}</b>\n\n{text}", parse_mode="html")
+
+    async with aiohttp.ClientSession() as session:
+        async with session.get(link) as response:
+            data = await response.json()
+            img_url = data['meta']['og_image']
+            date = data['source']
+            h1 = data['h1'].replace('сегодня', date)
+            text = data['text']
+
+            await bot.send_photo(callback.message.chat.id, img_url, caption=f"<b>{h1}</b>\n\n{text}", parse_mode="html")
