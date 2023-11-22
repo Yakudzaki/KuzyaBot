@@ -1,4 +1,4 @@
-import requests
+import aiohttp
 import json
 from aiogram import types
 from loader import dp, bot
