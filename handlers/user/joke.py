@@ -76,23 +76,28 @@ async def joke(message: types.Message):
 
 async def get_citat():
     try:
-        citat_html = requests.get('https://citaty.info/random').text.replace("<br>", "\n")
-        citat_text = BeautifulSoup(citat_html, features="lxml").find('div', class_="field-item even last").get_text()
-        
-        return citat_text
+        async with aiohttp.ClientSession() as session:
+            citat_html = await session.get('https://citaty.info/random/')
+            citat_text = (await citat_html.text()).replace("<br>", "\n")
+            citat_text = BeautifulSoup(citat_text, features="lxml").find('div', class_="field-item even last").get_text()
+
+            return citat_text
     except:
         try:
-            citat_html = requests.get('https://citaty.info/random').text.replace("<br>", "\n")
-            citat_text = BeautifulSoup(citat_html, features="lxml").find('div', class_="field-item even last").get_text()
-            
-            
-            return citat_text
+            async with aiohttp.ClientSession() as session:
+                citat_html = await session.get('https://citaty.info/random/')
+                citat_text = (await citat_html.text()).replace("<br>", "\n")
+                citat_text = BeautifulSoup(citat_text, features="lxml").find('div', class_="field-item even last").get_text()
+
+                return citat_text
         except:
-            citat_html = requests.get('https://citaty.info/random').text.replace("<br>", "\n")
-            citat_text = BeautifulSoup(citat_html, features="lxml").find('div', class_="field-item even last").get_text()
-            if random.choice([True, False]):
-                citat_text += f"\n\n<a href='{kuzya_news_link}'>🗞 Канал с новостями</a>"
-            return citat_text
+            async with aiohttp.ClientSession() as session:
+                citat_html = await session.get('https://citaty.info/random/')
+                citat_text = (await citat_html.text()).replace("<br>", "\n")
+                citat_text = BeautifulSoup(citat_text, features="lxml").find('div', class_="field-item even last").get_text()
+                if random.choice([True, False]):
+                    citat_text += f"\n\n<a href='{kuzya_news_link}'>🗞 Канал с новостями</a>"
+                return citat_text
     
 
 @dp.message_handler(commands=["цитата"], commands_prefix="/!.")
