@@ -7,7 +7,7 @@ from settings import kuzya_news_link
 
 from utils.db.db_utils_сhats import *
 from bs4 import BeautifulSoup
-import requests
+import aiohttp
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
 
@@ -19,17 +19,19 @@ async def anti_flood(*args, **kwargs):
 
 async def get_joke():
     try:
-        joke_html = requests.get('https://nekdo.ru/random/').text.replace("<br>", "\n")
-        joke_text = BeautifulSoup(joke_html, features="lxml").find('div', class_='text').get_text()
-        return joke_text
+        async with aiohttp.ClientSession() as session:
+            joke_html = await session.get('https://nekdo.ru/random/')
+            joke_text = (await joke_html.text()).replace("<br>", "\n")
+            joke_text = BeautifulSoup(joke_text, features="lxml").find('div', class_='text').get_text()
+            return joke_text
     except:
-        joke_html = requests.get('https://nekdo.ru/random/').text.replace("<br>", "\n")
-        joke_text = BeautifulSoup(joke_html, features="lxml").find('div', class_='text').get_text()
-        if random.choice([True, False]):
-            joke_text += f"\n\n<a href='{kuzya_news_link}'>🗞 Канал с новостями</a>"
-        return joke_text
-
-
+        async with aiohttp.ClientSession() as session:
+            joke_html = await session.get('https://nekdo.ru/random/')
+            joke_text = (await joke_html.text()).replace("<br>", "\n")
+            joke_text = BeautifulSoup(joke_text, features="lxml").find('div', class_='text').get_text()
+            if random.choice([True, False]):
+                joke_text += f"\n\n<a href='{kuzya_news_link}'>🗞 Канал с новостями</a>"
+            return joke_text
 
 
 
