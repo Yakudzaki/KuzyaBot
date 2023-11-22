@@ -39,7 +39,7 @@ async def chatgpt(message: types.Message):
             warner = [message.chat.id, message.from_user.id, 0, 0, 0]
         if warner[4] != 0:
             return
-    await message.reply("🏖️ КузяGpt в отпуске (тех. работы)
+    await message.reply("🏖️ КузяGpt в отпуске (тех. работы)")
     return
 
     sub = await is_sub(message)
