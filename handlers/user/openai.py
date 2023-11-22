@@ -12,6 +12,7 @@ from ..f_lib.other import is_sub
 from gradio_client import Client
 from googletrans import Translator
 
+
 print("g4f.version - " + g4f.version)  # Check version
 print(g4f.Provider.Ails.params)  # Supported args
 
@@ -38,6 +39,9 @@ async def chatgpt(message: types.Message):
             warner = [message.chat.id, message.from_user.id, 0, 0, 0]
         if warner[4] != 0:
             return
+    await message.reply("🏖️ КузяGpt в отпуске (тех. работы)
+    return
+
     sub = await is_sub(message)
     if sub == False:
         return 1
