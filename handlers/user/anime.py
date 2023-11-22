@@ -1,4 +1,4 @@
-import requests
+import aiohttp
 from loader import dp, bot
 from aiogram import types
 from utils.db.db_utils_users import *
@@ -28,13 +28,14 @@ async def send_image(message: types.Message):
     
     
     url = "https://pic.re/image"
-    response = requests.post(url)
-    data = response.json()
-    await bot.send_chat_action(message.chat.id, types.ChatActions.UPLOAD_PHOTO)
-    # Получение данных о фотографии
-    file_url = data["file_url"]
-    source = data["source"]
-    author = data["author"]
+    async with aiohttp.ClientSession() as session:
+        async with session.post(url) as response:
+            data = await response.json()
+            await bot.send_chat_action(message.chat.id, types.ChatActions.UPLOAD_PHOTO)
+            # Получение данных о фотографии
+            file_url = data["file_url"]
+            source = data["source"]
+            author = data["author"]
     
-    # Отправка фотографии и описания
-    await bot.send_photo(message.chat.id, file_url, caption=f"Источник: {source}\nАвтор: {author}")
+            # Отправка фотографии и описания
+            await bot.send_photo(message.chat.id, file_url, caption=f"Источник: {source}\nАвтор: {author}")
