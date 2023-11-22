@@ -237,7 +237,8 @@ async def say(message: types.Message):
         await as_del_msg(message.chat.id, msg.message_id, 30)
         await as_del_msg(message.chat.id, message.message_id, 30)
         return
-        
+
+       
 @dp.message_handler(commands=["q"], commands_prefix="/!.")
 async def handler_quotly(message: types.Message):
     if not message.reply_to_message:
@@ -284,7 +285,7 @@ async def handler_quotly(message: types.Message):
     else:
         username = message.reply_to_message.from_user.first_name
     
-    name = get_quotly(message.reply_to_message.from_user.id, TOKEN, ava_url, text, username)
+    name = await get_quotly(message.reply_to_message.from_user.id, TOKEN, ava_url, text, username)
     await bot.send_sticker(message.chat.id, open(server_dir + f"/quote/{name}.webp", "rb"), reply_to_message_id=message.message_id)
     os.remove(server_dir + f"/quote/{name}.webp")
 
@@ -319,37 +320,45 @@ async def get_avatar_url(user_id, token):
                             return avatar_url
 
     return None
-    
-def get_quotly(user_id, token, ava_url, text, username):
+
+
+async def get_quotly(user_id, token, ava_url, text, username):
     avatar = ava_url
-    
-    json = {
-    "type": "quote",
-    "format": "webp",
-    "backgroundColor": "#282a39",
-    "width": 512,
-    "height": 768,
-    "scale": 2,
-    "messages": [
-        {
-        "entities": [],
-        "avatar": True,
-        "from": {
-            "id": user_id,
-            "name": username,
-            "photo": {
-            "url": avatar
+
+    json_data = {
+        "type": "quote",
+        "format": "webp",
+        "backgroundColor": "#282a39",
+        "width": 512,
+        "height": 768,
+        "scale": 2,
+        "messages": [
+            {
+                "entities": [],
+                "avatar": True,
+                "from": {
+                    "id": user_id,
+                    "name": username,
+                    "photo": {
+                        "url": avatar
+                    }
+                },
+                "text": text,
+                "replyMessage": {}
             }
-        },
-        "text": text,
-        "replyMessage": {}
-        }
-    ]
+        ]
     }
+
     alphabet = string.ascii_letters + string.digits
     name = ''.join(secrets.choice(alphabet) for i in range(16))
-    
-    response = requests.post('https://bot.lyo.su/quote/generate', json=json).json()
-    buffer = base64.b64decode(response['result']['image'].encode('utf-8'))
-    open(server_dir + f'/quote/{name}.webp', 'wb').write(buffer)
-    return name
+
+    async with aiohttp.ClientSession() as session:
+        async with session.post('https://bot.lyo.su/quote/generate', json=json_data) as response:
+            data = await response.json()
+            if 'result' in data and 'image' in data['result']:
+                buffer = base64.b64decode(data['result']['image'].encode('utf-8'))
+                with open(server_dir + f'/quote/{name}.webp', 'wb') as file:
+                    file.write(buffer)
+                return name
+
+    return None
