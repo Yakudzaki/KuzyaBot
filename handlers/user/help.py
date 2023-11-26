@@ -8,12 +8,6 @@ from utils.db.db_utils_warning import *
 from settings import legal_chats, topa_chat_invite, yakudza_url
 from app import server_dir
 
-# @dp.message_handler(CommandHelp())
-# async def help_handler(message: types.Message):
-    # user = message.from_user
-    # if check_user(user.id):
-        # create_user(user.id, user.username, user.first_name)
-    # await message.answer("<b>📚 Выберите раздел:</b>", reply_markup=buttons)
     
 @dp.message_handler(commands=['хелп', 'команды', 'помощь', 'help'], commands_prefix='!?./')
 async def help_handler(message: types.Message):
