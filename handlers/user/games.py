@@ -314,7 +314,7 @@ async def cnb(message: types.Message):
     
     await bot.send_message(
         message.chat.id, 
-        f"Я готов играть<a href='tg://user?id={message.from_user.id}'>‎</a>!\nВыбери предмет, что бы сыграть со мной🎭", 
+        f"Я готов играть<a href='tg://user?id={message.from_user.id}'>‎</a>!\nВыбери предмет, что бы сыграть со мной 🎭", 
         reply_markup = cnb_btn
     )
     
@@ -601,7 +601,7 @@ https://t.me/+dtjdlruC5x45NTk6
         h2 = randint(h2min, h2max)
 
     
-        await message.reply(f"""Шанс этого {h2}% """)
+        await message.reply(f"""🔮 | Шанс этого {h2}% """)
     
     if message.text.lower().startswith('выбери ') or message.text.lower().startswith('выбери,'):
         chat_id = message.chat.id
@@ -616,6 +616,35 @@ https://t.me/+dtjdlruC5x45NTk6
         rz = choice(x)
         await message.reply(f'📌 | {rz}', parse_mode='html')
     
+    
+    if message.text.lower().startswith('кузя кто  ') or
+    message.text.lower().startswith('кузя, кто '):
+    	members = get_members(message.chat.id)
+    	who = message.text.lower().replace("кузя кто ", "").replace("кузя, кто ",
+    	"")
+    	
+    	if who == "":
+    		return
+    	
+        for _ in members:
+            member = choice(members)
+            user2 = get_user(member[1])
+            if user2[0] in no_rp_list:
+                continue
+            else:
+                break
+                
+        answers = [f"🔮 Ясно вижу, что {user2[0]} {who}",
+                   f"☝ Я уверен, что  {user2[0]} {who}",
+                   f"🎱 Шар говорит, что {user2[0]} {who}",
+                   f"💫 Звезды говорят, что {user2[0]} {who}",
+                   f"🧐 Я думаю, что {user2[0]} {who}",
+                   f"{user2[0]} {who}",
+                   f"Это {user2[0]}"
+                   f"{user2[0]}"
+                  ]
+        await message.reply(choice(answers))
+
 
 #(ЧИСТО ПРИКОЛЫ)
     if message.chat.type != 'private' and message.from_user.id == 1987035430:
