@@ -614,7 +614,7 @@ https://t.me/+dtjdlruC5x45NTk6
             return
         x = ['Разумеется первый вариант!', 'Разумеется второй вариант!', 'Я думаю первый!', 'Я думаю второй!', f"Я выбираю: {text1}", f"Я выбираю: {text2}"]
         rz = choice(x)
-        await message.reply(f'📌 | {message.from_user.get_mention(as_html=True)}, {rz}', parse_mode='html')
+        await message.reply(f'📌 | {rz}', parse_mode='html')
     
 
 #(ЧИСТО ПРИКОЛЫ)
