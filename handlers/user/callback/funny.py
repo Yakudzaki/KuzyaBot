@@ -44,4 +44,7 @@ async def funny_help(call: types.CallbackQuery):
 
                            "▷ <code>Бот</code> или <code>Кузя</code> — Проверить работоспособность бота.\n"
                            "▷ <code>Шар</code> (вопрос) — Отвечает на ваш вопрос ответом 'да' или 'нет'.\n"
-                           "▷ <code>Шанс</code> — показывает вероятность события, указанного в предложении.\n", parse_mode="html", reply_markup=buttons_fun)
+                           "▷ <code>Шанс</code> — показывает вероятность события, указанного в предложении.\n"
+                           "▷ <code>Выбери</code> — Ввбирает одно из двух переданых аргуметов\n"
+                           "▷ <code>Кузя кто</code> — Указывает на случайного челлвека\n, 
+                           parse_mode="html", reply_markup=buttons_fun)
