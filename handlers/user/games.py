@@ -623,6 +623,9 @@ https://t.me/+dtjdlruC5x45NTk6
     	who = message.text.lower().replace("кузя кто ", "").replace("кузя, кто ",
     	"")
     	
+    	if message.chat.type == "private":
+    		return
+    	
     	if who == "":
     		return
     	
@@ -633,15 +636,19 @@ https://t.me/+dtjdlruC5x45NTk6
                 continue
             else:
                 break
-                
-        answers = [f"🔮 Ясно вижу, что {user2[0]} {who}",
-                   f"☝ Я уверен, что  {user2[0]} {who}",
-                   f"🎱 Шар говорит, что {user2[0]} {who}",
-                   f"💫 Звезды говорят, что {user2[0]} {who}",
-                   f"🧐 Я думаю, что {user2[0]} {who}",
-                   f"{user2[0]} {who}",
-                   f"Это {user2[0]}"
-                   f"{user2[0]}"
+        if user2[8] != None and user2[8] != "":
+        	nick = user2[8]
+    	else:
+        	nick = user2[2]
+        user = <a href='tg://user?id={user2[0]}'>{html.escape(nick)}</a>"
+        answers = [f"🔮 Ясно вижу, что {user} {who}",
+                   f"☝ Я уверен, что  {user} {who}",
+                   f"🎱 Шар говорит, что {user} {who}",
+                   f"💫 Звезды говорят, что {user} {who}",
+                   f"🧐 Я думаю, что {user} {who}",
+                   f"{user} {who}",
+                   f"Это {user}"
+                   f"{user}"
                   ]
         await message.reply(choice(answers))
 
