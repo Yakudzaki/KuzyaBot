@@ -565,8 +565,8 @@ https://t.me/+dtjdlruC5x45NTk6
         a = time.time()
         bot_message = await message.answer(f'⚙ Проверка пинга....')
         if bot_message:
-          	b = time.time()
-          	await bot_message.edit_text(f'🏓 Пинг: {round((b - a) * 1000)} ms')
+              b = time.time()
+              await bot_message.edit_text(f'🏓 Пинг: {round((b - a) * 1000)} ms')
 
     
     if message.text.lower() == "кинг" and cor_tx <= 2:
@@ -617,18 +617,16 @@ https://t.me/+dtjdlruC5x45NTk6
         await message.reply(f'📌 | {rz}', parse_mode='html')
     
     
-    if message.text.lower().startswith('кузя кто  ') or
-    message.text.lower().startswith('кузя, кто '):
-    	members = get_members(message.chat.id)
-    	who = message.text.lower().replace("кузя кто ", "").replace("кузя, кто ",
-    	"")
-    	
-    	if message.chat.type == "private":
-    		return
-    	
-    	if who == "":
-    		return
-    	
+    if message.text.lower().startswith('кузя кто  ') or message.text.lower().startswith('кузя, кто '):
+        members = get_members(message.chat.id)
+        who = message.text.lower().replace("кузя кто ", "").replace("кузя, кто ","")
+
+        if message.chat.type == "private":
+            return
+
+        if who == "":
+            return
+
         for _ in members:
             member = choice(members)
             user2 = get_user(member[1])
@@ -636,11 +634,13 @@ https://t.me/+dtjdlruC5x45NTk6
                 continue
             else:
                 break
+        
         if user2[8] != None and user2[8] != "":
-        	nick = user2[8]
-    	else:
-        	nick = user2[2]
-        user = <a href='tg://user?id={user2[0]}'>{html.escape(nick)}</a>"
+            nick = user2[8]
+        else:
+            nick = user2[2]
+        user = f"<a href='tg://user?id={user2[0]}'>{html.escape(nick)}</a>"
+        
         answers = [f"🔮 Ясно вижу, что {user} {who}",
                    f"☝ Я уверен, что  {user} {who}",
                    f"🎱 Шар говорит, что {user} {who}",
