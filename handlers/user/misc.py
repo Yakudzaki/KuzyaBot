@@ -420,9 +420,10 @@ async def moniker_handler(message: types.Message):
             return
         if usern[9] == 3:
             return
-        
+
         users = message.from_user
         user = create_user(users.id, users.username, users.first_name)
+
         
         await as_del_msg(message.chat.id, message.message_id, time_del)
         if user == usern:
@@ -432,6 +433,16 @@ async def moniker_handler(message: types.Message):
         # if user[5] < 0:
             # await message.reply("<b>❌ У вас недостаточно репутации для этого!</b>")
             # return
+        
+        if user[11] < 100:
+            if message.chat.type != 'private':
+                try:
+                    await bot.delete_message(message.chat.id, message.message_id)
+                except:
+                    pass
+            return
+        
+        add_kuzir(user.id, -100)
         mix = user[5]/10
         
         add_rep_monik = int(round(mix)) + 1

@@ -538,6 +538,7 @@ async def final_dice(message: types.Message):
         if message.forward_from_chat:
             await kuzya_wait(5)
             wins = -100
+            add_kuzir(user.id, wins)
             msg = await message.reply(f"❌| Читер теряет {abs(wins)} кузиров!")
             await as_del_msg(message.chat.id, msg.message_id, time_del)
             await as_del_msg(message.chat.id, message.message_id, time_del)
@@ -545,6 +546,7 @@ async def final_dice(message: types.Message):
         if message.forward_from:
             await kuzya_wait(5)
             wins = -100
+            add_kuzir(user.id, wins)
             msg = await message.reply(f"❌| Читер теряет {abs(wins)} кузиров!")
             await as_del_msg(message.chat.id, msg.message_id, time_del)
             await as_del_msg(message.chat.id, message.message_id, time_del)
@@ -552,6 +554,7 @@ async def final_dice(message: types.Message):
         if message.forward_sender_name:
             await kuzya_wait(5)
             wins = -100
+            add_kuzir(user.id, wins)
             msg = await message.reply(f"❌| Читер теряет {abs(wins)} кузиров!")
             await as_del_msg(message.chat.id, msg.message_id, time_del)
             await as_del_msg(message.chat.id, message.message_id, time_del)

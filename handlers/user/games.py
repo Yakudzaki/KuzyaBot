@@ -1,5 +1,8 @@
 import time
 from random import choice, randint
+import requests
+import json
+
 
 from aiogram import types
 
@@ -605,10 +608,12 @@ https://t.me/+dtjdlruC5x45NTk6
     
     if message.text.lower().startswith('выбери ') or message.text.lower().startswith('выбери,'):
         chat_id = message.chat.id
-        args = message.get_args()
+        # args = message.get_args()
+
         try:
-            text1 = str(message.text.split()[1])
-            text2 = str(message.text.split()[3])
+            text = message.text.replace(message.text.split()[0], "")
+            text1 = text.split(" или ")[0]
+            text2 = text.split(" или ")[1]
         except:
             await message.reply("Введите данные корректно!\nПример: Выбери Арбуз или Дыня")
             return
@@ -616,8 +621,23 @@ https://t.me/+dtjdlruC5x45NTk6
         rz = choice(x)
         await message.reply(f'📌 | {rz}', parse_mode='html')
     
+    if message.text.lower() == 'моя статья':
+        url = "https://raw.githubusercontent.com/Walidname113/LolDec/main/works.json"
+        
+        try:
+            response = requests.get(url)
+            if response.ok:
+                values = json.loads(response.text)
+                if values:
+                	random_key = choice(list(values.keys()))
+                	random_value = values[random_key]
+                	message1 = f"📕 Твоя статья УК РФ: {random_key} - {random_value}."
+                	await message.reply(message1)
+        
+        except (requests.RequestException, json.JSONDecodeError):
+            pass
     
-    if message.text.lower().startswith('кузя кто  ') or message.text.lower().startswith('кузя, кто '):
+    if message.text.lower().startswith('кузя кто ') or message.text.lower().startswith('кузя, кто '):
         members = get_members(message.chat.id)
         who = message.text.lower().replace("кузя кто ", "").replace("кузя, кто ","")
 
@@ -639,6 +659,7 @@ https://t.me/+dtjdlruC5x45NTk6
             nick = user2[8]
         else:
             nick = user2[2]
+        
         user = f"<a href='tg://user?id={user2[0]}'>{html.escape(nick)}</a>"
         
         answers = [f"🔮 Ясно вижу, что {user} {who}",
