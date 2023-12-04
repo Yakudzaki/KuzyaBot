@@ -668,7 +668,7 @@ https://t.me/+dtjdlruC5x45NTk6
                    f"💫 Звезды говорят, что {user} {who}",
                    f"🧐 Я думаю, что {user} {who}",
                    f"{user} {who}",
-                   f"Это {user}"
+                   f"Это {user}",
                    f"{user}"
                   ]
         await message.reply(choice(answers))
