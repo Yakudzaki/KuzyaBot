@@ -1,8 +1,9 @@
+import time
+import globales
+
 from loader import dp, bot
 from aiogram import types
 from random import randint, choice
-import time
-import globales
 from utils.db.db_utils_users import *
 from utils.db.db_utils_сhats import *
 from utils.db.db_utils_warning import *
