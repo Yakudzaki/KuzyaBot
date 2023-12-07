@@ -1,5 +1,7 @@
-from aiogram import types
 import random
+import aiohttp
+
+from aiogram import types
 from loader import dp, bot
 from utils.db.db_utils_users import *
 from utils.db.db_utils_warning import *
@@ -7,7 +9,6 @@ from settings import kuzya_news_link
 
 from utils.db.db_utils_сhats import *
 from bs4 import BeautifulSoup
-import aiohttp
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
 
