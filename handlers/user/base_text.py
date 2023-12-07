@@ -1,6 +1,7 @@
-from aiogram import types
 import logging
 import globales
+
+from aiogram import types
 from loader import bot
 from settings import *
 from utils.db import *
@@ -13,6 +14,8 @@ from .profiles import add_reputation_f, take_reputation_f
 from .RP import rp_list
 from .tiktok import send_video
 from .openai import chatgpt
+
+
 #Основная функция ТЕКСТА
 
 async def final_text(message: types.Message):
