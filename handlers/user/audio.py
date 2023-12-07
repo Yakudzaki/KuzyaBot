@@ -1,13 +1,19 @@
-import aiohttp
+import requests
 import base64
 import html
 import asyncio
+import os
+import logging
+import aioschedule
+import asyncio
+import gtts
+import secrets
+import string
 
 from loader import dp, bot
 from aiogram import types
 from app import server_dir
 from handlers.f_lib.other import as_del_msg
-import os, logging, aioschedule, asyncio,  gtts, secrets, string
 from utils.db.db_utils_users import *
 from utils.db.db_utils_сhats import *
 from utils.db.db_utils_warning import *
@@ -356,13 +362,13 @@ async def get_quotly(user_id, token, ava_url, text, username):
     alphabet = string.ascii_letters + string.digits
     name = ''.join(secrets.choice(alphabet) for i in range(16))
 
-    async with aiohttp.ClientSession() as session:
-        async with session.post('https://bot.lyo.su/quote/generate', json=json_data) as response:
-            data = await response.json()
-            if 'result' in data and 'image' in data['result']:
-                buffer = base64.b64decode(data['result']['image'].encode('utf-8'))
-                with open(server_dir + f'/quote/{name}.webp', 'wb') as file:
-                    file.write(buffer)
-                return name
+    response = requests.post('https://bot.lyo.su/quote/generate', json=json_data)
+    if response.status_code == 200:
+        data = response.json()
+        if 'result' in data and 'image' in data['result']:
+            buffer = base64.b64decode(data['result']['image'].encode('utf-8'))
+            with open(server_dir + f'/quote/{name}.webp', 'wb') as file:
+                file.write(buffer)
+            return name
 
     return None
