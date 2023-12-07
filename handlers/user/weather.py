@@ -1,7 +1,8 @@
-from loader import dp, bot
-from aiogram import types
 import aiohttp
 import random
+
+from loader import dp, bot
+from aiogram import types
 from datetime import datetime
 from ..f_lib.other import as_del_msg
 from settings import time_del, kuzya_news_link
