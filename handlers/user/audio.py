@@ -1,3 +1,8 @@
+import aiohttp
+import base64
+import html
+import asyncio
+
 from loader import dp, bot
 from aiogram import types
 from app import server_dir
@@ -8,12 +13,10 @@ from utils.db.db_utils_сhats import *
 from utils.db.db_utils_warning import *
 from ..f_lib.other import is_sub
 from settings import *
-import html
-import asyncio
 from data import config
+
+
 TOKEN = config.TOKEN
-import aiohttp
-import base64
 
 
 @dp.message_handler(commands=["record", "рекорд"], commands_prefix="/!.")
@@ -97,6 +100,7 @@ async def handler_record(message: types.Message):
     await bot.send_chat_action(message.chat.id, types.ChatActions.RECORD_VOICE)
     asyncio.create_task(saying(message, args, var))
     return
+
 
 async def saying(message, args, var):
     try:
