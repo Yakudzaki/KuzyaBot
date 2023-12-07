@@ -3,6 +3,7 @@ from aiogram import types
 from .base_text import final_text, final_any
 from .base_media import *
 
+
 # Хендлер видео
 @dp.message_handler(content_types=['video'])
 async def video_handler(message: types.Message):
