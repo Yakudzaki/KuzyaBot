@@ -1,16 +1,18 @@
+import html
+import re
+
 from loader import dp, bot
 from aiogram import types
 from utils.db.db_utils_users import *
 from utils.db.db_utils_warning import *
 from aiogram.dispatcher import Dispatcher
 from aiogram.utils import executor
-import re
 from aiogram.dispatcher.filters import IsReplyFilter
 from ..f_lib.other import message_user_get
 from utils.db import *
-import html
 from .base_text import final_text
 from settings import no_rp_list
+
 
 @dp.message_handler(commands=["загс"], commands_prefix="/!.")
 async def rp_spis(message: types.Message):
