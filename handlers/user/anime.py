@@ -1,11 +1,12 @@
 import aiohttp
+
 from loader import dp, bot
 from aiogram import types
 from utils.db.db_utils_users import *
 from utils.db.db_utils_сhats import *
 from utils.db.db_utils_warning import *
 
-# Обработчик команды
+
 @dp.message_handler(commands=['аниме', 'тян'], commands_prefix="/!.")
 async def send_image(message: types.Message):
     if message.chat.type != 'private':
