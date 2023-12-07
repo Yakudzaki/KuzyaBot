@@ -1,9 +1,10 @@
+import html
+
 from loader import dp, bot
 from aiogram import types
 from utils.db.db_utils_users import *
 from utils.db.db_utils_warning import *
 from settings import topa_username, whitelist, botik_id, botovod_id
-import html
 from ..f_lib.shield import anti_advert_t, anti_advert
 from ..f_lib.other import as_del_msg
 
