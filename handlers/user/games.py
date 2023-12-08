@@ -183,13 +183,13 @@ async def roulette(message: types.Message):
             set_roul_mut_mod(chats, roul_mut_mod)
             return
        
-       if inogen[8] != None and inogen[8] != "":
+        if inogen[8] != None and inogen[8] != "":
             name = html.escape(inogen[8])
         else:
             name = html.escape(inogen[2])
        
        
-        msg = await message.answer("💀🔫 | Опять <a href='tg://user?id={inogen[0]}'>кто-то</a> 'вне игры'! Возможно, на том свете удача будет тебе улыбаться больше.\n Покойся с миром.)
+        msg = await message.answer(f"💀🔫 | Опять <a href='tg://user?id={inogen[0]}'>кто-то</a> 'вне игры'! Возможно, на том свете удача будет тебе улыбаться больше.\n Покойся с миром.")
         
         msg2 = await bot.send_message(text=f"<a href='tg://user?id={inogen[0]}'>{name}</a> Замучивается на {str(mutroulfin).replace('.0', '')} мин.\nПричина: Проигрыш.", chat_id=message.chat.id, parse_mode='html')
         

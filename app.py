@@ -1,18 +1,18 @@
+server_dir = "C:/Games/Soft/KuzyaBot"
+db_file = "C:/Games/Soft/KuzyaBot/utils/db/kuzya.db"
+
 import sys
 import logging
-
 import handlers
 import utils
 import globales
-
 from aiogram import executor, types
 from loader import dp, bot
 from loguru import logger
 from utils.notify_admins import on_startup
 
 
-server_dir = "C:/Games/Soft/KuzyaBot"
-db_file = "C:/Games/Soft/KuzyaBot/utils/db/kuzya.db"
+
 
 sys.path.insert(1, server_dir)
 
