@@ -94,19 +94,23 @@ async def mute(message: types.Message):
         elif mutetype.lower().startswith('ч') or mutetype.lower().startswith('h'):
             await bot.restrict_chat_member(message.chat.id, muted[0], ChatPermissions(False), until_date=datetime.timedelta(hours=muteint))
             mut_type = f'{muteint} ч.'
+            unmute_time = datetime.datetime.now() + datetime.timedelta(hours=muteint)
 
         elif mutetype.lower().startswith('м') or mutetype.lower().startswith('m'):
             await bot.restrict_chat_member(message.chat.id, muted[0], ChatPermissions(False), until_date=datetime.timedelta(minutes=muteint))
             mut_type = f'{muteint} м.'
+            unmute_time = datetime.datetime.now() + datetime.timedelta(minutes=muteint)
 
         elif mutetype.lower().startswith('д') or mutetype.lower().startswith('d'):
             await bot.restrict_chat_member(message.chat.id, muted[0], ChatPermissions(False), until_date=datetime.timedelta(days=muteint))
             mut_type = f'{muteint} д.'
+            unmute_time = datetime.datetime.now() + datetime.timedelta(days=muteint)
        
         elif mutetype.lower().startswith('с') or mutetype.lower().startswith('s'):
             if muteint >= 60:
                 await bot.restrict_chat_member(message.chat.id, muted[0], ChatPermissions(False), until_date=int(time.time() + muteint))
                 mut_type = f'{muteint} cек.'
+                unmute_time = datetime.datetime.now() + datetime.timedelta(seconds=muteint)
             else:
                 await message.reply('Высокая вероятность вечного мута!')
                 return
@@ -117,9 +121,9 @@ async def mute(message: types.Message):
             mut_type = 'Навсегда'
             
         if comment != "":
-            await message.reply(f'👤| Администратор: <a href="tg://user?id={message.from_user.id}">{nick}</a>\n🔇| Замутил: <a href="tg://user?id={muted[0]}">{nick2}</a>\n⏰| Срок: {mut_type}\n📃| Причина: {comment}')
+            await message.reply(f'👤| Администратор: <a href="tg://user?id={message.from_user.id}">{nick}</a>\n🔇| Замутил: <a href="tg://user?id={muted[0]}">{nick2}</a>\n⏰| Срок: {mut_type}\n📃| Причина: {comment}\n⌛Размут: {unmute_time.strftime("%Y-%m-%d %H:%M:%S")}')
         else:
-            await message.reply(f'👤| Администратор: <a href="tg://user?id={message.from_user.id}">{nick}</a>\n🔇| Замутил: <a href="tg://user?id={muted[0]}">{nick2}</a>\n⏰| Срок: {mut_type}')
+            await message.reply(f'👤| Администратор: <a href="tg://user?id={message.from_user.id}">{nick}</a>\n🔇| Замутил: <a href="tg://user?id={muted[0]}">{nick2}</a>\n⏰| Срок: {mut_type}\n⌛Размут: {unmute_time.strftime("%Y-%m-%d %H:%M:%S")}')
     except:
         await message.reply('Не лучшая идея...')
 
