@@ -103,8 +103,6 @@ async def message_del(message: types.Message):
 
 async def message_del_main(message: types.Message, send):
     if not message.reply_to_message:
-        if send:
-            await message.reply("Эта команда должна быть ответом на сообщение!")
         return
     try:
         if message.content_type!=['text', 'photo', 'document', 'audio', 'video']:
@@ -115,13 +113,9 @@ async def message_del_main(message: types.Message, send):
                 caption = ''
     
             if hasattr(message, 'text') and isinstance(text, str):
-                if send:
-                    await message.answer(f"\n🗑️| Публикация удалена.", parse_mode="HTML")
                 await message.bot.delete_message(chat_id=message.chat.id, message_id=message.reply_to_message.message_id)
             elif hasattr(message, 'caption') and message.media_group_id not in check_mess:
                 check_mess.append(message.media_group_id)
-                if send:
-                    await message.answer(f"\n🗑️| Публикация удалена.", parse_mode="HTML")
                 await message.bot.delete_message(chat_id=message.chat.id, message_id=message.reply_to_message.message_id)
                 check_mess.clear()
                 return
