@@ -636,19 +636,25 @@ https://t.me/+dtjdlruC5x45NTk6
         rz = choice(x)
         await message.reply(f'📌 | {rz}', parse_mode='html')
     
+    selected_articles = []  # Создаем список выбранных статей
+
     if message.text.lower() == 'моя статья':
         url = "https://raw.githubusercontent.com/Walidname113/LolDec/main/works.json"
-        
+
         try:
             response = requests.get(url)
             if response.ok:
                 values = json.loads(response.text)
                 if values:
-                	random_key = choice(list(values.keys()))
-                	random_value = values[random_key]
-                	message1 = f"📕 Твоя статья УК РФ: {random_key} - {random_value}."
-                	await message.reply(message1)
-        
+                 available_articles = [key for key in values.keys() if key not in selected_articles]  # Формируем список доступных статей
+                    if available_articles:
+                        random_key = random.choice(available_articles)
+                     random_value = values[random_key]
+                     selected_articles.append(random_key)  # Добавляем выбранную статью в список выбранных
+                        message1 = f"📕 Твоя статья УК РФ: {random_key} - {random_value}."
+                        await message.reply(message1)
+                    else:
+                        await message.reply("Все статьи были выбраны.")  # Если все статьи уже были выбраны
         except (requests.RequestException, json.JSONDecodeError):
             pass
     
