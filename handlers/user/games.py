@@ -646,11 +646,11 @@ https://t.me/+dtjdlruC5x45NTk6
             if response.ok:
                 values = json.loads(response.text)
                 if values:
-                 available_articles = [key for key in values.keys() if key not in selected_articles]  # Формируем список доступных статей
+                    available_articles = [key for key in values.keys() if key not in selected_articles]  # Формируем список доступных статей
                     if available_articles:
-                        random_key = random.choice(available_articles)
-                     random_value = values[random_key]
-                     selected_articles.append(random_key)  # Добавляем выбранную статью в список выбранных
+                        random_key = choice(available_articles)
+                        random_value = values[random_key]
+                        selected_articles.append(random_key)  # Добавляем выбранную статью в список выбранных
                         message1 = f"📕 Твоя статья УК РФ: {random_key} - {random_value}."
                         await message.reply(message1)
                     else:
