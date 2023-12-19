@@ -383,7 +383,42 @@ async def botik_text_other(message: types.Message, funny, cor_tx, user_in_base, 
     if not funny:
         return
     
+    if message.text.lower().startswith('кузя кто ') or message.text.lower().startswith('кузя, кто '):
+        members = get_members(message.chat.id)
+        who = message.text.lower().replace("кузя кто ", "").replace("кузя, кто ","")
 
+        if message.chat.type == "private":
+            return
+
+        if who == "":
+            return
+
+        for _ in members:
+            member = choice(members)
+            user2 = get_user(member[1])
+            if user2[0] in no_rp_list:
+                continue
+            else:
+                break
+        
+        if user2[8] != None and user2[8] != "":
+            nick = user2[8]
+        else:
+            nick = user2[2]
+        
+        user = f"<a href='tg://user?id={user2[0]}'>{html.escape(nick)}</a>"
+        
+        answers = [f"🔮 Ясно вижу, что {user} {who}",
+                   f"☝ Я уверен, что  {user} {who}",
+                   f"🎱 Шар говорит, что {user} {who}",
+                   f"💫 Звезды говорят, что {user} {who}",
+                   f"🧐 Я думаю, что {user} {who}", f"💭 Предчувствую, что {user} {who}", f"🔍 По моим наблюдениям, {user} {who}", f"🔭 Мой анализ говорит, что {user} {who}", f"🔬 Моя интуиция подсказывает, что {user} {who}",
+                   f"{user} {who}",
+                   f"Это {user}",
+                   f"{user}"
+                  ]
+        await message.reply(choice(answers))
+        return 1
     
     if len(message.text) <= 30:
     
@@ -658,41 +693,7 @@ https://t.me/+dtjdlruC5x45NTk6
         except (requests.RequestException, json.JSONDecodeError):
             pass
     
-    if message.text.lower().startswith('кузя кто ') or message.text.lower().startswith('кузя, кто '):
-        members = get_members(message.chat.id)
-        who = message.text.lower().replace("кузя кто ", "").replace("кузя, кто ","")
 
-        if message.chat.type == "private":
-            return
-
-        if who == "":
-            return
-
-        for _ in members:
-            member = choice(members)
-            user2 = get_user(member[1])
-            if user2[0] in no_rp_list:
-                continue
-            else:
-                break
-        
-        if user2[8] != None and user2[8] != "":
-            nick = user2[8]
-        else:
-            nick = user2[2]
-        
-        user = f"<a href='tg://user?id={user2[0]}'>{html.escape(nick)}</a>"
-        
-        answers = [f"🔮 Ясно вижу, что {user} {who}",
-                   f"☝ Я уверен, что  {user} {who}",
-                   f"🎱 Шар говорит, что {user} {who}",
-                   f"💫 Звезды говорят, что {user} {who}",
-                   f"🧐 Я думаю, что {user} {who}", f"💭 Предчувствую, что {user} {who}", f"🔍 По моим наблюдениям, {user} {who}", f"🔭 Мой анализ говорит, что {user} {who}", f"🔬 Моя интуиция подсказывает, что {user} {who}",
-                   f"{user} {who}",
-                   f"Это {user}",
-                   f"{user}"
-                  ]
-        await message.reply(choice(answers))
 
 
 #(ЧИСТО ПРИКОЛЫ)
