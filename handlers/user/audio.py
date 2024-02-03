@@ -286,7 +286,7 @@ async def handler_quotly(message: types.Message):
         else:
             return
     
-    ava_url = await get_avatar_url(message.reply_to_message.from_user.id, TOKEN)
+    ava_url = get_avatar_url(message.reply_to_message.from_user.id, TOKEN)
     if ava_url == None:
         return
     
@@ -295,44 +295,43 @@ async def handler_quotly(message: types.Message):
     else:
         username = message.reply_to_message.from_user.first_name
     
-    name = await get_quotly(message.reply_to_message.from_user.id, TOKEN, ava_url, text, username)
+    name = get_quotly(message.reply_to_message.from_user.id, TOKEN, ava_url, text, username)
     await bot.send_sticker(message.chat.id, open(server_dir + f"/quote/{name}.webp", "rb"), reply_to_message_id=message.message_id)
     os.remove(server_dir + f"/quote/{name}.webp")
 
 ##############################
 
-async def get_avatar_url(user_id, token):
+def get_avatar_url(user_id, token):
     url = f"https://api.telegram.org/bot{token}/getUserProfilePhotos"
     params = {
         "user_id": user_id,
         "limit": 1
     }
 
-    async with aiohttp.ClientSession() as session:
-        async with session.get(url, params=params) as response:
-            data = await response.json()
+    response = requests.get(url, params=params)
+    data = response.json()
 
-            if data["ok"]:
-                photos = data["result"]["photos"]
-                if photos:
-                    file_id = photos[0][0]["file_id"]
-                    file_url = f"https://api.telegram.org/bot{token}/getFile"
-                    file_params = {
-                        "file_id": file_id
-                    }
+    if data["ok"]:
+        photos = data["result"]["photos"]
+        if photos:
+            file_id = photos[0][0]["file_id"]
+            file_url = f"https://api.telegram.org/bot{token}/getFile"
+            file_params = {
+                "file_id": file_id
+            }
 
-                    async with session.get(file_url, params=file_params) as file_response:
-                        file_data = await file_response.json()
+            file_response = requests.get(file_url, params=file_params)
+            file_data = file_response.json()
 
-                        if file_data["ok"]:
-                            file_path = file_data["result"]["file_path"]
-                            avatar_url = f"https://api.telegram.org/file/bot{token}/{file_path}"
-                            return avatar_url
+            if file_data["ok"]:
+                file_path = file_data["result"]["file_path"]
+                avatar_url = f"https://api.telegram.org/file/bot{token}/{file_path}"
+                return avatar_url
 
     return None
 
 
-async def get_quotly(user_id, token, ava_url, text, username):
+def get_quotly(user_id, token, ava_url, text, username):
     avatar = ava_url
 
     json_data = {
