@@ -13,6 +13,7 @@ from bs4 import BeautifulSoup
 @dp.callback_query_handler(text="close")
 async def close(call: types.CallbackQuery):
     await call.message.delete()
+    await call.message.answer(f"{call.from_user.first_name} закрыл сообщение с мемами!")
 
 
 @dp.callback_query_handler(text="update")

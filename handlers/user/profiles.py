@@ -754,15 +754,20 @@ async def take_reputation(message: types.Message):
 
 
 async def string_rep(rep, gender):
-    
     if rep < 0:
         if rep <= -1000:
             return "ㅤ✳︎ㅤ"
         
-        if rep <= -500 and rep > -1000:
+        if rep <= -750 and rep > -1000:
+            return "Король Адской Долины"
+        
+        if rep <= -500 and rep > -750:
             return "Великий Древний"
         
-        if rep <= -100 and rep > -500:
+        if rep <= -250 and rep > -500:
+            return "Архидьявол"
+        
+        if rep <= -100 and rep > -250:
             return f"{str(gender).replace('1', 'Люцифер').replace('2', 'Лилит').replace('0', 'Дьябло').replace('3', 'Дьябло').replace('4', 'Дьябло')}"
         
         if rep <= -50 and rep > -100:
@@ -771,8 +776,8 @@ async def string_rep(rep, gender):
         if rep <= -25 and rep > -50:
             return "Ужасная"
         
-        if rep <= 10 and rep > -25: 
-            return "Печальная"
+        if rep <= -10 and rep > -25:
+            return "Зловещая"
         
         if rep < 0 and rep > -10: 
             return "Плохая"
@@ -781,7 +786,6 @@ async def string_rep(rep, gender):
         return "Никакая"
     
     if rep > 0:
-        
         if rep > 0 and rep < 10:
             return "Хорошая"
         
@@ -792,16 +796,26 @@ async def string_rep(rep, gender):
             return "Надёжная"
         
         if rep >= 50 and rep < 100:
-            return "Святость"
+            return "Благословенная"
         
-        if rep >= 100 and rep < 500:
+        if rep >= 100 and rep < 250:
             return f"{str(gender).replace('1', 'Бог').replace('2', 'Богиня').replace('0', 'Божество').replace('3', 'Божество').replace('4', 'Божество')}"
             
-        if rep >= 500 and rep < 1000:
+        if rep >= 250 and rep < 500:
             return "Демиург"
         
-        if rep >= 1000:
+        if rep >= 500 and rep < 750:
+            return "Архангел"
+        
+        if rep >= 750 and rep < 1000:
+            return "Божественный"
+        
+        if rep >= 1000 and rep < 1500:
+            return "Абсолютный"
+        
+        if rep >= 1500:
             return "ㅤ✳︎ㅤ"
+
             
 async def add_reputation_f(message: types.Message, gooderr, goodur):
     if gooderr[5] < -10:
