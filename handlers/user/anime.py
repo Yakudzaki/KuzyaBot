@@ -41,4 +41,5 @@ async def send_image(message: types.Message):
             # Отправка фотографии и описания
             if file_url == "" or file_url is None:
                 await message.reply("Что-то пошло не так! Попробуйте ещё раз.")
+                return
             await bot.send_photo(message.chat.id, file_url, caption=f"Источник: {source}\nАвтор: {author}")
