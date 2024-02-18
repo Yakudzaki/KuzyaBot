@@ -35,8 +35,7 @@ async def send_image(message: types.Message):
             await bot.send_chat_action(message.chat.id, types.ChatActions.UPLOAD_PHOTO)
             # Получение данных о фотографии
             file_url = data["file_url"]
-            source = data["source"].replace("", "Неизвестно")
-            author = data["author"].replace("", "Неизвестно")
+            source = data["source"]
     
             # Отправка фотографии и описания
             if file_url == "" or file_url is None:
