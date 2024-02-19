@@ -18,7 +18,7 @@ async def send_image(message: types.Message):
     
         funny = chat[4] #проверка разрешения приколов
         if not funny:
-            await message.answer("❌ В этом чате игры с ботом запрещены!")
+            await message.reply("❌ В этом чате игры с ботом запрещены!")
             return
         
         warner = get_warner(message.chat.id, message.from_user.id)
