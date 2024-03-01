@@ -334,7 +334,7 @@ async def anti_advert(message: types.Message, etype, user_in_base, userwarn):
                 if user_in_base == False:
                     try:
                         await bot.delete_message(message.chat.id, message.message_id)
-                        # await message.answer(f"Было удалено сообщение с {entity.type} от неизвестного!")
+                        await message.answer(f"Было удалено сообщение с {entity.type} от неизвестного!")
                         return 1
                     except:
                         admins = await message.chat.get_administrators()
@@ -342,7 +342,7 @@ async def anti_advert(message: types.Message, etype, user_in_base, userwarn):
                         for admin in admins:
                             if admin.user.is_bot:
                                 continue
-                            if admin.user.username == topa_username:   #исключение из команды вызова самого Топы (Кто еще будет?)
+                            if admin.user.username == topa_username:
                                 continue
                             nick = html.escape(admin.user.first_name)
                             msg += f"<a href='tg://user?id={admin.user.id}'>{nick}</a>\n"
@@ -375,7 +375,7 @@ async def anti_advert(message: types.Message, etype, user_in_base, userwarn):
                             for admin in admins:
                                 if admin.user.is_bot:
                                     continue
-                                if admin.user.username == topa_username:   #исключение из команды вызова самого Топы (Кто еще будет?)
+                                if admin.user.username == topa_username:
                                     continue
                                 nick = html.escape(admin.user.first_name)
                                 msg += f"<a href='tg://user?id={admin.user.id}'>{nick}</a>\n"
@@ -385,11 +385,9 @@ async def anti_advert(message: types.Message, etype, user_in_base, userwarn):
 
 #ПОЛНАЯ АНТИРЕКЛАМА_ТЕКСТ
 async def anti_advert_t(message: types.Message, etype, user_in_base, userwarn):
-
     if message.chat.type == 'private':
         return
     
-
     for entity in message.entities:
         user = message.from_user
         
