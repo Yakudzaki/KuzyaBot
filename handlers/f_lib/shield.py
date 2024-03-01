@@ -237,7 +237,7 @@ async def media_shield(message: types.Message, mrm, userwarn):
             else:
                 
                 if userwarn[2] >= 2:
-                    etype = ["url", "text_link", "mention", "text_mention", "bot_command"] #Правила для старых юзеров, если они имеют два варна.
+                    etype = ["url", "text_link", "text_mention", "bot_command"] #Правила для старых юзеров, если они имеют два варна.
                     stop = await anti_advert(message, etype, user_in_base, userwarn) 
                     ignore = 1
                     if stop != None:
