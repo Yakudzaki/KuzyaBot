@@ -75,15 +75,14 @@ async def get_admin_list(message: types.Message):
         if admin.user.is_bot:
             continue
         
-        if admin.user.username == topa_username:   #исключение из команды вызова самого Топы (Кто еще будет?)
+        if admin.user.username == topa_username:
             continue
 
-        
         i = i + 1
-        msg += f"@{admin.user.username}\n"
+        nick = html.escape(admin.user.first_name)
+        msg += f"<a href='tg://user?id={admin.user.id}'>{nick}</a>\n"
         
         if i == 5:
-            
             if message.reply_to_message:
                 id = message.reply_to_message.message_id
                 await bot.send_message(message.chat.id, msg, reply_to_message_id=id)
