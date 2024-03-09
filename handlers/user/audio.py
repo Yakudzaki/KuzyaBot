@@ -248,4 +248,127 @@ async def say(message: types.Message):
         await as_del_msg(message.chat.id, message.message_id, 30)
         return
 
-       
+
+
+@dp.message_handler(commands=["q"], commands_prefix="/!.")
+async def handler_quotly(message: types.Message):
+    if not message.reply_to_message:
+        return
+        
+    users = message.from_user
+    if message.chat.type != 'private':
+        chats = message.chat.id #Отсюда и далее, до пустой строки - выключатель этого прикола.
+        chat = get_chat(chats)
+        if check_chat(message.chat.id):
+            create_chat(message.chat.id)
+            chat = get_chat(chats)
+        funny = chat[4] #проверка разрешения приколов
+        if not funny:
+            await message.answer("❌ В этом чате игры с ботом запрещены!")
+            return
+        
+        warner = get_warner(message.chat.id, message.from_user.id)
+        if warner == None:
+            warner = [message.chat.id, message.from_user.id, 0, 0, 0]
+        if warner[4] != 0:
+            return
+
+    if len(message.text.split()) > 1:
+        sub = await is_sub(message)
+        if sub == False:
+            return
+        text = message.text.replace(message.text.split()[0]+" ", "")
+    
+    else:
+        if message.reply_to_message.text:
+            text = message.reply_to_message.text
+        elif message.reply_to_message.caption:
+            text = message.reply_to_message.text
+        else:
+            return
+    
+    ava_url = get_avatar_url(message.reply_to_message.from_user.id, TOKEN)
+    if ava_url == None:
+        return
+    
+    if message.reply_to_message.from_user.last_name:
+        username = f"{message.reply_to_message.from_user.first_name} {message.reply_to_message.from_user.last_name}"
+    else:
+        username = message.reply_to_message.from_user.first_name
+    
+    name = get_quotly(message.reply_to_message.from_user.id, TOKEN, ava_url, text, username)
+    await bot.send_sticker(message.chat.id, open(server_dir + f"/quote/{name}.webp", "rb"), reply_to_message_id=message.message_id)
+    os.remove(server_dir + f"/quote/{name}.webp")
+
+##############################
+
+def get_avatar_url(user_id, token):
+    url = f"https://api.telegram.org/bot{token}/getUserProfilePhotos"
+    params = {
+        "user_id": user_id,
+        "limit": 1
+    }
+
+    response = requests.get(url, params=params)
+    data = response.json()
+
+    if data["ok"]:
+        photos = data["result"]["photos"]
+        if photos:
+            file_id = photos[0][0]["file_id"]
+            file_url = f"https://api.telegram.org/bot{token}/getFile"
+            file_params = {
+                "file_id": file_id
+            }
+
+            file_response = requests.get(file_url, params=file_params)
+            file_data = file_response.json()
+
+            if file_data["ok"]:
+                file_path = file_data["result"]["file_path"]
+                avatar_url = f"https://api.telegram.org/file/bot{token}/{file_path}"
+                return avatar_url
+
+    return None
+
+
+def get_quotly(user_id, token, ava_url, text, username):
+    avatar = ava_url
+
+    json_data = {
+        "type": "quote",
+        "format": "webp",
+        "backgroundColor": "#282a39",
+        "width": 512,
+        "height": 768,
+        "scale": 2,
+        "messages": [
+            {
+                "entities": [],
+                "avatar": True,
+                "from": {
+                    "id": user_id,
+                    "name": username,
+                    "photo": {
+                        "url": avatar
+                    }
+                },
+                "text": text,
+                "replyMessage": {}
+            }
+        ]
+    }
+
+    alphabet = string.ascii_letters + string.digits
+    name = ''.join(secrets.choice(alphabet) for i in range(16))
+
+    response = requests.post('https://bot.lyo.su/quote/generate', json=json_data)
+    if response.status_code == 200:
+        data = response.json()
+        if 'result' in data and 'image' in data['result']:
+            buffer = base64.b64decode(data['result']['image'].encode('utf-8'))
+            with open(server_dir + f'/quote/{name}.webp', 'wb') as file:
+                file.write(buffer)
+            return name
+
+    return None
