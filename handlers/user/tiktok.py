@@ -5,7 +5,7 @@ from loader import bot, dp
 from settings import botik_id
 
 
-async def get_video(link, chat_id):
+async def get_video(link: str, chat_id: int) -> str:
     url = "https://tiktok-video-no-watermark2.p.rapidapi.com/"
 
     payload = {
@@ -24,13 +24,13 @@ async def get_video(link, chat_id):
             return data["data"]["hdplay"]
 
 
-async def send_video(message: types.Message):
+async def send_video(message: types.Message) -> None:
     if re.compile('https://[a-zA-Z]+.tiktok.com/').match(message.text):
         try:
             video_link = await get_video(message.text, message.chat.id)
             await bot.send_chat_action(message.chat.id, 'upload_video')
             await message.reply_video(video_link, caption=f"✅ Скачано с помощью <a href='tg://user?id={botik_id}'>Кузи</a>\n\n")
-        except:
+        except Exception as e:
             await message.reply("😢 Не удалось скачать видео!")
-        return 1
+            return
     return
