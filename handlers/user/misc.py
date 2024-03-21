@@ -442,7 +442,7 @@ async def moniker_handler(message: types.Message):
                     pass
             return
         
-        add_kuzir(user.id, -100)
+        add_kuzir(user[0], -100)
         mix = user[5]/10
         
         add_rep_monik = int(round(mix)) + 1
