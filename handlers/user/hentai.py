@@ -51,7 +51,7 @@ def update_kb(id):
 
 @dp.message_handler(commands=['search', 'хенпоиск'], commands_prefix="/!.")
 async def search_pics(message: types.Message):
-    if message.chat.type == 'public':
+    if message.chat.type != 'private':
         await message.reply("Эта команда доступна только в личных сообщениях!")
         return
     
@@ -68,7 +68,7 @@ async def search_pics(message: types.Message):
 
 @dp.message_handler(commands=['hentai', 'хентай', 'хентыч'], commands_prefix="/!.")
 async def search_command(message: types.Message):
-    if message.chat.type == 'public':
+    if message.chat.type != 'private':
         await message.reply("Эта команда доступна только в личных сообщениях!")
         return
     await message.reply("Выберите категорию: \n\n(Тем самым, подтвердив, что вам уже есть восемнадцать лет, и взяв всю ответственность на себя)", reply_markup=generate_inline_keyboard())
