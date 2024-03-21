@@ -13,8 +13,8 @@ from gradio_client import Client
 from googletrans import Translator
 
 
-print("g4f.version - " + g4f.version)  # Check version
-print(g4f.Provider.Ails.params)  # Supported args
+# print("g4f.version - " + str(g4f.version))  # Check version
+# print(g4f.Provider.Ails.params)  # Supported args
 
 keys = openai.api_key = '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'
 # # translator = Translator()
