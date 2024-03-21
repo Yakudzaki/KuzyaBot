@@ -49,7 +49,7 @@ def update_kb(id):
 
 
 
-@dp.message_handler(commands=['search'], commands_prefix="/!.")
+@dp.message_handler(commands=['search', 'хенпоиск'], commands_prefix="/!.")
 async def search_pics(message: types.Message):
     user_text = message.text.lower().split(' ', 1)[-1]
     for russian_word, english_word in WORD_MAP.items():
@@ -62,12 +62,12 @@ async def search_pics(message: types.Message):
         await message.reply("Категория не найдена.")
 
 
-@dp.message_handler(commands=['hentai'], commands_prefix="/!.")
+@dp.message_handler(commands=['hentai', 'хентай', 'хентыч'], commands_prefix="/!.")
 async def search_command(message: types.Message):
     if message.chat.type == 'public':
         await message.reply("Эта команда доступна только в личных сообщениях!")
         return
-    await message.reply("Выберите категорию:", reply_markup=generate_inline_keyboard())
+    await message.reply("Выберите категорию: \n\n(Тем самым, подтвердив, что вам уже есть восемнадцать лет, и взяв всю ответственность на себя)", reply_markup=generate_inline_keyboard())
 
 
 @dp.callback_query_handler(lambda c: c.data.startswith('pic_'))
