@@ -3,6 +3,7 @@ from aiogram import Bot, Dispatcher, executor, types
 import hmtai
 import asyncio
 from loader import dp, bot
+from app import server_dir
 
 WORD_MAP = {
     'Анал': 'anal',
@@ -58,9 +59,9 @@ async def search_pics(message: types.Message):
     user_text = message.text.lower().split(' ', 1)[-1]
     for russian_word, english_word in WORD_MAP.items():
         if russian_word.lower() == user_text.lower():
-            hentai_photo_url = hmtai.get("hmtai", english_word)
+            # hentai_photo_url = hmtai.get("hmtai", english_word)
             eng[message.message_id] = english_word
-            await bot.send_photo(message.from_user.id, photo=hentai_photo_url, reply_markup=update_kb(message.message_id))
+            await bot.send_photo(message.from_user.id, photo=open(server_dir + f"/data/discleim.jpg", "rb"), reply_markup=update_kb(message.message_id))
             break
     else:
         await message.reply("Категория не найдена.")
