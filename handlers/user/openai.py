@@ -4,6 +4,7 @@ import openai  #pip install openai
 from settings import kuzya_news_link, botik_id
 import requests
 import html
+import nest_asyncio
 import g4f, asyncio
 from utils.db.db_utils_users import *
 from utils.db.db_utils_warning import *
@@ -59,7 +60,7 @@ async def chatgpt(message: types.Message):
     user = f"{message.from_user.first_name}" 
     await bot.send_chat_action(message.chat.id, types.ChatActions.TYPING)
 
-    response = await chatgptg4f(promt, user, g4f.models.gpt_4)
+    response = await chatgptg4f(promt, user, "gpt-4-turbo")
     if f"{response}" == "" or "您的免费额度不够使用这个模型啦，请点击右上角登录继续使用" in f"{response}" or "请求失败啦" in f"{response}":
         if "您的免费额度不够使用这个模型啦，请点击右上角登录继续使用" in f"{response}":
             print("Китайская  квота!")
