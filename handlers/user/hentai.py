@@ -2,10 +2,7 @@ from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton, InputMedia
 from aiogram import Bot, Dispatcher, executor, types
 import hmtai
 import asyncio
-
-
-
-API_TOKEN = "6563488172:AAHkTejGMvxs1SH_8B20arXu4IgaxENXUrI"
+from loader import dp, bot
 
 WORD_MAP = {
     'Анал': 'anal',
@@ -28,11 +25,8 @@ WORD_MAP = {
     'Обои': 'nsfwMobileWallpaper'
 }
 
-bot = Bot(token=API_TOKEN)
-dp = Dispatcher(bot)
 eng = {}
 CLEAR_INTERVAL_SECONDS = 3600
-
 
 async def clear_dictionary():
     while True:
@@ -55,7 +49,7 @@ def update_kb(id):
 
 
 
-@dp.message_handler(commands=['search'])
+@dp.message_handler(commands=['search'], commands_prefix="/!.")
 async def search_pics(message: types.Message):
     user_text = message.text.lower().split(' ', 1)[-1]
     for russian_word, english_word in WORD_MAP.items():
@@ -68,7 +62,7 @@ async def search_pics(message: types.Message):
         await message.reply("Категория не найдена.")
 
 
-@dp.message_handler(commands=['hentai'])
+@dp.message_handler(commands=['hentai'], commands_prefix="/!.")
 async def search_command(message: types.Message):
     if message.chat.type == 'public':
         await message.reply("Эта команда доступна только в личных сообщениях!")
@@ -96,12 +90,3 @@ async def refresh_picture(callback_query: types.CallbackQuery):
         await bot.answer_callback_query(callback_query.id)
     except Exception as e:
         await callback_query.message.answer(f"Ошибка обновления")
-
-
-async def main():
-    await clear_dictionary()
-
-
-if __name__ == '__main__':
-    executor.start_polling(dp, skip_updates=True)
-    asyncio.run(main())
