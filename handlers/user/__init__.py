@@ -16,6 +16,7 @@ from .start import dp
 from .weather import dp
 from .wiki import dp
 from .anime import dp
+from .hentai import dp
 from .horoscope import dp
 # from .tiktok import dp
 from .easters import dp
