@@ -5,7 +5,7 @@ from aiogram import types
 from loader import dp, bot
 from settings import time_del, kuzya_news_link
 from utils.db.db_utils_warning import get_warner
-from f_lib.other import as_del_msg
+from ..f_lib.other import as_del_msg
 
 class Weather:
     async def fetch_weather_data(self, city: str) -> str:

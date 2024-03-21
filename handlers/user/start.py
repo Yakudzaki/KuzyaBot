@@ -3,7 +3,8 @@ from aiogram import types
 from loguru import logger
 from app import server_dir
 from aiogram.dispatcher.filters import CommandStart
-from utils.db.db_utils_users import check_chat, create_chat_with_info, create_user
+from utils.db.db_utils_users import create_user
+from utils.db.db_utils_сhats import check_chat, create_chat_with_info
 from settings import legal_chats, topa_chat_invite, yakudza_url, botovod_id, helpers_ids
 
 

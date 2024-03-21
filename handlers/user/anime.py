@@ -1,8 +1,8 @@
 import aiohttp
 from aiogram import types
 from loader import dp, bot
-from utils.db.db_utils_users import get_warner
-from utils.db.db_utils_chats import get_chat, create_chat, check_chat
+from utils.db.db_utils_warning import get_warner
+from utils.db.db_utils_сhats import get_chat, create_chat, check_chat
 
 class AnimeHandler:
     async def __call__(self, message: types.Message):
