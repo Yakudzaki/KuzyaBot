@@ -4,7 +4,6 @@ import openai  #pip install openai
 from settings import kuzya_news_link, botik_id
 import requests
 import html
-import nest_asyncio
 import g4f, asyncio
 from utils.db.db_utils_users import *
 from utils.db.db_utils_warning import *
