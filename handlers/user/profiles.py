@@ -902,7 +902,7 @@ async def add_reputation_f(message: types.Message, gooderr, goodur):
             for word in message.text.lower().split():
                 if word == wrods:
                     continue
-                elif fuzz.WRatio(f"{wrods}о", word) > similar:
+                elif fuzz.WRatio(f"{wrods}о", word) > fuzz.WRatio(f"{wrods}", word):
                     print("Отклонено")
                     logging.info("Отклонено")
                     return
